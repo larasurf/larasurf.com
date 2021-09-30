@@ -25,24 +25,43 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="antialiased">
-    <div class="bg-white">
-        <nav class="flex mx-6 my-9">
-            <div class="w-1/3 text-3xl text-center font-extrabold">
+<body class="antialiased bg-white">
+    <div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
+        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
+    </div>
+    <div class="z-10">
+        <nav class="relative flex px-6 py-9">
+            <div class="w-1/5 text-3xl text-right font-extrabold">
                 <a href="/">LaraSurf</a>
             </div>
-            <div class="w-1/3 flex mt-2">
-                <div class="w-1/3 text-center font-medium">
+            <div class="w-3/5 flex mt-2 justify-center">
+                <div class="w-2/5 text-right font-medium">
                     <a href="/docs">Documentation</a>
                 </div>
-                <div class="w-1/3 text-center font-medium">
+                <div class="w-1/5 text-center font-medium mx-10">
                     <a href="/how-it-works">How it works</a>
                 </div>
-                <div class="w-1/3 text-center font-medium">
+                <div class="w-2/5 text-left font-medium">
                     <a href="/pricing">Pricing</a>
                 </div>
             </div>
-            <div class="w-1/3 text-center flex justify-center pt-2">
+            <div class="w-1/5 flex justify-start pt-2">
                 <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
             </div>
         </nav>
