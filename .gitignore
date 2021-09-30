@@ -18,6 +18,7 @@ thumbs.db
 .DS_STORE
 public/js
 public/css
+public/fonts
 public/build
 public/mix-manifest.json
 clover.xml

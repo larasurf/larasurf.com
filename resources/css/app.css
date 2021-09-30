@@ -1,3 +1,10 @@
+@import 'twemoji-awesome.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: "Plus Jakarta Sans";
+    font-weight: 400;
+}
