@@ -1,0 +1,9 @@
+{
+    "project-name": "basic",
+    "project-id": "818192",
+    "aws-profile": "default",
+    "environments": {
+      "stage": null,
+      "production": null
+    }
+}

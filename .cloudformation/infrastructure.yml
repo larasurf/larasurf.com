@@ -1,0 +1,993 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  # Network
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.10.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-vpc'
+        - Key: Project
+          Value: !Join ['-', [!Ref ProjectName, !Ref ProjectId]]
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Project
+          Value: !Join [ '-', [ !Ref ProjectName, !Ref ProjectId ] ]
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Project
+          Value: !Join [ '-', [ !Ref ProjectName, !Ref ProjectId ] ]
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  VpcGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref Vpc
+  InternetRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 0
+        - Fn::GetAZs: !Ref 'AWS::Region'
+      CidrBlock: !Select [0, !Cidr [!GetAtt Vpc.CidrBlock, 3, 8]]
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-subnet1'
+        - Key: Project
+          Value: !Join [ '-', [ !Ref ProjectName, !Ref ProjectId ] ]
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  Subnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet1
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 1
+        - Fn::GetAZs: !Ref 'AWS::Region'
+      CidrBlock: !Select [1, !Cidr [!GetAtt Vpc.CidrBlock, 3, 8]]
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-subnet-2'
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  Subnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet2
+  Subnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 2
+        - Fn::GetAZs: !Ref 'AWS::Region'
+      CidrBlock: !Select [2, !Cidr [!GetAtt Vpc.CidrBlock, 3, 8]]
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Name
+          Value: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-subnet-3'
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  Subnet3RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet3
+
+  # Database
+  DBInstance:
+    DependsOn:
+      - VpcGatewayAttachment
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: !Ref DBStorageSize
+      AvailabilityZone: !If
+        - IsProduction
+        - !Ref 'AWS::NoValue'
+        - !Ref DBAvailabilityZone
+      BackupRetentionPeriod: 7
+      CopyTagsToSnapshot: true
+      DBInstanceClass: !Ref DBInstanceClass
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DeletionProtection: !If [ IsProduction, true, false ]
+      Engine: MySQL
+      EngineVersion: !Ref DBVersion
+      LicenseModel: general-public-license
+      MasterUsername: !Ref DBMasterUsername
+      MasterUserPassword: !Ref DBMasterPassword
+      MonitoringInterval: !If [ IsProduction, 30, 60 ]
+      MonitoringRoleArn: !GetAtt DBMonitoringRole.Arn
+      MultiAZ: !If [ IsProduction, true, false ]
+      Port: 3306
+      PubliclyAccessible: true
+      StorageEncrypted: true
+      StorageType: gp2
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+        - !Ref DBAdminAccessSecurityGroup
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Created by LaraSurf's infrastructure CloudFormation template.
+      SubnetIds:
+        - !Ref Subnet1
+        - !Ref Subnet2
+        - !Ref Subnet3
+  DBMonitoringRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - monitoring.rds.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: A security group that references itself to allow for database access.
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  DBSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref DBSecurityGroup
+      IpProtocol: tcp
+      FromPort: 3306
+      ToPort: 3306
+      SourceSecurityGroupId: !Ref DBSecurityGroup
+  DBAdminAccessSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: A security group to allow admins database access.
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  DBAdminAccessSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref DBAdminAccessSecurityGroup
+      IpProtocol: tcp
+      FromPort: 3306
+      ToPort: 3306
+      SourcePrefixListId: !Ref DatabasePrefixListId
+
+  # Cache
+  CacheCluster:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      CacheNodeType: !Ref CacheNodeType
+      CacheSubnetGroupName: !Ref CacheSubnetGroup
+      Engine: redis
+      EngineVersion: 5.0.4
+      NumCacheNodes: 1
+      PreferredMaintenanceWindow: sun:23:00-mon:01:30
+      SnapshotRetentionLimit: 0
+      VpcSecurityGroupIds:
+        - !GetAtt CacheSecurityGroup.GroupId
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  CacheSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      Description: Default MultiAZ Subnet Group
+      SubnetIds:
+        - !Ref Subnet1
+        - !Ref Subnet2
+        - !Ref Subnet3
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  CacheSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: A self-referencing security group for the cache cluster and all agents that require access.
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  CacheSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref CacheSecurityGroup
+      IpProtocol: tcp
+      FromPort: 6379
+      ToPort: 6379
+      SourceSecurityGroupId: !Ref CacheSecurityGroup
+
+  # LoadBalancer
+  LoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: A security group to allow ingress through the load balancer.
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  LoadBalancerSecurityGroupIngressHttp:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref LoadBalancerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      SourcePrefixListId: !Ref ApplicationPrefixListId
+  LoadBalancerSecurityGroupIngressHttps:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref LoadBalancerSecurityGroup
+      IpProtocol: tcp
+      FromPort: 443
+      ToPort: 443
+      SourcePrefixListId: !Ref ApplicationPrefixListId
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internet-facing
+      Subnets:
+        - !Ref Subnet1
+        - !Ref Subnet2
+        - !Ref Subnet3
+      SecurityGroups:
+        - !Ref LoadBalancerSecurityGroup
+      Type: application
+      IpAddressType: ipv4
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  LoadBalancerHttpListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: redirect
+          RedirectConfig:
+            Host: '#{host}'
+            Path: '/#{path}'
+            Port: 443
+            Protocol: HTTPS
+            Query: '#{query}'
+            StatusCode: HTTP_301
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 80
+      Protocol: HTTP
+  LoadBalancerHttpsListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Certificates:
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: fixed-response
+          FixedResponseConfig:
+            ContentType: text/plain
+            MessageBody: Hello world!
+            StatusCode: 200
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 443
+      Protocol: HTTPS
+  LoadBalancerListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref LoadBalancerTargetGroup
+      Conditions:
+        - Field: host-header
+          Values:
+            - !Ref DomainName
+      ListenerArn: !GetAtt LoadBalancerHttpsListener.ListenerArn
+      Priority: 100
+  LoadBalancerTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /api/healthcheck
+      HealthCheckTimeoutSeconds: 5
+      UnhealthyThresholdCount: 2
+      HealthyThresholdCount: 2
+      Name: !Sub 'larasurf-${ProjectId}-${EnvironmentName}'
+      Port: 80
+      Protocol: HTTP
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 60
+      TargetType: ip
+      VpcId: !Ref Vpc
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+
+  # Logs
+  ApplicationLogGroup:
+    Type: AWS::Logs::LogGroup
+  WebserverLogGroup:
+    Type: AWS::Logs::LogGroup
+  QueueLogGroup:
+    Type: AWS::Logs::LogGroup
+  ArtisanLogGroup:
+    Type: AWS::Logs::LogGroup
+
+  # Containers
+  ContainerCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub 'larasurf-${ProjectId}-${EnvironmentName}'
+      Configuration:
+        ExecuteCommandConfiguration:
+          Logging: DEFAULT
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ecs-execution-role'
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ssm-parameter-store-policy'
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:DescribeParameters
+                  - ssm:GetParameters
+                Resource: !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${ProjectName}-${ProjectId}/${EnvironmentName}/*'
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerTaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ecs-task-role'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-queue-consumer'
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - sqs:DeleteMessage
+                  - sqs:GetQueueUrl
+                  - sqs:ChangeMessageVisibility
+                  - sqs:SendMessageBatch
+                  - sqs:ReceiveMessage
+                  - sqs:SendMessage
+                  - sqs:GetQueueAttributes
+                Resource: !GetAtt Queue.Arn
+        - PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-bucket-user'
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource: !Sub '${Bucket.Arn}'
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectAcl
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                Resource: !Sub '${Bucket.Arn}/*'
+        - PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ecs-exec'
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssmmessages:CreateControlChannel
+                  - ssmmessages:CreateDataChannel
+                  - ssmmessages:OpenControlChannel
+                  - ssmmessages:OpenDataChannel
+                Resource: '*'
+        - PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ses'
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ses:SendEmail
+                  - ses:SendRawEmail
+                Resource: '*'
+                Condition:
+                  StringLike:
+                    'ses:FromAddress: !Sub '*@${DomainName}'
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerAutoScalingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ecs-autoscaling-role'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-ecs-security-group'
+      VpcId: !Ref Vpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerAppTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Ref 'AWS::StackName'
+      Cpu: !Ref TaskDefinitionCpu
+      Memory: !Ref TaskDefinitionMemory
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !GetAtt ContainerExecutionRole.Arn
+      TaskRoleArn: !GetAtt ContainerTaskRole.Arn
+      Volumes:
+        - Name: PublicDirectory
+      ContainerDefinitions:
+        - Image: !Ref WebserverImage
+          Name: nginx
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref WebserverLogGroup
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: nginx
+          PortMappings:
+            - ContainerPort: 80
+              HostPort: 80
+              Protocol: tcp
+          DependsOn:
+            - ContainerName: app
+              Condition: START
+        - Image: !Ref ApplicationImage
+          Name: app
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref ApplicationLogGroup
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: app
+          Secrets: #LARASURF_SECRETS#
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerService:
+    DependsOn:
+      - LoadBalancerListenerRule
+      - ContainerTaskRole
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ContainerCluster
+      TaskDefinition: !Ref ContainerAppTaskDefinition
+      LaunchType: FARGATE
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 100
+        MaximumPercent: 200
+      DesiredCount: !If [IsEnabled, 5, 0]
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            - !Ref Subnet1
+            - !Ref Subnet2
+            - !Ref Subnet3
+          SecurityGroups:
+            - !Ref ContainerSecurityGroup
+            - !Ref DBSecurityGroup
+            - !Ref CacheSecurityGroup
+      LoadBalancers:
+        - ContainerName: nginx
+          ContainerPort: 80
+          TargetGroupArn: !Ref LoadBalancerTargetGroup
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerAutoScalingTarget:
+    Condition: IsEnabled
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    Properties:
+      MinCapacity: 5
+      MaxCapacity: 15
+      ResourceId: !Join [ '/', [ service, !Ref ContainerCluster, !GetAtt ContainerService.Name ] ]
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      RoleARN: !GetAtt ContainerAutoScalingRole.Arn
+  ContainerAutoScalingPolicy:
+    Condition: IsEnabled
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-autoscaling-policy'
+      PolicyType: TargetTrackingScaling
+      ScalingTargetId: !Ref ContainerAutoScalingTarget
+      TargetTrackingScalingPolicyConfiguration:
+        PredefinedMetricSpecification:
+          PredefinedMetricType: ECSServiceAverageCPUUtilization
+        ScaleInCooldown: !Ref AutoScalingScaleInCooldown
+        ScaleOutCooldown: !Ref AutoScalingScaleOutCooldown
+        TargetValue: !Ref AutoScalingCpuValue
+  ContainerQueueTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub '${AWS::StackName}-queue'
+      Cpu: !Ref TaskDefinitionCpu
+      Memory: !Ref TaskDefinitionMemory
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !GetAtt ContainerExecutionRole.Arn
+      TaskRoleArn: !GetAtt ContainerTaskRole.Arn
+      ContainerDefinitions:
+        - Image: !Ref ApplicationImage
+          Name: 'sqs-queue-consumer'
+          Essential: true
+          Command: [ 'php', 'artisan', 'queue:work', 'sqs', '--daemon', '--queue', !Ref Queue, '--tries', '5' ]
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref QueueLogGroup
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: queue
+          Secrets: #LARASURF_SECRETS#
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerQueueService:
+    DependsOn: ContainerTaskRole
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ContainerCluster
+      TaskDefinition: !Ref ContainerQueueTaskDefinition
+      LaunchType: FARGATE
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 100
+        MaximumPercent: 200
+      DesiredCount: !If [ IsEnabled, 3, 0 ]
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            - !Ref Subnet1
+            - !Ref Subnet2
+            - !Ref Subnet3
+          SecurityGroups:
+            - !Ref ContainerSecurityGroup
+            - !Ref DBSecurityGroup
+            - !Ref CacheSecurityGroup
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerArtisanTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub '${AWS::StackName}-artisan'
+      Cpu: !Ref TaskDefinitionCpu
+      Memory: !Ref TaskDefinitionMemory
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !GetAtt ContainerExecutionRole.Arn
+      TaskRoleArn: !GetAtt ContainerTaskRole.Arn
+      ContainerDefinitions:
+        - Image: !Ref ApplicationImage
+          Name: artisan
+          Essential: true
+          Command: [ 'php', 'artisan', 'schedule:run' ]
+          ReadonlyRootFilesystem: false
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref ArtisanLogGroup
+              awslogs-region: !Ref 'AWS::Region'
+              awslogs-stream-prefix: artisan
+          Secrets: #LARASURF_SECRETS#
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerArtisanScheduleRuleRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub '${ProjectName}-${ProjectId}-${EnvironmentName}-invoke-ecs-task'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecs:RunTask
+                Resource:
+                  - !Sub 'arn:aws:ecs:*:${AWS::AccountId}:task-definition/${AWS::StackName}-artisan:*'
+                Condition:
+                  ArnLike:
+                    ecs:cluster: !Sub 'arn:aws:ecs:*:${AWS::AccountId}:cluster/${ProjectId}-${EnvironmentName}'
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource:
+                  - '*'
+                Condition:
+                  StringLike:
+                    iam:PassedToService: ecs-tasks.amazonaws.com
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  ContainerArtisanScheduleRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Invoke the artisan scheduler task definition every 5 minutes.
+      ScheduleExpression: 'rate(5 minutes)'
+      State: !If [ IsEnabled, ENABLED, DISABLED ]
+      Targets:
+        - Arn: !Sub 'arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/larasurf-${ProjectId}-${EnvironmentName}'
+          EcsParameters:
+            TaskDefinitionArn: !Ref ContainerArtisanTaskDefinition
+            LaunchType: FARGATE
+            NetworkConfiguration:
+              AwsVpcConfiguration:
+                AssignPublicIp: ENABLED
+                Subnets:
+                  - !Ref Subnet1
+                  - !Ref Subnet2
+                  - !Ref Subnet3
+                SecurityGroups:
+                  - !Ref ContainerSecurityGroup
+                  - !Ref DBSecurityGroup
+                  - !Ref CacheSecurityGroup
+          Id: ContainerArtisanScheduleCommand
+          RoleArn: !GetAtt ContainerArtisanScheduleRuleRole.Arn
+
+  # Queue
+  Queue:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 345600
+      ReceiveMessageWaitTimeSeconds: 20
+      VisibilityTimeout: 30
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+
+  # Bucket
+  Bucket:
+    DeletionPolicy: Retain
+    Type: AWS::S3::Bucket
+    Properties:
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+            AllowedOrigins:
+              - !Sub 'https://${DomainName}'
+            MaxAge: '3600'
+      Tags:
+        - Key: Project
+          Value: !Sub '${ProjectName}-${ProjectId}'
+        - Key: Environment
+          Value: !Ref EnvironmentName
+
+  # DNS
+  DNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: !Join [ '', [ !Ref RootDomainName, . ] ]
+      Name: !Join [ '', [ !Ref DomainName, . ] ]
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt LoadBalancer.DNSName
+        HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
+
+Parameters:
+  Enabled:
+    Type: String
+    Description: If the application is enabled.
+  ProjectName:
+    Type: String
+    Description: The project name.
+  ProjectId:
+    Type: String
+    Description: The project id.
+  EnvironmentName:
+    Type: String
+    Description: The environment name for the infrastructure.
+    AllowedValues:
+      - stage
+      - production
+  DomainName:
+    Type: String
+    Description: The fully qualified domain name.
+  RootDomainName:
+    Type: String
+    Description: The root domain name.
+  HostedZoneId:
+    Type: String
+    Description: The hosted zone ID for the domain.
+  CertificateArn:
+    Type: String
+    Description: The ACM certificate ARN to use.
+  DBStorageSize:
+    Type: Number
+    Description: The storage size for the database in GB.
+    MinValue: 20
+    ConstraintDescription: A value of 20 or greater must be specified.
+  DBInstanceClass:
+    Type: String
+    Description: The database instance class type.
+    AllowedValues:
+      - db.t2.small
+      - db.t2.medium
+      - db.m5.large
+      - db.m5.xlarge
+    ConstraintDescription: A database instance class type from the list must be selected.
+  DBAvailabilityZone:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Description: If not in production, the availability zone to launch the database in.
+  DBVersion:
+    Type: String
+    Description: The MySQL database version to launch.
+  DBMasterUsername:
+    Type: String
+    Description: The database master username.
+  DBMasterPassword:
+    Type: String
+    Description: The database master password.
+    NoEcho: true
+  CacheNodeType:
+    Type: String
+    Description: The cache node type.
+    AllowedValues:
+      - cache.m5.large
+      - cache.m5.xlarge
+      - cache.m5.2xlarge
+      - cache.m5.4xlarge
+      - cache.m5.12xlarge
+      - cache.m5.24xlarge
+      - cache.m4.large
+      - cache.m4.xlarge
+      - cache.m4.2xlarge
+      - cache.m4.4xlarge
+      - cache.m4.10xlarge
+      - cache.t2.micro
+      - cache.t2.small
+      - cache.t2.medium
+  ApplicationImage:
+    Type: String
+    Description: The URL of an application image on ECR.
+  WebserverImage:
+    Type: String
+    Description: The URL of a websever image on ECR.
+  TaskDefinitionCpu:
+    Type: String
+    Description: The CPU value for the task definitions.
+    AllowedValues:
+      - 256
+      - 512
+      - 1024
+      - 2048
+      - 4096
+  TaskDefinitionMemory:
+    Type: String
+    Description: The amount of memory for the task deifintion.
+    AllowedValues:
+      - 512
+      - 1024
+      - 2048
+      - 3072
+      - 4096
+      - 5120
+      - 6144
+      - 7168
+      - 8192
+      - 9216
+      - 10240
+      - 11264
+      - 12288
+      - 13312
+      - 14336
+      - 15360
+      - 16384
+  ApplicationPrefixListId:
+    Type: String
+    Description: The ID of the application prefix list.
+  DatabasePrefixListId:
+    Type: String
+    Description: The ID of the database prefix list.
+  AutoScalingScaleInCooldown:
+    Type: Number
+    Description: The scale in cooldown value for AutoScaling.
+  AutoScalingScaleOutCooldown:
+    Type: Number
+    Description: The scale out cooldown value for AutoScaling.
+  AutoScalingCpuValue:
+    Type: Number
+    Description: The AutoScaling target value for CPU.
+
+Conditions:
+  IsProduction: !Equals [!Ref EnvironmentName, production]
+  IsEnabled: !Equals [!Ref Enabled, 'true']
+
+Outputs:
+  CertificateArn:
+    Description: The ARN of the ACM certificate.
+    Value: !Ref CertificateArn
+  DomainName:
+    Description: The fully qualified environment domain name.
+    Value: !Ref DomainName
+  DBId:
+    Description: The ID of the database instance.
+    Value: !Ref DBInstance
+  DBHost:
+    Description: The database host.
+    Value: !GetAtt DBInstance.Endpoint.Address
+  DBPort:
+    Description: The database port.
+    Value: !GetAtt DBInstance.Endpoint.Port
+  DBAdminAccessPrefixListId:
+    Description: The Prefix List ID for database admin access.
+    Value: !Ref DatabasePrefixListId
+  HostedZoneId:
+    Description: The hosted zone ID for the domain.
+    Value: !Ref HostedZoneId
+  CacheEndpointAddress:
+    Description: The address of the cache cluster endpoint.
+    Value: !GetAtt CacheCluster.RedisEndpoint.Address
+  CacheEndpointPort:
+    Description: The port of the cache cluster endpoint.
+    Value: !GetAtt CacheCluster.RedisEndpoint.Port
+  AppAccessPrefixListId:
+    Description: The Prefix List ID for application access.
+    Value: !Ref ApplicationPrefixListId
+  QueueUrl:
+    Description: The URL of the SQS queue.
+    Value: !Ref Queue
+  BucketName:
+    Description: The name of the S3 bucket.
+    Value: !Ref Bucket
+  DBSecurityGroupId:
+    Description: The ID of the database security group.
+    Value: !Ref DBSecurityGroup
+  ContainersSecurityGroupId:
+    Description: The ID of the containers security group.
+    Value: !Ref ContainerSecurityGroup
+  CacheSecurityGroupId:
+    Description: The ID of the cache security group.
+    Value: !Ref CacheSecurityGroup
+  ArtisanTaskDefinitionArn:
+    Description: The ARN of the artisan task definiton.
+    Value: !Ref ContainerArtisanTaskDefinition
+  Subnet1Id:
+    Description: The ID of the first subnet.
+    Value: !Ref Subnet1
+  ContainerClusterArn:
+    Description: The ARN of the container cluster.
+    Value: !GetAtt ContainerCluster.Arn
+  ArtisanLogGroupName:
+    Description: The CloudWatch Logs group name for artisan.
+    Value: !Ref ArtisanLogGroup

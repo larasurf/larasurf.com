@@ -1,0 +1,233 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@7.2.0
+  aws-cli: circleci/aws-cli@2.0.3
+  jq: circleci/jq@2.2.0
+
+jobs:
+  test:
+    parameters:
+      should_publish_images:
+        type: boolean
+      environment:
+        type: string
+      var_name_region:
+        type: env_var_name
+      var_name_ecr_url_prefix:
+        type: env_var_name
+
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.6
+      - when:
+          condition: << parameters.should_publish_images >>
+          steps:
+            - run:
+                name: Check Required Envionment Variables
+                command: |
+                  set -e
+                  test -n "${AWS_ACCESS_KEY_ID}"
+                  test -n "${AWS_SECRET_ACCESS_KEY}"
+                  test -n "${<< parameters.var_name_region >>}"
+                  test -n "${<< parameters.var_name_ecr_url_prefix >>}"
+            - run:
+                name: Build Images
+                command: |
+                  DOCKER_BUILDKIT=1 docker build -t "${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/application:commit-${CIRCLE_SHA1}" --ssh default --progress plain --file .docker/php-fpm/Dockerfile .
+                  DOCKER_BUILDKIT=1 docker build -t laravel:test --ssh default --progress plain --build-arg "BASE_IMAGE=${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/application:commit-${CIRCLE_SHA1}" .circleci/
+                  docker cp $(docker create --rm ${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/application:commit-${CIRCLE_SHA1}):/var/www/public/. ./public/
+                  docker build -t "${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/webserver:commit-${CIRCLE_SHA1}" --file .docker/nginx/Dockerfile.cloud .
+      - unless:
+          condition: << parameters.should_publish_images >>
+          steps:
+            - run:
+                name: Build Images
+                command: |
+                  DOCKER_BUILDKIT=1 docker build -t laravel-base --ssh default --progress plain --file .docker/php-fpm/Dockerfile .
+                  DOCKER_BUILDKIT=1 docker build -t laravel:test --ssh default --progress plain --build-arg BASE_IMAGE=laravel-base .circleci/
+      - run:
+          name: Check Code Style and Run Tests
+          command: |
+            docker-compose -f .circleci/docker-compose.ci.yml run --rm --entrypoint bash laravel -c "
+              set -e
+              cp .env.example .env
+              php artisan key:generate --force
+              if [[ -f '.php-cs-fixer.dist.php' ]]; then ./vendor/bin/php-cs-fixer fix --dry-run ; else echo 'Code Style config not found' ; fi
+              curl \${DB_HOST}:\${DB_PORT} --http0.9 --retry-connrefused --retry 30 --output /dev/null --silent
+              php artisan migrate --force
+              ./vendor/bin/phpunit
+            "
+      - when:
+          condition: << parameters.should_publish_images >>
+          steps:
+            - aws-ecr/ecr-login:
+                account-url: << parameters.var_name_ecr_url_prefix >>
+                region: << parameters.var_name_region >>
+            - run:
+                name: Publish Images
+                command: |
+                  docker push "${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/application:commit-${CIRCLE_SHA1}"
+                  docker push "${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/webserver:commit-${CIRCLE_SHA1}"
+  scan:
+    parameters:
+      environment:
+        type: string
+      var_name_region:
+        type: env_var_name
+      var_name_ecr_url_prefix:
+        type: env_var_name
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - setup_remote_docker
+      - aws-ecr/ecr-login:
+          account-url: << parameters.var_name_ecr_url_prefix >>
+          region: << parameters.var_name_region >>
+      - run:
+          name: Install Trivy
+          command: |
+            VERSION=$(
+                curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | \
+                grep '"tag_name":' | \
+                sed -E 's/.*"v([^"]+)".*/\1/'
+            )
+
+            wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz
+            tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz
+            sudo mv trivy /usr/local/bin
+      - run:
+          name: Scan Application Image for Vulnerabilities
+          command: trivy --exit-code 1 --no-progress ${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/application:commit-${CIRCLE_SHA1}
+      - run:
+          name: Scan Webserver Image for Vulnerabilities
+          command: trivy --exit-code 1 --no-progress ${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/webserver:commit-${CIRCLE_SHA1}
+  deploy:
+    parameters:
+      environment:
+        type: string
+      var_name_region:
+        type: env_var_name
+      var_name_ecr_url_prefix:
+        type: env_var_name
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - run:
+          name: Check Required Envionment Variables
+          command: |
+            set -e
+            test -n "${AWS_ACCESS_KEY_ID}"
+            test -n "${AWS_SECRET_ACCESS_KEY}"
+            test -n "${<< parameters.var_name_region >>}"
+            test -n "${<< parameters.var_name_ecr_url_prefix >>}"
+      - aws-cli/setup:
+          aws-region: << parameters.var_name_region >>
+      - run:
+          name: Preprocess CloudFormation Template
+          command: |
+            chmod +x .circleci/inject-secrets.sh
+            .circleci/inject-secrets.sh << parameters.environment >>
+      - run:
+          name: Deploy CloudFormation Stack
+          no_output_timeout: 30m
+          command: |
+            export PROJECT_NAME=$(cat larasurf.json | jq -r '."project-name"')
+            export PROJECT_ID=$(cat larasurf.json | jq -r '."project-id"')
+            export STACK_NAME="${PROJECT_NAME}-${PROJECT_ID}-<< parameters.environment >>"
+
+            aws cloudformation describe-stacks --stack-name "${STACK_NAME}" > /dev/null 2>&1 && \
+            aws cloudformation deploy \
+              --region "${<< parameters.var_name_region >>}" \
+              --template-file infrastructure.yml \
+              --stack-name "${STACK_NAME}" \
+              --capabilities CAPABILITY_NAMED_IAM \
+              --no-fail-on-empty-changeset \
+              --parameter-overrides \
+                  "ApplicationImage=${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/application:commit-${CIRCLE_SHA1}" \
+                  "WebserverImage=${<< parameters.var_name_ecr_url_prefix >>}/<< parameters.environment >>/webserver:commit-${CIRCLE_SHA1}" \
+            || echo 'Stack not yet deployed'
+      - run:
+          name: Run Migrations
+          command: |
+            export PROJECT_NAME=$(cat larasurf.json | jq -r '."project-name"')
+            export PROJECT_ID=$(cat larasurf.json | jq -r '."project-id"')
+            export STACK_NAME="${PROJECT_NAME}-${PROJECT_ID}-<< parameters.environment >>"
+
+            if $(aws cloudformation describe-stacks --stack-name "${STACK_NAME}" > /dev/null 2>&1); then
+              export CLUSTER_ARN="$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query 'Stacks[0].Outputs[?OutputKey==`ContainerClusterArn`] | [0].OutputValue' --output text)"
+              export TASK_DEFINITION_ARN="$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query 'Stacks[0].Outputs[?OutputKey==`ArtisanTaskDefinitionArn`] | [0].OutputValue' --output text)"
+              export SUBNET_ID="$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query 'Stacks[0].Outputs[?OutputKey==`Subnet1Id`] | [0].OutputValue' --output text)"
+              export CACHE_SECURITY_GROUP_ID="$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query 'Stacks[0].Outputs[?OutputKey==`CacheSecurityGroupId`] | [0].OutputValue' --output text)"
+              export DATABASE_SECURITY_GROUP_ID="$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query 'Stacks[0].Outputs[?OutputKey==`DBSecurityGroupId`] | [0].OutputValue' --output text)"
+              export CONTAINER_SECURITY_GROUP_ID="$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --query 'Stacks[0].Outputs[?OutputKey==`ContainersSecurityGroupId`] | [0].OutputValue' --output text)"
+
+              aws ecs run-task \
+                --cluster ${CLUSTER_ARN} \
+                --launch-type FARGATE \
+                --network-configuration "awsvpcConfiguration={subnets=[${SUBNET_ID}],securityGroups=[${CACHE_SECURITY_GROUP_ID},${DATABASE_SECURITY_GROUP_ID},${CONTAINER_SECURITY_GROUP_ID}],assignPublicIp=ENABLED}" \
+                --overrides '{"containerOverrides":[{"name":"artisan","command":["php", "artisan", "migrate", "--force"]}]}' \
+                --task-definition ${TASK_DEFINITION_ARN}
+            else
+              echo 'Stack not yet deployed'
+            fi
+workflows:
+  version: 2
+  test-workflow:
+    when:
+      and:
+        - not:
+            equal: [ main, << pipeline.git.branch >> ]
+        - not:
+            equal: [ stage, << pipeline.git.branch >> ]
+    jobs:
+      - test:
+          should_publish_images: false
+          environment: none
+          var_name_region: none
+          var_name_ecr_url_prefix: none
+  deploy-workflow-stage:
+    when:
+      equal: [ stage, << pipeline.git.branch >> ]
+    jobs:
+      - test:
+          should_publish_images: true
+          environment: stage
+          var_name_region: AWS_REGION_STAGE
+          var_name_ecr_url_prefix: AWS_ECR_URL_PREFIX_STAGE
+      - deploy:
+          environment: stage
+          var_name_region: AWS_REGION_STAGE
+          var_name_ecr_url_prefix: AWS_ECR_URL_PREFIX_STAGE
+          requires:
+            - test
+      - scan:
+          environment: stage
+          var_name_region: AWS_REGION_STAGE
+          var_name_ecr_url_prefix: AWS_ECR_URL_PREFIX_STAGE
+          requires:
+            - test
+  deploy-workflow-production:
+    when:
+      equal: [ main, << pipeline.git.branch >> ]
+    jobs:
+      - test:
+          should_publish_images: true
+          environment: production
+          var_name_region: AWS_REGION_PRODUCTION
+          var_name_ecr_url_prefix: AWS_ECR_URL_PREFIX_PRODUCTION
+      - deploy:
+          environment: production
+          var_name_region: AWS_REGION_PRODUCTION
+          var_name_ecr_url_prefix: AWS_ECR_URL_PREFIX_PRODUCTION
+          requires:
+            - test
+      - scan:
+          environment: production
+          var_name_region: AWS_REGION_PRODUCTION
+          var_name_ecr_url_prefix: AWS_ECR_URL_PREFIX_PRODUCTION
+          requires:
+            - test
