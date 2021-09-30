@@ -48,17 +48,17 @@
     <div class="z-10">
         <nav class="relative flex px-6 py-9">
             <div class="w-1/5 text-3xl text-right font-extrabold">
-                <a href="/">LaraSurf</a>
+                <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
             </div>
             <div class="w-3/5 flex mt-2 justify-center">
                 <div class="w-2/5 text-right font-medium">
-                    <a href="/docs">Documentation</a>
+                    <a href="/docs" class="transition hover:text-gray-400">Documentation</a>
                 </div>
                 <div class="w-1/5 text-center font-medium mx-10">
-                    <a href="/how-it-works">How it works</a>
+                    <a href="/how-it-works" class="transition hover:text-gray-400">How it works</a>
                 </div>
                 <div class="w-2/5 text-left font-medium">
-                    <a href="/pricing">Pricing</a>
+                    <a href="/pricing" class="transition hover:text-gray-400">Pricing</a>
                 </div>
             </div>
             <div class="w-1/5 flex justify-start pt-2">
