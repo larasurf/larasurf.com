@@ -46,28 +46,38 @@
         <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
     </div>
     <div class="z-10">
-        <nav class="relative flex px-6 py-9">
-            <div class="w-1/5 text-3xl text-right font-extrabold">
-                <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
+        <nav class="relative px-6 py-9">
+            <div class="hidden lg:flex">
+                <div class="w-1/5 text-3xl text-right font-extrabold">
+                    <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
+                </div>
+                <div class="w-3/5 flex mt-2 justify-center">
+                    <div class="w-2/5 text-right font-medium">
+                        <a href="/docs" class="transition hover:text-gray-400">Documentation</a>
+                    </div>
+                    <div class="w-1/5 text-center font-medium mx-10">
+                        <a href="/how-it-works" class="transition hover:text-gray-400">How it works</a>
+                    </div>
+                    <div class="w-2/5 text-left font-medium">
+                        <a href="/pricing" class="transition hover:text-gray-400">Pricing</a>
+                    </div>
+                </div>
+                <div class="w-1/5 flex justify-start pt-2">
+                    <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
+                </div>
             </div>
-            <div class="w-3/5 flex mt-2 justify-center">
-                <div class="w-2/5 text-right font-medium">
-                    <a href="/docs" class="transition hover:text-gray-400">Documentation</a>
+            <div class="flex lg:hidden justify-center">
+                <div class="w-2/3 text-3xl font-extrabold text-left">
+                    <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
                 </div>
-                <div class="w-1/5 text-center font-medium mx-10">
-                    <a href="/how-it-works" class="transition hover:text-gray-400">How it works</a>
+                <div class="w-1/3 font-extrabold text-right pt-2">
+                    <x-button-link href="/">Menu</x-button-link>
                 </div>
-                <div class="w-2/5 text-left font-medium">
-                    <a href="/pricing" class="transition hover:text-gray-400">Pricing</a>
-                </div>
-            </div>
-            <div class="w-1/5 flex justify-start pt-2">
-                <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
             </div>
         </nav>
         @yield('content')
     </div>
-    <div class="z-10 mt-64 mb-12 sm:mb-6 relative">
+    <div class="z-10 mt-32 md:mt-64 mb-12 sm:mb-6 relative">
         <footer class="text-center text-sm font-medium">
             &copy; {{ date('Y') }} - LaraSurf LLC
         </footer>
