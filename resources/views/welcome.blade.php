@@ -11,17 +11,17 @@
         <div class="flex justify-center mt-24">
             <div class="flex w-3/5 items-center justify-center">
                 <div class="w-1/3 flex items-center justify-center">
-                    <div class="hero-icon generate absolute border-2 border-black rounded-full p-8 mb-6 filter hover:invert hover:bg-white"></div>
+                    <div class="hero-icon generate absolute border-2 border-black rounded-full p-8 mb-6 filter transition hover:invert hover:bg-white"></div>
                     <div class="text-lg mt-24 font-medium">1. Generate</div>
                 </div>
                 <div class="w-1/3 flex items-center justify-center">
-                    <div class="hero-icon implement absolute border-2 border-black rounded-full p-8 mb-6 filter hover:invert hover:bg-white">
+                    <div class="hero-icon implement absolute border-2 border-black rounded-full p-8 mb-6 filter transition hover:invert hover:bg-white">
 
                     </div>
                     <div class="text-lg mt-24 font-medium">2. Implement</div>
                 </div>
                 <div class="w-1/3 flex items-center justify-center">
-                    <div class="hero-icon deploy absolute border-2 border-black rounded-full p-8 mb-6 filter hover:invert hover:bg-white">
+                    <div class="hero-icon deploy absolute border-2 border-black rounded-full p-8 mb-6 filter transition hover:invert hover:bg-white">
 
                     </div>
                     <div class="text-lg mt-24 font-medium">3. Deploy</div>
