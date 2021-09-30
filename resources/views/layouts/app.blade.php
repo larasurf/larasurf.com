@@ -67,9 +67,9 @@
         </nav>
         @yield('content')
     </div>
-    <div class="z-10 fixed bottom-10 left-0 right-0">
+    <div class="z-10 mt-64 mb-12 sm:mb-6 relative">
         <footer class="text-center text-sm font-medium">
-            &copy; {{ date('Y') }} - LaraSurf, LLC
+            &copy; {{ date('Y') }} - LaraSurf LLC
         </footer>
     </div>
     <script src="/js/app.js"></script>
