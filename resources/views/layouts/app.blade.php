@@ -65,9 +65,12 @@
                 <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
             </div>
         </nav>
-        <div>
-            @yield('content')
-        </div>
+        @yield('content')
+    </div>
+    <div class="z-10 fixed bottom-10 left-0 right-0">
+        <footer class="text-center text-sm font-medium">
+            &copy; {{ date('Y') }} - LaraSurf, LLC
+        </footer>
     </div>
     <script src="/js/app.js"></script>
 </body>

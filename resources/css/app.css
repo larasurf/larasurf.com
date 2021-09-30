@@ -60,3 +60,17 @@ body {
 .background-line:nth-child(17) {
     left: 88%;
 }
+
+.hero-icon {
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.hero-icon.generate {
+    background-image: url('/img/generate.png');
+}
+.hero-icon.code {
+    background-image: url('/img/code.png');
+}
+.hero-icon.deploy {
+    background-image: url('/img/deploy.png');
+}
