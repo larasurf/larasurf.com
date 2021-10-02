@@ -6,6 +6,11 @@ module.exports = {
     ],
     darkMode: false, // or 'media' or 'class'
     theme: {
+        listStyleType: {
+            none: 'none',
+            disc: 'disc',
+            circle: 'circle',
+        },
         extend: {},
     },
     variants: {

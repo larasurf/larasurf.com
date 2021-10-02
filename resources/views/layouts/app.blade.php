@@ -29,10 +29,11 @@
     <div class="z-10">
         <nav class="relative px-6 py-9">
             <div class="hidden lg:flex">
-                <div class="w-1/5 text-3xl text-right font-extrabold">
+                <div class="w-1/6"></div>
+                <div class="w-1/12 text-3xl font-extrabold">
                     <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
                 </div>
-                <div class="w-3/5 flex mt-2 justify-center">
+                <div class="w-1/2 flex mt-2 justify-center">
                     <div class="w-2/5 text-right font-medium">
                         <a href="/docs" class="transition hover:text-gray-400">Documentation</a>
                     </div>
@@ -43,9 +44,10 @@
                         <a href="/pricing" class="transition hover:text-gray-400">Pricing</a>
                     </div>
                 </div>
-                <div class="w-1/5 flex justify-start pt-2 font-medium">
+                <div class="w-1/6 flex justify-start pt-2 font-medium">
                     <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
                 </div>
+                <div class="1/12"></div>
             </div>
             <div id="main-menu"></div>
         </nav>
@@ -58,6 +60,6 @@
             &copy; {{ date('Y') }} - LaraSurf LLC
         </footer>
     </div>
-    <script src="/js/app.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

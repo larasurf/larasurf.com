@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Plus Jakarta Sans";
     font-weight: 400;
@@ -36,4 +40,16 @@ body::-webkit-scrollbar-thumb
 }
 .hero-icon.deploy {
     background-image: url('/img/deploy.png');
+}
+
+.documentation strong {
+    font-weight: 700;
+}
+
+.documentation a {
+    @apply underline text-black hover:text-gray-400;
+}
+
+.documentation a.header-link {
+    text-decoration: none;
 }
