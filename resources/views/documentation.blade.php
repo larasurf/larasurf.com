@@ -10,9 +10,9 @@
                 Menu
             </div>
             <div class="w-full lg:w-2/3">
-                <div class="mt-16 max-w-screen-md documentation">
+                <div class="max-w-screen-md documentation">
                     @foreach($docs as $doc)
-                        <h1 class="text-3xl font-bold mb-6">{{ $doc['title'] }}</h1>
+                        <h1 id="{{ $doc['id'] }}" class="text-3xl font-bold mt-12 mb-6"><a class="header-link" href="/docs#{{ $doc['id'] }}">{{ $doc['title'] }}</a></h1>
                         @foreach ($doc['content'] as $content)
                             @if($content['type'] === 'heading-1')
                                 <h2 id="{{ $content['id'] }}" class="text-2xl font-bold mt-6 mb-3">
@@ -34,8 +34,8 @@
                                     </div>
                                 </div>
                             @elseif($content['type'] === 'image')
-                                <div class="my-6">
-                                    <img class="object-contain w-full" alt="{{ $content['alt'] }}" src="{{ $content['src'] }}"/>
+                                <div class="my-6 flex justify-center">
+                                    <img class="object-contain {{ $content['class'] ?? '' }}" alt="{{ $content['alt'] }}" src="{{ $content['src'] }}"/>
                                 </div>
                             @elseif($content['type'] === 'quote')
                                 <div class="my-3 flex border-black border-l-4 pl-3">

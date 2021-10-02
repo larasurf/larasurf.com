@@ -25,7 +25,8 @@ body::-webkit-scrollbar
 
 body::-webkit-scrollbar-thumb
 {
-    background-color: #000000;
+    @apply bg-gray-400;
+    border-radius: 10px;
 }
 
 .hero-icon {
@@ -54,6 +55,8 @@ body::-webkit-scrollbar-thumb
     text-decoration: none;
 }
 
-.documentation pre.inline-code {
-    @apply inline text-red-400 bg-gray-100 px-1;
+.documentation .inline-code {
+    white-space: pre;
+    @apply text-red-400 bg-gray-100 px-1;
+    font-size: 90%;
 }

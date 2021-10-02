@@ -29,7 +29,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'While we <strong>highly recommend</strong> reading the documentation in its entirety before getting started, you can check out the <a href="/docs#tldr-checklist">TL;DR Checklist</a> to guide you through local setup and launch within 90 minutes.',
+                        'html' => 'While we <strong>highly recommend</strong> reading the documentation in its entirety before getting started, you can check out the <a href="#tldr-checklist">TL;DR Checklist</a> to guide you through local setup and launch within 90 minutes.',
                     ],
                     [
                         'type' => 'heading-2',
@@ -56,6 +56,7 @@ class DocumentationController extends Controller
                         'type' => 'image',
                         'src' => '/img/venn-diagram.png',
                         'alt' => 'LaraSurf Overview',
+                        'class' => 'w-full',
                     ],
                     [
                         'type' => 'heading-2',
@@ -240,7 +241,7 @@ class DocumentationController extends Controller
                             'Git for version control and GitHub for the repositories origin',
                             'A simplified version of GitFlow for branch management',
                             [
-                                'See the <a href="/docs#project-lifecycle">Project Lifecycle</a>',
+                                'See the <a href="#project-lifecycle">Project Lifecycle</a>',
                             ],
                         ],
                     ],
@@ -255,7 +256,7 @@ class DocumentationController extends Controller
                             'CircleCI for CI/CD pipleines',
                             'Unit and feature tests must pass before progressing through the pipeline',
                             'Scanning for known security vulnerabilities in container images and dependencies',
-                            'Automated image building and deployments for specific branches (<pre class="inline-code">stage</pre> or <pre class="inline-code">main</pre>)',
+                            'Automated image building and deployments for specific branches (<span class="inline-code">stage</span> or <span class="inline-code">main</span>)',
                         ],
                     ],
                     [
@@ -302,7 +303,7 @@ class DocumentationController extends Controller
                             ],
                             'Application Secrets',
                             [
-                                'Via <pre class="inline-code">.env</pre> file locally',
+                                'Via <span class="inline-code">.env</span> file locally',
                                 'Via Environment Variables injected from SSM Parameter Store for non-local environments',
                             ],
                             'DNS entry for the Load Balancer',
@@ -363,6 +364,197 @@ class DocumentationController extends Controller
                     ],
                 ],
             ],
+            [
+                'title' => 'Project Lifecycle',
+                'id' => 'project-lifecycle',
+                'content' => [
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Introduction',
+                        'id' => 'project-lifecycle-introduction',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The recommend project lifecycle for a LaraSurf project is intended to be as simple as possible.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'This document assumes you intend to have both a Stage and Production environment. If you only want Production, the same concepts apply without a Stage environment. If you want a local environment, you can ignore steps related to other environments.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The diagram below outlines the typical phases of a LaraSurf project, from project generation to production, and beyond to iteration.',
+                    ],
+                    [
+                        'type' => 'image',
+                        'src' => '/img/project-lifecycle.png',
+                        'alt' => 'LaraSurf Project Lifecycle',
+                        'class' => 'w-full lg:w-1/2'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Project Generation',
+                        'id' => 'project-lifecycle-project-generation',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'LaraSurf projects begin by running a custom command in your terminal which cURLs a Bash script. At the end of the project generation process you will be setup to immediately begin implementation (or deploy the default project to stage/production if you so choose).',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For more information, see the <a href="#project-generation">Project Generation</a> documentation.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Infrastructure Deployment',
+                        'id' => 'project-lifecycle-infrastructure-deployment',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Infrastructure for LaraSurf projects can be deployed using a few simple commands, with the bulk of the heavy lifting done by a predefined AWS CloudFormation template.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Deployment of infrastructure can be done at any time; you are free to work on your project locally for as long as you like before creating infrastructure for and deploying to Stage and/or Production.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Ingress into either environment\'s application or database can be changed at will using single commands.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For more information, see the <a href="#cloud-environments">Cloud Environments</a> documentation.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Stage',
+                        'id' => 'project-lifecycle-infrastructure-deployment-stage',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The Stage environment is intended to be the pre-production environment where testing for Quality Assurance takes place. The application and webserver versions deployed to the Stage environment represent how the system will behave on Production after the next Production deployment.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A Stage environment is also optional. If you intended to have only a Production environment (or only a local environment), you are free to specify this during your project generation process.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The default LaraSurf setup assumes you will be using a mock SMTP server such as MailTrap and configures your application accordingly.<br/>You are of course free to send live emails from your Stage environment using SES or any other mechanism by Laravel instead.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Production',
+                        'id' => 'project-lifecycle-infrastructure-deployment-production',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The Production environment is your live application accessible to your target audience. Typically this environment will be publicly accessible, but it doesn\'t have to be.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Local Development',
+                        'id' => 'project-lifecycle-local-development',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Implementation for LaraSurf projects is intended to take place on a local machine with Docker support. Using Docker Compose to define local services, a complete development environment for LaraSurf projects is available out of the box. This setup includes the necessary tools to locally run and interact with your application with room to be customized if needed.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For more information, see the <a href="#local-development">Local Development</a> documentation.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Branching Pattern',
+                        'id' => 'project-lifecycle-local-development-branching-pattern',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The recommended branching pattern for LaraSurf projects is a simplified version of GitFlow.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Depending on your configured environments, there are up to three branches created for you as part of the project generation process.',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'For Local only projects, the <span class="inline-code">main</span> branch is created',
+                            'For Local and Production projects, the <span class="inline-code">main</span> and <span class="inline-code">develop</span> branches are created',
+                            'For Local, Stage, and Production projects, the <span class="inline-code">main</span>, <span class="inline-code">stage</span> and <span class="inline-code">develop</span> branches are created',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The purpose of each branch is as follows:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">main</span> is what\'s currently deployed to the Production environment',
+                            '<span class="inline-code">stage</span> is what\'s currently deployed to the Stage environment',
+                            '<span class="inline-code">develop</span> is for completed features and bugfixes that you don\'t want deployed to the Stage environment yet',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'In addition the these three branches, additional branches are created as part of the development process:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">feature/*</span> branches are for adding new features to your application',
+                            [
+                                'branched off of and merged back into the <span class="inline-code">develop</span> branch',
+                            ],
+                            '<span class="inline-code">bugfix/*</span> branches are for fixing bugs in your application that either haven\'t made it to the Production environment yet or aren\'t a high priority',
+                            [
+                                'branched off of the <span class="inline-code">develop</span> or <span class="inline-code">stage</span> branch and merged into either <span class="inline-code">develop</span> or both <span class="inline-code">stage</span> and <span class="inline-code">develop</span> depending on the parent branch',
+                            ],
+                            '<span class="inline-code">hotfix/*</span> branches are for fixing critical bugs that exist in the Production environment',
+                            [
+                                'branched off of and merged back into the <span class="inline-code">main</span> branch',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'While it is recommended every merge take place on GitHub to allow for easier code review, it is not a requirement.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The diagram below outlines an example branch history as time moves forwards. Assume the cloud infrastructure for both the Stage and Production environments was deployed immediately after project generation.',
+                    ],
+                    [
+                        'type' => 'image',
+                        'src' => '/img/branching-pattern.png',
+                        'alt' => 'LaraSurf Branching Pattern',
+                        'class' => 'w-full'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'CircleCI Workflows',
+                        'id' => 'project-lifecycle-circleci-workflows',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'LaraSurf projects use CircleCI workflows to automatically run Unit and Feature tests, scan for known vulnerabilities, build container images, publish container images, and deploy new versions of the application and webserver.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The default CircleCI workflows will work for most use cases but you are free to modify the configuration file to suit any additional needs.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'By default, Unit and Feature tests are run on every branch that is pushed up to GitHub. In addition, for the <span class="inline-code">stage</span> and <span class="inline-code">main</span> branches, container images are built, scanned for known vulnerabilities, published to AWS Elastic Container Registry, and deployed to the appropriate environment.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For more information, see the <a href="#circleci-workflows">CircleCI Workflows</a> documentation.',
+                    ],
+                ],
+            ]
         ],
     ];
 
