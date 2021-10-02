@@ -13,7 +13,6 @@ class ButtonLink extends Component
      */
     public function __construct(public string $href, public string $rounding = 'lg', public string $color = 'black')
     {
-        //
     }
 
     /**

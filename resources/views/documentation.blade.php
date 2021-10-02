@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Documentation - LaraSurf')
+
 @section('content')
     <div class="relative px-6">
         <div class="flex justify-center">

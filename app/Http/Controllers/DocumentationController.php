@@ -12,11 +12,12 @@ class DocumentationController extends Controller
         '0.1' => [
             [
                 'title' => 'Overview',
+                'id' => 'overview',
                 'content' => [
                     [
                         'type' => 'heading-1',
                         'text' => 'Introduction',
-                        'id' => 'introduction'
+                        'id' => 'overview-introduction',
                     ],
                     [
                         'type' => 'paragraph',
@@ -33,7 +34,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'What is LaraSurf?',
-                        'id' => 'introduction-what-is-larasurf'
+                        'id' => 'overview-introduction-what-is-larasurf',
                     ],
                     [
                         'type' => 'paragraph',
@@ -59,7 +60,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'Why?',
-                        'id' => 'introduction-why',
+                        'id' => 'overview-introduction-why',
                     ],
                     [
                         'type' => 'paragraph',
@@ -68,7 +69,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'Mission',
-                        'id' => 'introduction-mission',
+                        'id' => 'overview-introduction-mission',
                     ],
                     [
                         'type' => 'quote',
@@ -77,7 +78,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'Audience',
-                        'id' => 'introduction-audience',
+                        'id' => 'overview-introduction-audience',
                     ],
                     [
                         'type' => 'paragraph',
@@ -99,7 +100,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'Guiding Principles',
-                        'id' => 'introduction-guiding-principles',
+                        'id' => 'overview-introduction-guiding-principles',
                     ],
                     [
                         'type' => 'paragraph',
@@ -119,12 +120,12 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-1',
                         'text' => 'Features',
-                        'id' => 'features'
+                        'id' => 'features',
                     ],
                     [
                         'type' => 'heading-2',
                         'text' => 'Project Generation',
-                        'id' => 'features-project-generation',
+                        'id' => 'overview-features-project-generation',
                     ],
                     [
                         'type' => 'list',
@@ -155,7 +156,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'Local Development',
-                        'id' => 'features-local-development',
+                        'id' => 'overview-features-local-development',
                     ],
                     [
                         'type' => 'list',
@@ -184,7 +185,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'Cloud Infrastructure',
-                        'id' => 'features-cloud-infrastructure',
+                        'id' => 'overview-features-cloud-infrastructure',
                     ],
                     [
                         'type' => 'list',
@@ -202,7 +203,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-2',
                         'text' => 'CI/CD',
-                        'id' => 'features-cicd',
+                        'id' => 'overview-features-cicd',
                     ],
                     [
                         'type' => 'list',
@@ -211,6 +212,153 @@ class DocumentationController extends Controller
                             'Run feature and unit tests',
                             'Scan for known vulnerabilities in container images and dependencies',
                             'Deploy application changes upon merging into an environment branch',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Technology',
+                        'id' => 'overview-technology',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Application Assumptions',
+                        'id' => 'overview-technology-application-assumptions',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'It is assumed that every LaraSurf project will have the following needs and/or characteristics',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Version Control',
+                        'id' => 'overview-technology-version-control',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'A local development environment and optional stage or stage and production environments',
+                            'Git for version control and GitHub for the repositories origin',
+                            'A simplified version of GitFlow for branch management',
+                            [
+                                'See the <a href="/docs#project-lifecycle">Project Lifecycle</a>',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Continuous Integration and Delivery',
+                        'id' => 'overview-technology-continuous-integration-and-delivery',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'CircleCI for CI/CD pipleines',
+                            'Unit and feature tests must pass before progressing through the pipeline',
+                            'Scanning for known security vulnerabilities in container images and dependencies',
+                            'Automated image building and deployments for specific branches (<pre class="inline-code">stage</pre> or <pre class="inline-code">main</pre>)',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Infrastructure and Software',
+                        'id' => 'overview-technology-infrastructure-and-software',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'TLS for HTTPS ingress',
+                            [
+                                'Terminated at NGNIX level locally',
+                                'Terminated at ELB level on all other environments',
+                                'HTTP redirected to HTTPS',
+                            ],
+                            'MySQL 8 for the database',
+                            [
+                                'Official Docker image locally',
+                                'RDS on AWS',
+                            ],
+                            'S3 for dynamic file storage',
+                            [
+                                'LocalStack service locally',
+                            ],
+                            'SQS for queued messages',
+                            [
+                                'LocalStack service locally',
+                            ],
+                            'Scheduled tasks',
+                            [
+                                'Via CloudWatch events for non-local environments',
+                            ],
+                            'Caching using Redis',
+                            [
+                                'Official Docker image locally',
+                                'ElastiCache on AWS',
+                            ],
+                            'Email sending',
+                            [
+                                'Using MailHog locally',
+                                'Using MailTrap for stage',
+                                'Using SES for production',
+                            ],
+                            'Application Secrets',
+                            [
+                                'Via <pre class="inline-code">.env</pre> file locally',
+                                'Via Environment Variables injected from SSM Parameter Store for non-local environments',
+                            ],
+                            'DNS entry for the Load Balancer',
+                            [
+                                'Route53 on AWS',
+                            ],
+                            'Modest AutoScaling on ECS Fargate',
+                            [
+                                'Non-local environments',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Stack',
+                        'id' => 'overview-technology-stack',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'LaraSurf, in one form or another, uses the following technologies.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => '<i>This may not be an exhaustive list.</i>',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'Laravel',
+                            'MailHog',
+                            'NGINX',
+                            'PHP-FPM',
+                            [
+                                'PHP 8',
+                            ],
+                            'MySQL 8',
+                            'Redis',
+                            'LocalStack',
+                            'Docker and Docker-Compose',
+                            'CircleCI',
+                            'AWS CLI v2',
+                            'Amazon Web Services',
+                            [
+                                'Elastic Container Service',
+                                'Elastic Container Registry',
+                                'Simple Storage Service',
+                                'Simple Queue Service',
+                                'Relational Database Service',
+                                'Simple Email Service',
+                                'ElastiCache',
+                                'CloudWatch',
+                                'CloudWatch Logs',
+                                'Amazon Certificate Manager',
+                                'Route53',
+                                'Systems Manager Parameter Store',
+                            ],
                         ],
                     ],
                 ],

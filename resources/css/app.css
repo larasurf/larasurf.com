@@ -53,3 +53,7 @@ body::-webkit-scrollbar-thumb
 .documentation a.header-link {
     text-decoration: none;
 }
+
+.documentation pre.inline-code {
+    @apply inline text-red-400 bg-gray-100 px-1;
+}
