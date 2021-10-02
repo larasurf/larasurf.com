@@ -25,26 +25,7 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="antialiased bg-white">
-    <div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-gray-200 w-1"></div>
-        <div class="z-0 background-line fixed min-h-screen border-l border-dashed border-gray-200 w-1"></div>
-    </div>
+<body class="antialiased bg-white overflow-y-scroll">
     <div class="z-10">
         <nav class="relative px-6 py-9">
             <div class="hidden lg:flex">
@@ -62,22 +43,17 @@
                         <a href="/pricing" class="transition hover:text-gray-400">Pricing</a>
                     </div>
                 </div>
-                <div class="w-1/5 flex justify-start pt-2">
+                <div class="w-1/5 flex justify-start pt-2 font-medium">
                     <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
                 </div>
             </div>
-            <div class="flex lg:hidden justify-center">
-                <div class="w-2/3 text-3xl font-extrabold text-left">
-                    <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
-                </div>
-                <div class="w-1/3 font-extrabold text-right pt-2">
-                    <x-button-link href="/">Menu</x-button-link>
-                </div>
-            </div>
+            <div id="main-menu"></div>
         </nav>
-        @yield('content')
+        <div id="content">
+            @yield('content')
+        </div>
     </div>
-    <div class="z-10 mt-32 md:mt-64 mb-12 sm:mb-6 relative">
+    <div id="footer" class="z-10 mt-32 md:mt-64 mb-12 sm:mb-6 relative">
         <footer class="text-center text-sm font-medium">
             &copy; {{ date('Y') }} - LaraSurf LLC
         </footer>
