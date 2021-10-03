@@ -968,6 +968,503 @@ class DocumentationController extends Controller
                     ],
                 ],
             ],
+            [
+                'title' => 'CircleCI Pipeline',
+                'id' => 'circleci-pipeline',
+                'content' => [
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The preconfigured CircleCI configuration for a LaraSurf project defines a pipeline responsible for:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'Building a container image for your application',
+                            'Building a container image for your webserver (on applicable branches)',
+                            'Checking PHP code style (if enabled)',
+                            'Running unit and feature tests',
+                            'Publishing container images to AWS ECR (on applicable branches)',
+                            'Scanning container images for known vulnerabilities (on applicable branches)',
+                            'Deploying container images to your AWS infrastructure (on applicable branches)',
+                            'Running migrations post-deployment on your AWS RDS instance (on applicable branches)',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'You are of course free to customize the published CircleCI configuration file to suit your project\'s needs.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'All Branches',
+                        'id' => 'circleci-pipeline-all-branches',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For every branch, the defined pipeline will perform the following steps:',
+                    ],
+
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'Checkout the applicable git commit',
+                            'Build a container image for the application',
+                            [
+                                'Install system packages and PHP extensions',
+                                'Install Composer dependencies',
+                                'Install Yarn dependencies',
+                                'Transpile front end assets',
+                            ],
+                            'Start containers for the application and a MySQL database',
+                            'Copy the <span class="inline-code">.env.example</span> file to <span class="inline-code">.env</span> within the application container',
+                            'Generate an application key within the application container',
+                            'Run code style checks within the application container (if enabled)',
+                            'Migrate the test database local to CircleCI',
+                            'Run PHPUnit',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Stage and Main Branches',
+                        'id' => 'circleci-pipeline-stage-and-main-branches',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For the <span class="inline-code">stage</span> and <span class="inline-code">main</span> branches, the defined pipeline will do all of the above as well as:',
+                    ],
+
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'Check for required CircleCI environment variables',
+                            'Build a container image for the webserver',
+                            'Publish the application and webserver container images to AWS ECR',
+                            'Scan the application and webserver container images for known vulnerabilities',
+                            [
+                                'This is for reporting only; a found vulnerability does not prevent a deployment',
+                            ],
+                            'Deploy the application and webserver container images to AWS ECS',
+                            'Run database migrations for the new application version on AWS RDS using AWS ECS',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Local Development',
+                'id' => 'local-development',
+                'content' => [
+                    [
+                        'type' => 'callout',
+                        'html' => 'Before attempting to run any commands that use the LaraSurf CLI, ensure you have created a bash alias for <span class="inline-code">surf</span> as <a href="#project-generation-bash-alias">described here</a>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The local development environment for LaraSurf projects is centered around local services available through Docker Compose.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'These services include:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'LocalStack for local AWS services',
+                            [
+                                'An S3 bucket',
+                                'An SQS queue',
+                            ],
+                            'MailHog for a fake SMTP server',
+                            'NGINX for the webserver',
+                            'PHP-FPM for the Laravel application',
+                            [
+                                'PHP 8',
+                            ],
+                            'MySQL 8 for the database',
+                            'Redis for the cache',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Should your project require additional local services or additional LocalStack services, you are free to modify the Docker Compose configuration as you see fit.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Local Environment',
+                        'id' => 'local-development-local-environment',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'After the project generation process completes your environment will have already been started.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Starting the Local Environment',
+                        'id' => 'local-development-local-environment-starting',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You can start the local environment\'s service by running the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf up',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This is equivalent to running <span class="inline-code">docker-compose up -d</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Additionally, if you\'d like to start your local environment and monitor output from the environment\'s services, you can start in attached mode by instead running:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf up --attach',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Stopping the Local Environment',
+                        'id' => 'local-development-local-environment-stopping',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You can stop your local environment\'s services by running the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf down',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => '<strong>This will destroy your local environment\'s database and cache.</strong>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If you would like to preserve the state of your database and cache, you can instead run the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf down --preserve',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Refreshing the Local Environment',
+                        'id' => 'local-development-local-environment-refreshing',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'In the event you would like to refresh your local environment, including wiping the database and cache as well as running migrations, you can use the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf fresh',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'In addition if you\'d also like to run the default database seeder, you can run:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf fresh --seed',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Application Access',
+                        'id' => 'local-development-application-access',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If your project supports local TLS, your application can also be accessed at <a href="https://localhost" target="_blank">https://localhost</a>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Otherwise, your application can also be accessed at <a href="http://localhost" target="_blank">http://localhost</a>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If you specified custom ports for your application, append a colon followed by the port number to the URL in your web browser to access your application. For example <a href="https://localhost:8080" target="_blank">https://localhost:8080</a>',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Email Outbox',
+                        'id' => 'local-development-application-access-email-outbox',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'MailHog is used as a local fake SMTP server. Unless you specified custom ports for your project, the MailHog UI can be accessed at <a href="http://localhost:8025" target="_blank">http://localhost:8025</a>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Composer Commands',
+                        'id' => 'local-development-composer-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute Composer commands using your local environment\'s application service with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf composer <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf composer --version</span>.'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Yarn Commands',
+                        'id' => 'local-development-yarn-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute Yarn commands using your local environment\'s application service with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf yarn <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf yarn --version</span>.'
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'To watch front end assets for changes during local development, use the command: <br/><span class="inline-code">surf yarn watch-poll</span>'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'NPX Commands',
+                        'id' => 'local-development-npx-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute NPX commands using your local environment\'s application service with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf npx <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf npx --version</span>.'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Node Commands',
+                        'id' => 'local-development-node-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute Node commands using your local environment\'s application service with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf node <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf node --version</span>.'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'AWS CLI Commands',
+                        'id' => 'local-development-aws-cli-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute AWS CLI commands against your local environment\'s AWS service with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf awslocal <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf awslocal --version</span>.'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Artisan Commands',
+                        'id' => 'local-development-artisan-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute Artisan commands using your local environment\'s application service with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf artisan <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf artisan tinker</span>.'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Queue',
+                        'id' => 'local-development-queue',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'With LocalStack having a functioning SQS implementation, the default queue connection for local development on LaraSurf projects is <span class="inline-code">sqs</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This means whenever an interaction with your local application enqueues a job, it must be consumed by a worker by running the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf artisan queue:work',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The above command will keep the queue worker open until the process is exited with <span class="inline-code">Ctrl + C</span>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'PHPUnit',
+                        'id' => 'local-development-phpunit',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may execute PHPUnit, with or without any additional options, using the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf test <options>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf test</span> or <span class="inline-code">surf test --filter MyTest</span>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'IDE Helper / Code Style',
+                        'id' => 'local-development-ide-helper-code-style',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may generate updated IDE Helper files as well as fix the code style to match your configured preferences with the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf fix',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'New TLS Certificate',
+                        'id' => 'local-development-new-tls-certificate',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If your local environment\'s TLS certificate has expired, you can generate a new one, rebuild your webserver container image, and restart your local environment\'s services with the following sequence of commands:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf tls',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf rebuild webserver',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf fresh',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'LaraSurf Configuration',
+                        'id' => 'local-development-larasurf-configuration',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may manage values in your project\'s larasurf.json file, which <strong>should not be manually edited</strong>, using the <span class="inline-code">config</span> command.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Getting a Configuration Value',
+                        'id' => 'local-development-larasurf-configuration-get-value',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A configuration value can be retrieved with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf config get <key>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf config get aws-profile</span>.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Setting a Configuration Value',
+                        'id' => 'local-development-larasurf-configuration-set-value',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A configuration value can be updated with the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf config set <key> <value></value>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf config set aws-profile profile-name</span>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'WSL2 Users',
+                        'id' => 'local-development-wsl2-users',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'There is an <a href="https://github.com/docker/compose/issues/7899" target="_blank">open issue</a> with WSL2 where sometimes the current working directory cannot be accessed.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You can identify this situation if you ever see the following errors when running a <span class="inline-code">git</span>, <span class="inline-code">docker-compose</span>, or <span class="inline-code">surf</span> command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'show-copy-button' => false,
+                        'text' => 'fatal: Unable to read current working directory: No such file or directory',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'or',
+                    ],
+                    [
+                        'type' => 'code',
+                        'show-copy-button' => false,
+                        'text' => 'Traceback (most recent call last):
+  File "docker-compose", line 3, in <module>
+  File "compose/cli/main.py", line 81, in main
+  File "compose/cli/main.py", line 200, in perform_command
+  File "compose/cli/command.py", line 70, in project_from_options
+  File "compose/cli/command.py", line 144, in get_project
+  File "compose/config/config.py", line 317, in find
+  File "compose/config/config.py", line 353, in get_default_config_files
+  File "compose/config/config.py", line 389, in find_candidates_in_parent_dirs
+  File "posixpath.py", line 383, in abspath
+FileNotFoundError: [Errno 2] No such file or directory
+[13669] Failed to execute script docker-compose',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A workaround for when this issue pops up is to run <span class="inline-code">cd $(pwd)</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This can be simplified by adding the following alias to your Bash profile:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'alias wtf=\'cd $(pwd)\'',
+                    ],
+                ],
+            ],
         ],
     ];
 

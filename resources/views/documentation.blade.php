@@ -15,7 +15,7 @@
                         <h1 id="{{ $doc['id'] }}" class="text-3xl font-bold mt-12 mb-6"><a class="header-link" href="/docs#{{ $doc['id'] }}">{{ $doc['title'] }}</a></h1>
                         @foreach ($doc['content'] as $content)
                             @if($content['type'] === 'heading-1')
-                                <h2 id="{{ $content['id'] }}" class="text-2xl font-bold mt-6 mb-3">
+                                <h2 id="{{ $content['id'] }}" class="text-2xl font-bold mt-12 mb-3">
                                     <span class="twa twa-ocean"></span> <a class="header-link" href="/docs#{{ $content['id'] }}">{{ $content['text'] }}</a>
                                 </h2>
                             @elseif($content['type'] === 'heading-2')
@@ -38,9 +38,11 @@
                                     <div class="code mt-3 p-3 bg-gray-100 rounded text-left">
                                         <pre>{{ $content['text'] }}</pre>
                                     </div>
-                                    <div>
-                                        <button class="copy-code transition bg-black hover:bg-white border-2 border-black text-white hover:text-black active:text-white active:bg-black px-4 py-2 rounded-lg" data-code="{{ $content['text'] }}">Copy</button>
-                                    </div>
+                                    @if($content['show-copy-button'] ?? true)
+                                        <div>
+                                            <button class="copy-code transition bg-black hover:bg-white border-2 border-black text-white hover:text-black active:text-white active:bg-black px-4 py-2 rounded-lg" data-code="{{ $content['text'] }}">Copy</button>
+                                        </div>
+                                    @endif
                                 </div>
                             @elseif($content['type'] === 'image')
                                 <div class="my-6 flex justify-center">
