@@ -17,6 +17,7 @@ module.exports = {
         extend: {
             invert: ['hover'],
             textColor: ['active'],
+            backgroundColor: ['active'],
         },
     },
     plugins: [],

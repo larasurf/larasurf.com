@@ -745,7 +745,229 @@ class DocumentationController extends Controller
                         'text' => '([[ -f ~/.bash_profile ]] && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile || (echo "source ~/.bashrc" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile)) && source ~/.bash_profile',
                     ],
                 ],
-            ]
+            ],
+            [
+                'title' => 'AWS CLI Configuration',
+                'id' => 'aws-cli-configuration',
+                'content' => [
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For LaraSurf projects, the AWS CLI does not need to be natively installed. Instead, a container image published by AWS is used.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'If you have previously configured the AWS CLI on your machine with adequate credentials to create resources within your AWS account, there\'s nothing more you need to do for this step.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'IAM User',
+                        'id' => 'aws-cli-configuration-iam-user',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If you do not already have access keys for the AWS account you\'d like to use for your project, that will be the first step. It is recommended to <strong>not</strong> use a root account for access and instead to create an IAM user within the AWS web console that has administrator access.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'When creating an IAM user, be sure to enable programmatic access and save the Access Key ID and Secret Access Key from the downloadable CSV provided by AWS in a secure location; it will be needed in the next step.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'CLI Configuration',
+                        'id' => 'aws-cli-configuration-cli-configuration',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Once you have the access keys needed you can configure the AWS CLI by running the following command (requires a bash alias, see the Project Generation documentation for more details):',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text'=> 'surf aws configure',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You will be prompted for the following pieces of information:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'Your Access Key ID',
+                            'Your Secret Access Key',
+                            'The default region to use (when not otherwise specified)',
+                            [
+                                '<span class="inline-code">us-east-1</span> is recommended',
+                            ],
+                            'The default output format to use (when not otherwise specified)',
+                            [
+                                '<span class="inline-code">json</span> is recommended',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'title' => 'GitHub Repository',
+                'id' => 'github-repository',
+                'content' => [
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'In order to run workflows on CircleCI (and to back up your code!), a GitHub repository for your project is required.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'New Repository',
+                        'id' => 'github-repository-new-repository',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A new GitHub project can be created within your account or organization <a href="https://github.com/new" target="_blank">here</a>.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'By convention, the name of your GitHub repository should match the name of your LaraSurf project specified during project generation (lowercase alphanumeric and hyphens).<br/>If you are unsure of your project name you can run <span class="inline-code">surf config get project-name</span> to get the configured value.'
+                    ],
+                    [
+                        'type' => 'image',
+                        'src' => '/img/new-repository.png',
+                        'alt' => 'New GitHub Repository',
+                        'class' => 'w-full'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Local Git Configuration',
+                        'id' => 'github-repository-local-git-configuration',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'After you\'ve created a repository on GitHub for your project, it is time to configure your local environment to reference GitHub as the remote repository.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The below examples are for a project called <span class="inline-code">my-project</span> within an organization named <span class="inline-code">my-org</span>. Replace this project name and organization name with the name of your own project and organization/account.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'First, configure your local git repository to use your new GitHub repository as the remote repository.',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'git remote add origin git@github.com:my-org/my-project.git',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'The Default Branch',
+                        'id' => 'github-repository-the-default-branch',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Now, push up the <span class="inline-code">develop</span> branch and set it as the upstream branch.',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'git push -u origin develop',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Note that the command above instructs you to push up the <span class="inline-code">develop</span> branch first (not the <span class="inline-code">main</span> branch), which will make GitHub treat the <span class="inline-code">develop</span> branch as the default branch for new pull requests.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'CircleCI Configuration',
+                'id' => 'circleci-configuration',
+                'content' => [
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'In order for LaraSurf to be able to manage CircleCI environment variables on your behalf, a personal API token needs to be created within the CircleCI web console and configured within your local project.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Ensure you are signed into your CircleCI account before proceeding with the steps below.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Personal API Token',
+                        'id' => 'circleci-configuration-personal-api-token',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A personal API token for CircleCI first needs to be created and then configured for your LaraSurf project.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Creating the Personal API Token',
+                        'id' => 'circleci-configuration-creating-the-personal-api-token',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To create a personal API token, first navigate to the Personal API Tokens page within the user settings of your CircleCI account.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Click the <span class="inline-code">Create New Token</span> button, enter a name for your token (such as "LaraSurf - My Project"), and click <span class="inline-code">Add API Token</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Your new API token will be displayed <strong>only once</strong>, so be sure to copy the token carefully.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Configuring the Token for your Project',
+                        'id' => 'circleci-configuration-configuring-the-token-for-your-project',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'After you have created the CircleCI personal API token, you can configure it within your LaraSurf project with the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf circleci set-api-key',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You will be prompted to enter your personal API token.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Note that the prompt for entering your personal API token will not display what you type.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The API token you enter will be saved in your project at <span class="inline-code">.circleci/api-key.txt</span> which <strong>should not be checked into source control</strong>. Your <span class="inline-code">.gitignore</span> file should already be set up to ignore this file, but a sanity check to confirm never hurts.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Project Setup',
+                        'id' => 'circleci-configuration-project-setup',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Once your personal API token has been configured, you are ready to start building.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Again in the CircleCI web console, navigate to the <a href="https://app.circleci.com/projects/" target="_blank">Projects</a> page for your organization.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Next to the name of your LaraSurf project, click <span class="inline-code">Set Up Project</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Choose the second option indicating your CircleCI configuration is ready and type in <span class="inline-code">develop</span> as the selected branch to start building for.',
+                    ],
+                    [
+                        'type' => 'image',
+                        'src' => '/img/circleci-project-setup.png',
+                        'alt' => 'CircleCI Project Setup',
+                        'class' => 'w-full lg:w-2/3'
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Finally, click <span class="inline-code">Let\'s Go</span> to enable the CircleCI pipeline for your project. This will trigger running through the pipeline for the first time.',
+                    ],
+                ],
+            ],
         ],
     ];
 

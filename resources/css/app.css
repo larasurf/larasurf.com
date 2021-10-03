@@ -62,8 +62,7 @@ body::-webkit-scrollbar-thumb,
     @apply underline text-black hover:text-gray-400;
 }
 
-.documentation a.header-link,
-.documentation a.copy-code {
+.documentation a.header-link {
     text-decoration: none;
 }
 

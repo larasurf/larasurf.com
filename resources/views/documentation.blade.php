@@ -35,11 +35,11 @@
                                 </div>
                             @elseif($content['type'] === 'code')
                                 <div class="code-container text-right">
-                                    <div>
-                                        <button class="copy-code cursor-pointer hover:text-gray-400 active:text-black" data-code="{{ $content['text'] }}">copy</button>
-                                    </div>
-                                    <div class="code my-3 p-3 bg-gray-100 rounded text-left">
+                                    <div class="code mt-3 p-3 bg-gray-100 rounded text-left">
                                         <pre>{{ $content['text'] }}</pre>
+                                    </div>
+                                    <div>
+                                        <button class="copy-code transition bg-black hover:bg-white border-2 border-black text-white hover:text-black active:text-white active:bg-black px-4 py-2 rounded-lg" data-code="{{ $content['text'] }}">Copy</button>
                                     </div>
                                 </div>
                             @elseif($content['type'] === 'image')
