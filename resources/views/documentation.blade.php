@@ -22,6 +22,10 @@
                                 <h3 id="{{ $content['id'] }}" class="text-xl font-bold mt-6 mb-3">
                                     <a class="header-link" href="/docs#{{ $content['id'] }}">{{ $content['text'] }}</a>
                                 </h3>
+                            @elseif($content['type'] === 'heading-3')
+                                <h4 id="{{ $content['id'] }}" class="text-lg font-bold mt-6 mb-3">
+                                    <a class="header-link" href="/docs#{{ $content['id'] }}">{{ $content['text'] }}</a>
+                                </h4>
                             @elseif($content['type'] === 'paragraph')
                                 <p class="my-3">{!! $content['html'] !!}</p>
                             @elseif($content['type'] === 'callout')

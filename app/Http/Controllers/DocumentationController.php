@@ -1465,6 +1465,856 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                 ],
             ],
+            [
+                'title' => 'Cloud Environments',
+                'id' => 'cloud-environments',
+                'content' => [
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The LaraSurf CLI provides commands to complete various tasks in cloud environments (AWS).',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'All commands prefixed with <span class="inline-code">cloud-</span> interact with AWS services.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Domains',
+                        'id' => 'cloud-environments-domains',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Before a project can be deployed to Stage or Production, a Hosted Zone for the domain must exist in AWS.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'If you have purchased a domain through the AWS web console, a Hosted Zone for the domain has already been created and there\'s nothing more you need to do.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Checking if a Hosted Zone Exists',
+                        'id' => 'cloud-environments-domains-hosted-zone-exists',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You can determine if a Hosted Zone exists for a specified domain using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains hosted-zone-exists --domain <domain>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf cloud-domains hosted-zone-exists --domain example.com</span>.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Creating a Hosted Zone',
+                        'id' => 'cloud-environments-domains-create-hosted-zone',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You can create a Hosted Zone for a domain using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains create-hosted-zone --domain <domain>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf cloud-domains create-hosted-zone --domain example.com</span>.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The only reason you would need to create a Hosted Zone on AWS yourself is if you purchased your domain elsewhere. If so, you will need to both create the Hosted Zone and point your domain at the supplied nameservers within your domain registrar (see command below).',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Listing Nameservers for a Hosted Zone',
+                        'id' => 'cloud-environments-domains-nameservers',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You can list the nameservers for a Hosted Zone using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains nameservers --domain <domain>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example: <span class="inline-code">surf cloud-domains nameservers --domain example.com</span>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Users',
+                        'id' => 'cloud-environments-users',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'In order for CircleCI to change AWS resources on your behalf, an IAM User for CircleCI to use must exist.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Creating Users',
+                        'id' => 'cloud-environments-users-create-user',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Creating a cloud user for CircleCI can be done with the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-users create --user circleci',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The above command creates an IAM User with administrator access for simplicity. <br/>It is recommended to modify this IAM User\'s attached policies to only include the bare minimum permissions needed to change your infrastructure.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Deleting Users',
+                        'id' => 'cloud-environments-users-delete-user',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Deleting a cloud user for CircleCI can be done with the following command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-users delete --user circleci',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Images',
+                        'id' => 'cloud-environments-images',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Before CircleCI can publish container images to AWS ECR as part of the defined pipeline, image repositories for the environment must first be created.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Creating Image Repositories',
+                        'id' => 'cloud-environments-images-creating-repositories',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To create image repositories for the specified environment, use the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-images create-repos --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-images create-repos --environment stage</span>',
+                            '<span class="inline-code">surf cloud-images create-repos --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'You must be on the <span class="inline-code">develop</span> branch to create image repositories. <br/>After the repositories are created for the specified environment, you should commit the changes that have been made to your local <span class="inline-code">larasurf.json</span> file (and push to GitHub). <br/>If you do not wish to wait for CircleCI to run the defined pipeline for your commit to <span class="inline-code">develop</span>, you can prepend your commit message with <span class="inline-code">[skip ci]</span>.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Deleting Image Repositories',
+                        'id' => 'cloud-environments-images-deleting-repositories',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To delete image repositories for the specified environment use the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-images delete-repos --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-images delete-repos --environment stage</span>',
+                            '<span class="inline-code">surf cloud-images delete-repos --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'If the infrastructure stack for an environment exists, that must first be deleted before image repositories can be deleted.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Building Images',
+                        'id' => 'cloud-environments-images-building',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Container images for both the application and webserver of a LaraSurf project are built automatically via the defined CircleCI pipeline. All that\'s needed is a commit to the <span class="inline-code">stage</span> or <span class="inline-code">main</span> branch.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Following the <a href="#project-lifecycle-local-development-branching-pattern">branching pattern described here</a>, after creating image repositories the next step is to merge <span class="inline-code">develop</span> into <span class="inline-code">stage</span> (and possibly <span class="inline-code">stage</span> into <span class="inline-code">main</span>) to trigger CircleCI.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example, if you\'ve just created image repositories for the Stage environment <strong>and you\'ve committed the <span class="inline-code">larasurf.json</span> changes to <span class="inline-code">develop</span></strong>, the following sequence of commands cloud be executed to merge <span class="inline-code">develop</span> into <span class="inline-code">stage</span> and create the <span class="inline-code">stage</span> branch on GitHub.',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'git checkout stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'git merge develop',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'git push -u origin stage',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Infrastructure Stacks',
+                        'id' => 'cloud-environments-infrastructure-stacks',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'An infrastructure stack (CloudFormation stack) is a collection of resources grouped together and created or updated using a template.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Creating Stacks',
+                        'id' => 'cloud-environments-infrastructure-stacks-creating-stacks',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If you have just triggered CircleCI to build images for an environment\'s branch (<span class="inline-code">stage</span> or <span class="inline-code">main</span>), the next step is to create the infrastructure stack for the same environment.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This can be done using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks create --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-stacks create --environment stage</span>',
+                            '<span class="inline-code">surf cloud-stacks create --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This command will prompt you for various inputs to gather desired configuration for your environment.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'These inputs include:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'The database instance type',
+                            'The database storage to allocate (GB)',
+                            'The cache node type',
+                            'The CPU for the task definition',
+                            'The memory for the task definition',
+                            'The target CPU value for autoscaling',
+                            'The scale-out cooldown period (seconds)',
+                            'The scale-in cooldown period (seconds)',
+                            'The fully qualified domain name for the environment',
+                            'The ACM certificate ARN to use, if it already exists',
+                            [
+                                'If an ACM certificate for your fully qualified domain is not specified, one will be created and verified on your behalf'
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Please be prepared to wait up to 60 minutes for your infrastructure stack to finish creating. <br/>LaraSurf will need to first create the stack, then create cloud variables (Parameter Store secrets) for your application, then update the recently created stack with these variables.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Updating Stacks',
+                        'id' => 'cloud-environments-infrastructure-stacks-updating-stacks',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If you have created new cloud variables (more on this below), have modified your project\'s CloudFormation template, or want to change one of the configuration options entered during stack creation, you can use the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks update --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-stacks update --environment stage</span>',
+                            '<span class="inline-code">surf cloud-stacks update --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This command will prompt you for which configuration(s) you\'d like to change, or you can select none of them to simply update the stack with the most recent cloud variables and infrastructure template (specific to your local working copy of the code).',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'It is recommended to make infrastructure changes using the above command instead of letting CircleCI do it as part of the pipeline for the stage or production branch. <br/>The CircleCI configuration timeout is limited to 30 minutes.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Deleting Stacks',
+                        'id' => 'cloud-environments-infrastructure-stacks-deleting-stacks',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The first step of tearing down an evironment is deleting the previously created stack.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This can be done using the following command command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks delete --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-stacks delete --environment stage</span>',
+                            '<span class="inline-code">surf cloud-stacks delete --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Environment Variables',
+                        'id' => 'cloud-environments-environment-variables',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Environment variables for your application in cloud environments are stored in AWS SSM Parameter Store as secure strings.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'As part of the deployment process, LaraSurf will gather all environment variables from Parameter Store and set them to be loaded as environment variables within the application container.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This means that if environment variables are changed, the container must be updated before changes will be reflected in the environment (which can be done with the <span class="inline-code">cloud-stacks update</span> command).',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Listing Environment Variables',
+                        'id' => 'cloud-environments-environment-variables-list',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Environment variables defined for the Stage or Production environment can be listed using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars list --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-vars list --environment stage</span>',
+                            '<span class="inline-code">surf cloud-vars list --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-3',
+                        'text' => 'Including Values',
+                        'id' => 'cloud-environments-environment-variables-list-values',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'By default, the <span class="inline-code">cloud-vars list</span> command will not display the values of each variable.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To do so, you may add the <span class="inline-code">--values</span> option to the above command like so:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars list --values --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-vars list --values --environment stage</span>',
+                            '<span class="inline-code">surf cloud-vars list --values --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Getting an Environment Variable',
+                        'id' => 'cloud-environments-environment-variables-get',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To get the value of an individual environment variable, the following command syntax can be used:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars get --environment <environment> --key <key>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-vars get --environment stage --key APP_KEY</span>',
+                            '<span class="inline-code">surf cloud-vars get --environment production --key APP_KEY</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Setting an Environment Variable',
+                        'id' => 'cloud-environments-environment-variables-set',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To set the value of an environment variable (new or overwrite existing), the following command syntax can be used:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --environment <environment> --key <key> --value <value>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-vars set --environment stage --key SOME_API_KEY --value a1b2c3d4</span>',
+                            '<span class="inline-code">surf cloud-vars set --environment production --key SOME_API_KEY --value a1b2c3d4</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Deleting an Environment Variable',
+                        'id' => 'cloud-environments-environment-variables-delete',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To delete an environment variable, the following command syntax can be used:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars delete --environment <environment> --key <key>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-vars delete --environment stage --key SOME_API_KEY</span>',
+                            '<span class="inline-code">surf cloud-vars delete --environment production --key SOME_API_KEY</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Ingress',
+                        'id' => 'cloud-environments-ingress',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Ingress to both the application and the database can be managed using the <span class="inline-code">cloud-ingress</span> command.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Ingress to the application means the specified source can interact with the application over HTTPS. <br/>Ingress to the database means the specified source can connect to the database, but only if the correct credentials are given.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The <span class="inline-code">--type</span> given to the <span class="inline-code">cloud-ingress</span> command can be <span class="inline-code">application</span> or <span class="inline-code">database</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The <span class="inline-code">--source</span> given to the <span class="inline-code">cloud-ingress</span> command can be <span class="inline-code">me</span> (for your IP address), <span class="inline-code">public</span> (for any IP address) or an IPv4 address.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Allowing Ingress for a Source',
+                        'id' => 'cloud-environments-ingress-allow',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To allow ingress for a source into either the application or the database, the following command syntax can be used:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment <environment> --type <type> --source <source>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type application --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type application --source public</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type application --source 1.2.3.4</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type database --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type database --source 1.2.3.4</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment production --type application --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment production --type application --source public</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment production --type application --source 1.2.3.4</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment production --type database --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress allow --environment production --type database --source 1.2.3.4</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'If at least one ingress rule allows access for a source, ingress will be allowed. <br/>A common pattern is to allow ingress into the application from only your IP address, ensure things are working as expected, then allow public ingress into the application, and then revoke ingress from your IP address (ingress from your IP address will still be allowed because of the <span class="inline-code">public</span> rule).',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Revoking Ingress for a Source',
+                        'id' => 'cloud-environments-ingress-revoke',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To revoke ingress for a source into either the application or database, the following command syntax can be used:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment <environment> --type <type> --source <source>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type application --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type application --source public</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type application --source 1.2.3.4</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type database --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type database --source 1.2.3.4</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type application --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type application --source public</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type application --source 1.2.3.4</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type database --source me</span>',
+                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type database --source 1.2.3.4</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Listing Ingress Rules',
+                        'id' => 'cloud-environments-ingress-list',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To check which sources are currently allowed ingress into either the application or database, the following command syntax can be used:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress list --environment <environment> --type <type>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-ingress list --environment stage --type application</span>',
+                            '<span class="inline-code">surf cloud-ingress list --environment stage --type database</span>',
+                            '<span class="inline-code">surf cloud-ingress list --environment production --type application</span>',
+                            '<span class="inline-code">surf cloud-ingress list --environment production --type database</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Email Sending',
+                        'id' => 'cloud-environments-email-sending',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If your application send emails, LaraSurf assumes you will be using a fake SMTP server like MailTrap for the Stage environment and will be sending live emails from the Production environment.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'By default LaraSurf sets the <span class="inline-code">MAIL_MAILER</span> variable to <span class="inline-code">smtp</span> for Stage and <span class="inline-code">ses</span> for Production.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'SMTP',
+                        'id' => 'cloud-environments-email-sending-smtp',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To configure SMTP sending for your application on either environment, simply use the <span class="inline-code">cloud-vars</span> command to set the appropriate environment variables.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_MAILER --value smtp',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_HOST --value smtp.mailtrap.io',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_PORT --value 2525',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_USERNAME --value a1b2c3d4e5',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_PASSWORD --value 9z8y7x6w5v',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_ENCRYPTION --value tls',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'AWS SES',
+                        'id' => 'cloud-environments-email-sending-aws-ses',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To configure SES ending for your application on either environment, you can use the <span class="inline-code">cloud-vars</span> command to set the appropriate environment variable.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars put --environment production --key MAIL_MAILER --value ses',
+                    ],
+                    [
+                        'type' => 'heading-3',
+                        'text' => 'Domain Verification',
+                        'id' => 'cloud-environments-email-sending-aws-ses-domain-verification',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To verify your environment\'s domain for both SPF and DKIM, use the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-emails verify-domain --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-emails verify-domain --environment stage</span>',
+                            '<span class="inline-code">surf cloud-emails verify-domain --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The <span class="inline-code">verify-domain</span> subcommand must be done after the stack has been created for an environment.',
+                    ],
+                    [
+                        'type' => 'heading-3',
+                        'text' => 'Enabling Live Emails',
+                        'id' => 'cloud-environments-email-sending-aws-ses-enabling-live-emails',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'By default, AWS account have SES in sandbox mode to reduce spam. To request that your account be taken out of sandbox mode and allow for live emails to be sent, use the following command and follow the prompts:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-emails enable-sending',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Please allow AWS up to 24 hours to respond to your request.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'File Storage',
+                        'id' => 'cloud-environments-file-storage',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Part of the infrastructure stack is an S3 bucket for file storage. Using S3 should almost always be preferred for any dynamically created file because each container within the ECS cluster will have a separate local filesystem.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'As part of the <span class="inline-code">cloud-stacks create</span> command, your application will be configured to use the created S3 bucket.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To upload files directly to S3 from the client side, use pre-signed URLs and an <a href="https://stackoverflow.com/a/40311906/6472849" target="_blank">XMLHttpRequest</a>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Queue',
+                        'id' => 'cloud-environments-queue',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Part of the infrastructure stack is an SQS queue for queued jobs.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'As part of the <span class="inline-code">cloud-stacks create</span> command, your application will be configured to use created SQS queue.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Scheduled Commands',
+                        'id' => 'cloud-environments-scheduled-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Part of the infrastructure stack is a CloudWatch Events rule that runs an ECS task responsible for invoking artisan to check for scheduled commands. This occurs <strong>every five minutes</strong>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'There\'s nothing additional you need to do to configure your application to support scheduled commands.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Artisan Commands',
+                        'id' => 'cloud-environments-artisan-commands',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Artisan commands can be run on demand on a specific cloud environment using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan "artisan command" --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-artisan "migrate:fresh --seed" --environment stage</span>',
+                            '<span class="inline-code">surf cloud-artisan "db:seed --class MySeeder" --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'After the artisan command finishes the output of the command will be displayed in your terminal.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Tinker',
+                        'id' => 'cloud-environments-artisan-commands-tinker',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Creating a Tinker session for a specific cloud environment is also supported using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan tinker --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf cloud-artisan tinker --environment stage</span>',
+                            '<span class="inline-code">surf cloud-artisan tinker --environment production</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'Please be patient when running any artisan command on a cloud environment as it can take some time due to the need to run a new task on ECS.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'AWS CLI',
+                        'id' => 'cloud-environments-aws-cli',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Direct interaction with cloud infrastructure is supported without needing to natively install the AWS CLI.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'AWS CLI v2 commands can be executed using the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf aws <command>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">surf aws s3 ls</span>',
+                            '<span class="inline-code">surf aws s3 ls s3://my-bucket</span>',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Health Checks',
+                        'id' => 'cloud-environments-aws-cli',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'As part the of project generation, LaraSurf has automatically added the route <span class="inline-code">/api/healthcheck</span> which returns a <span class="inline-code">200</span>.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'This is used for the Load Balancer\'s Target Group.',
+                    ],
+                ],
+            ],
         ],
     ];
 

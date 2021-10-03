@@ -68,7 +68,7 @@ body::-webkit-scrollbar-thumb,
 
 .documentation .inline-code {
     white-space: pre;
-    @apply text-red-400 bg-gray-100 py-1;
+    @apply text-red-400 bg-gray-100 py-1 rounded-lg;
     padding-left: 0.333rem;
     padding-right: 0.333rem;
     font-weight: 700;
