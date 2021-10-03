@@ -25,12 +25,21 @@
                             @elseif($content['type'] === 'paragraph')
                                 <p class="my-3">{!! $content['html'] !!}</p>
                             @elseif($content['type'] === 'callout')
-                                <div class="my-3 flex bg-gray-100 rounded p-3">
+                                <div class="my-3 p-3 flex bg-gray-100 rounded">
                                     <div class="flex-shrink pr-3">
                                         <span class="twa twa-ocean"></span>
                                     </div>
                                     <div class="flex-grow">
                                         <p>{!! $content['html'] !!}</p>
+                                    </div>
+                                </div>
+                            @elseif($content['type'] === 'code')
+                                <div class="code-container text-right">
+                                    <div>
+                                        <button class="copy-code cursor-pointer hover:text-gray-400 active:text-black" data-code="{{ $content['text'] }}">copy</button>
+                                    </div>
+                                    <div class="code my-3 p-3 bg-gray-100 rounded text-left">
+                                        <pre>{{ $content['text'] }}</pre>
                                     </div>
                                 </div>
                             @elseif($content['type'] === 'image')

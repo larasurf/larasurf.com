@@ -12,7 +12,14 @@ body {
     font-family: "Plus Jakarta Sans";
     font-weight: 400;
 }
-body::-webkit-scrollbar-track
+body::-webkit-scrollbar-track,
+.documentation .code::-webkit-scrollbar-track
+{
+    background-color: #FFFFFF;
+}
+
+body::-webkit-scrollbar,
+.documentation .code::-webkit-scrollbar
 {
     background-color: #FFFFFF;
 }
@@ -20,10 +27,14 @@ body::-webkit-scrollbar-track
 body::-webkit-scrollbar
 {
     width: 10px;
-    background-color: #FFFFFF;
+}
+.documentation .code::-webkit-scrollbar
+{
+    height: 10px;
 }
 
-body::-webkit-scrollbar-thumb
+body::-webkit-scrollbar-thumb,
+.documentation .code::-webkit-scrollbar-thumb
 {
     @apply bg-gray-400;
     border-radius: 10px;
@@ -51,12 +62,21 @@ body::-webkit-scrollbar-thumb
     @apply underline text-black hover:text-gray-400;
 }
 
-.documentation a.header-link {
+.documentation a.header-link,
+.documentation a.copy-code {
     text-decoration: none;
 }
 
 .documentation .inline-code {
     white-space: pre;
-    @apply text-red-400 bg-gray-100 px-1;
-    font-size: 90%;
+    @apply text-red-400 bg-gray-100 py-1;
+    padding-left: 0.333rem;
+    padding-right: 0.333rem;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.documentation .code {
+    overflow-x: scroll;
+    white-space: nowrap;
 }

@@ -1,7 +1,3 @@
-import "@fontsource/plus-jakarta-sans/400.css"
-import "@fontsource/plus-jakarta-sans/500.css"
-import "@fontsource/plus-jakarta-sans/700.css"
-import "@fontsource/plus-jakarta-sans/800.css"
 import { createApp } from 'vue';
 
 import MainMenu from './components/MainMenu.vue';
@@ -9,3 +5,22 @@ import MainMenu from './components/MainMenu.vue';
 require('./bootstrap');
 
 createApp(MainMenu).mount('#main-menu');
+
+const setupCopyButtons = () => {
+    const copyButtons = document.querySelectorAll('.copy-code');
+
+    for (let i = 0; i < copyButtons.length; i++) {
+        copyButtons[i].addEventListener('click', (e) => {
+            if (e && e.target && e.target.dataset && e.target.dataset.code) {
+                navigator.clipboard.writeText(e.target.dataset.code);
+            }
+        });
+    }
+}
+
+const fadeInContent = () => {
+    document.querySelector('body').classList.remove('opacity-0');
+}
+
+setupCopyButtons();
+fadeInContent();

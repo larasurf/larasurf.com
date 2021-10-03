@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/fonts.js') }}"></script>
 
     <title>@yield('title', 'LaraSurf')</title>
 
@@ -25,7 +26,7 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="antialiased bg-white overflow-y-scroll">
+<body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
     <div class="z-10">
         <nav class="relative px-6 py-9">
             <div class="hidden lg:flex">
@@ -61,5 +62,6 @@
         </footer>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts', '')
 </body>
 </html>
