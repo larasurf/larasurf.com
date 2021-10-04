@@ -28,31 +28,29 @@
 </head>
 <body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
     <div class="z-10">
-        <nav class="relative px-6 py-9">
+        <nav class="relative px-6 py-9 mx-auto">
             <div class="hidden lg:flex">
-                <div class="w-1/6"></div>
-                <div class="w-1/12 text-3xl font-extrabold">
+                <div class="w-1/6 text-3xl font-extrabold text-left">
                     <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
                 </div>
-                <div class="w-1/2 flex mt-2 justify-center">
-                    <div class="w-2/5 text-right font-medium">
-                        <a href="/docs" class="transition hover:text-gray-400">Documentation</a>
+                <div class="w-2/3 flex mt-2 justify-center">
+                    <div class="text-right font-medium">
+                        <a href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                     </div>
-                    <div class="w-1/5 text-center font-medium mx-10">
-                        <a href="/how-it-works" class="transition hover:text-gray-400">How it works</a>
+                    <div id="how-it-works-container" class="text-center font-medium">
+                        <a href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                     </div>
-                    <div class="w-2/5 text-left font-medium">
-                        <a href="/pricing" class="transition hover:text-gray-400">Pricing</a>
+                    <div class="text-left font-medium">
+                        <a href="/pricing" class="nav-link transition hover:text-gray-400 {{ Route::is('pricing') ? 'underline' : '' }}">Pricing</a>
                     </div>
                 </div>
-                <div class="w-1/6 flex justify-start pt-2 font-medium">
+                <div class="w-1/6 flex justify-end pt-2 font-medium">
                     <x-button-link href="/new">Start Surfin' <span class="twa twa-ocean"></span></x-button-link>
                 </div>
-                <div class="1/12"></div>
             </div>
             <div id="main-menu"></div>
         </nav>
-        <div id="content">
+        <div id="content" class="px-6 mx-auto">
             @yield('content')
         </div>
     </div>

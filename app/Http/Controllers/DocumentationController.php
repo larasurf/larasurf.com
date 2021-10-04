@@ -1207,7 +1207,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf composer --version</span>.'
+                        'html' => 'For example:'
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf composer --version'
                     ],
                     [
                         'type' => 'heading-1',
@@ -1224,7 +1228,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf yarn --version</span>.'
+                        'html' => 'For example:'
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf yarn --version'
                     ],
                     [
                         'type' => 'callout',
@@ -1245,7 +1253,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf npx --version</span>.'
+                        'html' => 'For example:'
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf npx --version'
                     ],
                     [
                         'type' => 'heading-1',
@@ -1262,7 +1274,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf node --version</span>.'
+                        'html' => 'For example:'
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf node --version'
                     ],
                     [
                         'type' => 'heading-1',
@@ -1279,7 +1295,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf awslocal --version</span>.'
+                        'html' => 'For example:'
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf awslocal --version'
                     ],
                     [
                         'type' => 'heading-1',
@@ -1296,7 +1316,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf artisan tinker</span>.'
+                        'html' => 'For example:'
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf artisan tinker'
                     ],
                     [
                         'type' => 'heading-1',
@@ -1334,7 +1358,15 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf test</span> or <span class="inline-code">surf test --filter MyTest</span>.',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf test',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf test --filter MyTest',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1394,7 +1426,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf config get aws-profile</span>.',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf config get aws-profile',
                     ],
                     [
                         'type' => 'heading-2',
@@ -1407,11 +1443,15 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf config set <key> <value></value>',
+                        'text' => 'surf config set <key> <value>',
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf config set aws-profile profile-name</span>.',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf config set aws-profile profile-name',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1505,7 +1545,11 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf cloud-domains hosted-zone-exists --domain example.com</span>.',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains hosted-zone-exists --domain example.com',
                     ],
                     [
                         'type' => 'heading-2',
@@ -1522,7 +1566,11 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf cloud-domains create-hosted-zone --domain example.com</span>.',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains create-hosted-zone --domain example.com',
                     ],
                     [
                         'type' => 'callout',
@@ -1543,7 +1591,11 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example: <span class="inline-code">surf cloud-domains nameservers --domain example.com</span>.',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains nameservers --domain example.com',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1611,11 +1663,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-images create-repos --environment stage</span>',
-                            '<span class="inline-code">surf cloud-images create-repos --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-images create-repos --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-images create-repos --environment production',
                     ],
                     [
                         'type' => 'callout',
@@ -1639,11 +1692,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-images delete-repos --environment stage</span>',
-                            '<span class="inline-code">surf cloud-images delete-repos --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-images delete-repos --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-images delete-repos --environment production',
                     ],
                     [
                         'type' => 'callout',
@@ -1709,11 +1763,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-stacks create --environment stage</span>',
-                            '<span class="inline-code">surf cloud-stacks create --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks create --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks create --environment production',
                     ],
                     [
                         'type' => 'paragraph',
@@ -1763,11 +1818,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-stacks update --environment stage</span>',
-                            '<span class="inline-code">surf cloud-stacks update --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks update --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks update --environment production',
                     ],
                     [
                         'type' => 'paragraph',
@@ -1799,11 +1855,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-stacks delete --environment stage</span>',
-                            '<span class="inline-code">surf cloud-stacks delete --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks delete --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks delete --environment production',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1840,11 +1897,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-vars list --environment stage</span>',
-                            '<span class="inline-code">surf cloud-vars list --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars list --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars list --environment production',
                     ],
                     [
                         'type' => 'heading-3',
@@ -1868,11 +1926,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-vars list --values --environment stage</span>',
-                            '<span class="inline-code">surf cloud-vars list --values --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars list --values --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars list --values --environment production',
                     ],
                     [
                         'type' => 'heading-2',
@@ -1892,11 +1951,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-vars get --environment stage --key APP_KEY</span>',
-                            '<span class="inline-code">surf cloud-vars get --environment production --key APP_KEY</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars get --environment stage --key APP_KEY',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars get --environment production --key APP_KEY',
                     ],
                     [
                         'type' => 'heading-2',
@@ -1916,11 +1976,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-vars set --environment stage --key SOME_API_KEY --value a1b2c3d4</span>',
-                            '<span class="inline-code">surf cloud-vars set --environment production --key SOME_API_KEY --value a1b2c3d4</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars set --environment stage --key SOME_API_KEY --value a1b2c3d4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars set --environment production --key SOME_API_KEY --value a1b2c3d4',
                     ],
                     [
                         'type' => 'heading-2',
@@ -1940,11 +2001,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-vars delete --environment stage --key SOME_API_KEY</span>',
-                            '<span class="inline-code">surf cloud-vars delete --environment production --key SOME_API_KEY</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars delete --environment stage --key SOME_API_KEY',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars delete --environment production --key SOME_API_KEY',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1985,19 +2047,44 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type application --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type application --source public</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type application --source 1.2.3.4</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type database --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment stage --type database --source 1.2.3.4</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment production --type application --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment production --type application --source public</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment production --type application --source 1.2.3.4</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment production --type database --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress allow --environment production --type database --source 1.2.3.4</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment stage --type application --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment stage --type application --source public',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment stage --type application --source 1.2.3.4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment stage --type database --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment stage --type database --source 1.2.3.4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment production --type application --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment production --type application --source public',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment production --type application --source 1.2.3.4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment production --type database --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress allow --environment production --type database --source 1.2.3.4',
                     ],
                     [
                         'type' => 'callout',
@@ -2021,19 +2108,44 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type application --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type application --source public</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type application --source 1.2.3.4</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type database --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment stage --type database --source 1.2.3.4</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type application --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type application --source public</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type application --source 1.2.3.4</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type database --source me</span>',
-                            '<span class="inline-code">surf cloud-ingress revoke --environment production --type database --source 1.2.3.4</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment stage --type application --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment stage --type application --source public',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment stage --type application --source 1.2.3.4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment stage --type database --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment stage --type database --source 1.2.3.4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment production --type application --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment production --type application --source public',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment production --type application --source 1.2.3.4',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment production --type database --source me',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress revoke --environment production --type database --source 1.2.3.4',
                     ],
                     [
                         'type' => 'heading-2',
@@ -2053,13 +2165,20 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-ingress list --environment stage --type application</span>',
-                            '<span class="inline-code">surf cloud-ingress list --environment stage --type database</span>',
-                            '<span class="inline-code">surf cloud-ingress list --environment production --type application</span>',
-                            '<span class="inline-code">surf cloud-ingress list --environment production --type database</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress list --environment stage --type application',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress list --environment stage --type database',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress list --environment production --type application',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress list --environment production --type database',
                     ],
                     [
                         'type' => 'heading-1',
@@ -2146,11 +2265,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-emails verify-domain --environment stage</span>',
-                            '<span class="inline-code">surf cloud-emails verify-domain --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-emails verify-domain --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-emails verify-domain --environment production',
                     ],
                     [
                         'type' => 'callout',
@@ -2171,7 +2291,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'Please allow AWS up to 24 hours to respond to your request.',
+                        'html' => 'Please allow up to 24 hours for AWS to respond to your request.',
                     ],
                     [
                         'type' => 'heading-1',
@@ -2234,11 +2354,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-artisan "migrate:fresh --seed" --environment stage</span>',
-                            '<span class="inline-code">surf cloud-artisan "db:seed --class MySeeder" --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan "migrate:fresh --seed" --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan "db:seed --class MySeeder" --environment production',
                     ],
                     [
                         'type' => 'paragraph',
@@ -2262,11 +2383,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf cloud-artisan tinker --environment stage</span>',
-                            '<span class="inline-code">surf cloud-artisan tinker --environment production</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan tinker --environment stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan tinker --environment production',
                     ],
                     [
                         'type' => 'callout',
@@ -2294,11 +2416,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'For example:',
                     ],
                     [
-                        'type' => 'list',
-                        'items' => [
-                            '<span class="inline-code">surf aws s3 ls</span>',
-                            '<span class="inline-code">surf aws s3 ls s3://my-bucket</span>',
-                        ],
+                        'type' => 'code',
+                        'text' => 'surf aws s3 ls',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf aws s3 ls s3 s3://my-bucket',
                     ],
                     [
                         'type' => 'heading-1',

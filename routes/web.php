@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::get('/docs', [DocumentationController::class, 'view']);
+Route::get('/docs', [DocumentationController::class, 'view'])->name('docs');

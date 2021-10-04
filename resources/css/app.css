@@ -40,6 +40,19 @@ body::-webkit-scrollbar-thumb,
     border-radius: 10px;
 }
 
+.nav-link {
+    text-underline-offset: 10px;
+}
+
+nav,
+#content {
+    max-width: 1200px;
+}
+
+#how-it-works-container {
+    margin: 0 140px;
+}
+
 .hero-icon {
     background-position: center;
     background-repeat: no-repeat;
@@ -54,16 +67,37 @@ body::-webkit-scrollbar-thumb,
     background-image: url('/img/deploy.png');
 }
 
+.documentation-menu {
+    min-width: 300px;
+}
+
+.documentation {
+    max-width: calc(1200px - 300px - 3rem);
+}
+
+@media (max-width: 1204px) {
+    .documentation {
+        max-width: 100%;
+    }
+}
+
 .documentation strong {
     font-weight: 700;
 }
 
 .documentation a {
-    @apply underline text-black hover:text-gray-400;
+    text-decoration: underline;
+    color: #0092FF;
+}
+
+.documentation a:hover {
+    text-decoration: underline;
+    @apply text-gray-400;
 }
 
 .documentation a.header-link {
     text-decoration: none;
+    color: #000000;
 }
 
 .documentation .inline-code {
@@ -78,4 +112,14 @@ body::-webkit-scrollbar-thumb,
 .documentation .code {
     overflow-x: scroll;
     white-space: nowrap;
+}
+
+.documentation .copy-code {
+    background-image: url('/img/copy.png');
+    background-repeat: no-repeat;
+    background-position: top right;
+    object-fit: contain;
+}
+.documentation .copy-code:active {
+    filter: invert(0);
 }
