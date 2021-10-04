@@ -824,8 +824,8 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'heading-1',
-                        'text' => 'CircleCI Workflows',
-                        'id' => 'project-lifecycle-circleci-workflows',
+                        'text' => 'CircleCI Pipeline',
+                        'id' => 'project-lifecycle-circleci-pipeline',
                     ],
                     [
                         'type' => 'paragraph',
@@ -841,7 +841,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For more information, see the <a href="#circleci-workflows">CircleCI Workflows</a> documentation.',
+                        'html' => 'For more information, see the <a href="#circleci-pipeline">CircleCI Pipeline</a> documentation.',
                     ],
                 ],
             ],
@@ -1250,7 +1250,7 @@ class DocumentationController extends Controller
                         'type' => 'image',
                         'src' => '/img/circleci-project-setup.png',
                         'alt' => 'CircleCI Project Setup',
-                        'class' => 'w-full lg:w-2/3'
+                        'class' => 'w-full lg:w-3/5'
                     ],
                     [
                         'type' => 'paragraph',
@@ -2195,8 +2195,8 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'text' => 'surf cloud-vars list --environment production',
                     ],
                     [
-                        'type' => 'heading-3',
-                        'text' => 'Including Values',
+                        'type' => 'heading-2',
+                        'text' => 'Listing with Values',
                         'id' => 'cloud-environments-environment-variables-list-values',
                     ],
                     [
@@ -2538,8 +2538,8 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'text' => 'surf cloud-vars put --environment production --key MAIL_MAILER --value ses',
                     ],
                     [
-                        'type' => 'heading-3',
-                        'text' => 'Domain Verification',
+                        'type' => 'heading-2',
+                        'text' => 'SES Domain Verification',
                         'id' => 'cloud-environments-email-sending-aws-ses-domain-verification',
                     ],
                     [
@@ -2567,8 +2567,8 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'The <span class="inline-code">verify-domain</span> subcommand must be done after the stack has been created for an environment.',
                     ],
                     [
-                        'type' => 'heading-3',
-                        'text' => 'Enabling Live Emails',
+                        'type' => 'heading-2',
+                        'text' => 'SES Enabling Live Emails',
                         'id' => 'cloud-environments-email-sending-aws-ses-enabling-live-emails',
                     ],
                     [

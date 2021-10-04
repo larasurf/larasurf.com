@@ -18,13 +18,13 @@ body::-webkit-scrollbar-track,
     background-color: #FFFFFF;
 }
 
+body::-webkit-scrollbar {
+    width: 30px;
+}
+
 body::-webkit-scrollbar,
 .documentation .code::-webkit-scrollbar {
     background-color: #FFFFFF;
-}
-
-body::-webkit-scrollbar {
-    width: 10px;
 }
 
 .documentation .code::-webkit-scrollbar {
@@ -34,7 +34,14 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb,
 .documentation .code::-webkit-scrollbar-thumb {
     @apply bg-gray-400;
-    border-radius: 10px;
+    border-radius: 15px;
+    background-clip: content-box;
+}
+
+body::-webkit-scrollbar-thumb:vertical {
+    @apply bg-gray-400;
+    border: 10px solid transparent;
+    height: 120px;
 }
 
 .nav-link {
@@ -47,7 +54,7 @@ nav,
 }
 
 #how-it-works-container {
-    margin: 0 140px;
+    margin: 0 40px;
 }
 
 .hero-icon {
