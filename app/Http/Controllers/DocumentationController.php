@@ -547,7 +547,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'heading-1',
                         'text' => 'Deploy to Production',
-                        'id' => 'tldr-checklist-deploy-to-stage',
+                        'id' => 'tldr-checklist-deploy-to-production',
                     ],
                     [
                         'type' => 'checkbox',

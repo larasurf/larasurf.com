@@ -5,7 +5,7 @@
 @section('content')
     <div class="relative flex">
         <div class="hidden lg:block documentation-menu">
-            Menu
+            <div id="docs-menu"></div>
         </div>
         <div class="documentation">
             @foreach($docs as $doc)
@@ -90,5 +90,8 @@
 @endsection
 
 @section('scripts')
-
+    <script type="text/javascript">
+        window.larasurfDocs = @json($docs);
+    </script>
+    <script src="{{ asset('js/documentation.js') }}"></script>
 @endsection
