@@ -365,6 +365,296 @@ class DocumentationController extends Controller
                 ],
             ],
             [
+                'title' => 'TL;DR Checklist',
+                'id' => 'tldr-checklist',
+                'content' => [
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The following is a TL;DR checklist for:'
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'generating a new project',
+                            'deploying to a stage environment',
+                            'deploying to a production environment',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'We <strong>strongly encourage</strong> you to read the documentation in its entirety before getting started.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'This checklist assumes you have completed all prerequisites so be sure you have read and done everything required as described in the <a href="#prerequisites">Prerequisites</a> section.'
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Generating a New Project',
+                        'id' => 'tldr-checklist-generating-a-new-project',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Generate a new Project using the command from <a href="/new" target="_blank">larasurf.com/new</a>',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Alias the <span class="inline-code">surf</span> command if you have not already done so',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => '([[ -f ~/.bash_profile ]] && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile || (echo "source ~/.bashrc" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile)) && source ~/.bash_profile',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Create a <a href="https://github.com/new" target="_blank">new GitHub repository</a> for your project, whose name should exactly match the project name (slug) of your LaraSurf project and be in lowercase. If you are unsure of this value, you can run the following command to get the project name: <span class="inline-code">surf config get project-name</span>.',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Set remote origin',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git remote add origin git@github.com:my-org/my-project.git',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Push up the <span class="inline-code">develop</span> branch',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git push -u origin develop',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Create a <a href="https://app.circleci.com/settings/user/tokens" target="_blank">new Personal API Token on CircleCI</a>',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Configure LaraSurf with the CircleCI personal API token',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf circleci set-api-key/my-project.git',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Configure the AWS CLI if you have not already done so',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf aws configure',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Deploy to Stage',
+                        'id' => 'tldr-checklist-deploy-to-stage',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Create the container image repositories on AWS ECR',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-images create-repos --environment stage',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Commit and push the changes to the <span class="inline-code">develop</span> branch',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git add .',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git commit -m "[skip ci] larasurf init stage"',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git push',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Build the container images for the Stage environment using CircleCI',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git checkout stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git merge develop',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git push -u origin stage',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Create the stack using AWS CloudFormation',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-stacks create --environment stage',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Configure the Stage environment to use MailTrap',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_HOST --value smtp.mailtrap.io',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_PORT --value 2525',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_USERNAME --value <your SMTP username>',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_PASSWORD --value <your SMTP password>',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_ENCRYPTION --value tls',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Deploy to Production',
+                        'id' => 'tldr-checklist-deploy-to-stage',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Create the container image repositories on AWS ECR',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git checkout develop',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-images create-repos --environment production',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Commit and push the changes to the <span class="inline-code">develop</span> branch',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git add .',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git commit -m "[skip ci] larasurf init production"',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git push',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Build the container images for the Production environment using CircleCI',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git checkout stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git merge develop',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git push',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git checkout main',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git merge stage',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'git push -u origin main',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Create the stack using AWS CloudFormation',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-stacks create --environment production',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Verify the production domain for email sending',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-emails verify domain --environment production',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Request to get out of the AWS SES sandbox if not already done so',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-emails enable-sending',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Allow public ingress for the application',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-ingress allow --environment production --type application --source public',
+                    ],
+                ],
+            ],
+            [
                 'title' => 'Project Lifecycle',
                 'id' => 'project-lifecycle',
                 'content' => [
@@ -715,7 +1005,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'In order to generate a new LaraSurf project, visit <a href="https://larasurf.com/new" target="_blank">larasurf.com/new</a> in your browser.',
+                        'html' => 'In order to generate a new LaraSurf project, visit <a href="/new" target="_blank">larasurf.com/new</a> in your browser.',
                     ],
                     [
                         'type' => 'paragraph',

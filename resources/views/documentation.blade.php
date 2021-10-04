@@ -35,13 +35,13 @@
                             </div>
                         </div>
                     @elseif($content['type'] === 'code')
-                        <div class="code-container text-right">
+                        <div class="code-container text-right {{ $content['class'] ?? '' }}">
                             @if($content['show-copy-button'] ?? true)
                                 <div class="relative">
                                     <button class="absolute right-0 copy-code transition px-3 py-3 mt-1 mr-1 filter hover:invert" data-code="{{ $content['text'] }}"></button>
                                 </div>
                             @endif
-                            <div class="code mt-3 pt-6 p-3 bg-gray-100 rounded text-left">
+                            <div class="code my-3 pt-6 p-3 bg-gray-100 rounded text-left">
                                 <pre>{{ $content['text'] }}</pre>
                             </div>
                         </div>
@@ -52,6 +52,19 @@
                     @elseif($content['type'] === 'quote')
                         <div class="my-3 flex border-black border-l-4 pl-3">
                             <p class="italic">{!! $content['html'] !!}</p>
+                        </div>
+                    @elseif($content['type'] === 'checkbox')
+                        <div class="flex my-2">
+                            <label class="checkbox bounce">
+                                <span class="flex">
+                                    <span><input type="checkbox">
+                                        <svg viewBox="0 0 21 21">
+                                            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span class="checkbox-content">{!! $content['html'] !!}</span>
+                                </span>
+                            </label>
                         </div>
                     @elseif($content['type'] === 'list')
                         <ul class="my-3">
