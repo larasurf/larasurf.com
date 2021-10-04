@@ -10,6 +10,7 @@ module.exports = {
             none: 'none',
             disc: 'disc',
             circle: 'circle',
+            square: 'square',
         },
         extend: {},
     },

@@ -67,6 +67,18 @@ nav,
     background-image: url('/img/deploy.png');
 }
 
+.list-disc {
+    margin-left: 1.5rem;
+}
+
+.list-circle {
+    margin-left: 3rem;
+}
+
+.list-square {
+    margin-left: 4.5rem;
+}
+
 .documentation-menu {
     min-width: 300px;
 }
@@ -98,6 +110,10 @@ nav,
 .documentation a.header-link {
     text-decoration: none;
     color: #000000;
+}
+
+.documentation a.header-link:hover {
+    @apply text-gray-400;
 }
 
 .documentation .inline-code {

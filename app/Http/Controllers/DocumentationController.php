@@ -2426,15 +2426,468 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'heading-1',
                         'text' => 'Health Checks',
-                        'id' => 'cloud-environments-aws-cli',
+                        'id' => 'cloud-environments-health-checks',
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'As part the of project generation, LaraSurf has automatically added the route <span class="inline-code">/api/healthcheck</span> which returns a <span class="inline-code">200</span>.',
+                        'html' => 'As part of project generation, LaraSurf has automatically added the route <span class="inline-code">/api/healthcheck</span> which returns a <span class="inline-code">200</span>.',
                     ],
                     [
                         'type' => 'paragraph',
                         'html' => 'This is used for the Load Balancer\'s Target Group.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'LaraSurf CLI Reference',
+                'id' => 'larasurf-cli-reference',
+                'content' => [
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'CircleCI',
+                        'id' => 'larasurf-cli-reference-circleci',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf circleci <subcommand>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">set-api-key</span>: set the CircleCI API token',
+                                '<span class="inline-code">clear-api-key</span>: clear the stored CircleCI API token',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Artisan',
+                        'id' => 'larasurf-cli-reference-cloud-artisan',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-artisan "<command>" --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">command</span>: the command to run, in quotes',
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environment</span>: the cloud environment',
+                            [
+                                '<span class="inline-code">stage</span>',
+                                '<span class="inline-code">production</span>',
+                            ]
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Domains',
+                        'id' => 'larasurf-cli-reference-cloud-domains',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-domains <subcommand> --domain <domain>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">hosted-zone-exists</span>: check if a Hosted Zone exists for the domain',
+                                '<span class="inline-code">create-hosted-zone</span>: create a Hosted Zone for the domain',
+                                '<span class="inline-code">nameservers</span>: get the nameservers for a Hosted Zone by domain',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">domain</span>: the domain name',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Emails',
+                        'id' => 'larasurf-cli-reference-cloud-emails',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-emails <subcommand> --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">verify-domain</span>: verify the environment\'s domain name for email sending, both SPF and DKIM',
+                                '<span class="inline-code">check-verification</span>: check SPF and DKIM verification for the environment\'s domain name',
+                                '<span class="inline-code">enable-sending</span>: request to get out of the AWS SES sandbox',
+                                [
+                                    'does not require the <span class="inline-code">environment</span> option'
+                                ],
+                                '<span class="inline-code">check-sending</span>: check if live email sending is enabled (not in sandbox)',
+                                [
+                                    'does not require the <span class="inline-code">environment</span> option'
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environment</span>: the cloud environment',
+                            [
+                                '<span class="inline-code">stage</span>',
+                                '<span class="inline-code">production</span>',
+                            ]
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Images',
+                        'id' => 'larasurf-cli-reference-cloud-images',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-images <subcommand> --environment <environment>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">create-repos</span>: create container image repositories on AWS ECR for the specified environment',
+                                '<span class="inline-code">delete-repos</span>: delete container image repositories on AWS ECR for the specified environment',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environment</span>: the cloud environment',
+                            [
+                                '<span class="inline-code">stage</span>',
+                                '<span class="inline-code">production</span>',
+                            ]
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Ingress',
+                        'id' => 'larasurf-cli-reference-cloud-ingress',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-ingress <subcommand> --environment <environment> --type <type> --source <source>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">allow</span>: allow ingress of the specified type from the specified source for the specified environment',
+                                '<span class="inline-code">revoke</span>: revoke ingress of the specified type from the specified source for the specified environment',
+                                '<span class="inline-code">list</span>: list ingress rules of the specified type for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">type</span> or <span class="inline-code">source</span> options'
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environment</span>: the cloud environment',
+                            [
+                                '<span class="inline-code">stage</span>',
+                                '<span class="inline-code">production</span>',
+                            ],
+                            '<span class="inline-code">type</span>: the ingress type',
+                            [
+                                '<span class="inline-code">application</span>',
+                                '<span class="inline-code">database</span>',
+                            ],
+                            '<span class="inline-code">source</span>: the ingress source',
+                            [
+                                '<span class="inline-code">me</span>',
+                                '<span class="inline-code">public</span>',
+                                'any IPv4 address',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Stacks',
+                        'id' => 'larasurf-cli-reference-cloud-stacks',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-stacks <subcommand> --environment <environment> --key <key>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">status</span>: get the status of the stack for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">key</span> option'
+                                ],
+                                '<span class="inline-code">create</span>: create the stack for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">key</span> option'
+                                ],
+                                '<span class="inline-code">update</span>: update the stack for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">key</span> option'
+                                ],
+                                '<span class="inline-code">delete</span>: delete the stack for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">key</span> option'
+                                ],
+                                '<span class="inline-code">wait</span>: wait for the current stack changes for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">key</span> option'
+                                ],
+                                '<span class="inline-code">output</span>: get the specified stack output for the specified environment',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environment</span>: the cloud environment',
+                            [
+                                '<span class="inline-code">stage</span>',
+                                '<span class="inline-code">production</span>',
+                            ],
+                            '<span class="inline-code">key</span>: the stack output key',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Users',
+                        'id' => 'larasurf-cli-reference-cloud-users',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-users <subcommand> --user <user>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">create</span>: create the specified cloud user',
+                                '<span class="inline-code">delete</span>: delete the specified cloud user',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">user</span>: the user to create or delete',
+                            [
+                                '<span class="inline-code">circleci</span>',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Vars',
+                        'id' => 'larasurf-cli-reference-cloud-vars',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf cloud-vars <subcommand> --environment <environment> --key <key> --value <value> --values',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">exists</span>: determines if a cloud variable under the specified key exists for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">value</span> or <span class="inline-code">values</span> options',
+                                ],
+                                '<span class="inline-code">get</span>: gets the value of the cloud variable under the specified key for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">value</span> or <span class="inline-code">values</span> options',
+                                ],
+                                '<span class="inline-code">put</span>: sets or overwrites the value of a cloud variable under the specified key with the specified value for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">values</span> option',
+                                ],
+                                '<span class="inline-code">delete</span>: deletes the cloud variable under the specified key for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">value</span> or <span class="inline-code">values</span> options',
+                                ],
+                                '<span class="inline-code">list</span>: lists the existing cloud variables for the specified environment',
+                                [
+                                    'does not require the <span class="inline-code">key</span> or <span class="inline-code">value</span> options',
+                                    'the <span class="inline-code">values</span> option is optional',
+                                ],
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environment</span>: the cloud environment',
+                            [
+                                '<span class="inline-code">stage</span>',
+                                '<span class="inline-code">production</span>',
+                            ],
+                            '<span class="inline-code">key</span>: the cloud variable key',
+                            '<span class="inline-code">value</span>: the cloud variable value',
+                            '<span class="inline-code">values</span>: specifies the listed cloud variables should display decrypted values',
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Cloud Vars',
+                        'id' => 'larasurf-cli-reference-config',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf config <subcommand> <key> <value?>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Arguments:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">subcommand</span>: the subcommand to run',
+                            [
+                                '<span class="inline-code">get</span>: get the value under the specified key',
+                                '<span class="inline-code">set</span>: set the value under the specified key to the specified value',
+                            ],
+                            '<span class="inline-code">key</span>: the configuration key',
+                            [
+                                'supports dot notation',
+                            ],
+                            '<span class="inline-code">value</span>: the value to set',
+                            [
+                                'only required for the <span class="inline-code">set</span> subcommand',
+                            ],
+                        ],
                     ],
                 ],
             ],

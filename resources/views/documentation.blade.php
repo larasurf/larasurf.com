@@ -58,10 +58,16 @@
                             @foreach($content['items'] as $item)
                                 @if (is_array($item))
                                     @foreach($item as $subitem)
-                                        <li class="list-circle my-1 ml-12">{!! $subitem !!}</li>
+                                        @if (is_array($subitem))
+                                            @foreach ($subitem as $subsubitem)
+                                                <li class="list-square my-1">{!! $subsubitem !!}</li>
+                                            @endforeach
+                                        @else
+                                            <li class="list-circle my-1">{!! $subitem !!}</li>
+                                        @endif
                                     @endforeach
                                 @else
-                                    <li class="list-disc my-1 ml-6">{!! $item !!}</li>
+                                    <li class="list-disc my-1">{!! $item !!}</li>
                                 @endif
                             @endforeach
                         </ul>
