@@ -35,12 +35,19 @@
                     @elseif($content['type'] === 'code')
                         <div class="code-container text-right text-lg {{ $content['class'] ?? '' }}">
                             @if($content['show-copy-button'] ?? true)
-                                <div class="relative">
-                                    <button class="absolute right-0 copy-code transition px-3 py-3 mt-1 mr-1 filter hover:invert" data-code="{{ $content['text'] }}"></button>
+                                <div class="relative copy-code-container">
+                                    <div class="absolute w-24 overflow-x-hidden right-0 copy-code-gradient-container">
+                                        <div class="transition z-10 absolute right-0 copy-code-gradient-right w-24 flex justify-end items-center"></div>
+                                    </div>
+                                    <button class="z-20 absolute right-0 mt-1 w-10 h-10 copy-code transition filter hover:invert" data-code="{{ $content['text'] }}"></button>
                                 </div>
                             @endif
-                            <div class="code my-3 pt-6 p-3 bg-gray-100 rounded text-left">
-                                <pre>{{ $content['text'] }}</pre>
+                            <div class="code my-3 p-3 bg-gray-100 rounded text-left flex dont-show-gradient-left">
+                                <div class="absolute w-24 -mt-3 -ml-3 overflow-x-hidden copy-code-gradient-container">
+                                    <div class="transition absolute w-24 copy-code-gradient-left"></div>
+                                </div>
+                                <pre class="pr-3">{{ $content['text'] }}</pre>
+                                <div class="ml-6"></div>
                             </div>
                         </div>
                     @elseif($content['type'] === 'image')
