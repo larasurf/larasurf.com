@@ -44,6 +44,11 @@ body::-webkit-scrollbar-thumb:vertical {
     height: 120px;
 }
 
+body::-webkit-scrollbar-thumb:horizontal {
+    @apply bg-gray-400;
+    border: 10px solid transparent;
+}
+
 .nav-link {
     text-underline-offset: 10px;
 }

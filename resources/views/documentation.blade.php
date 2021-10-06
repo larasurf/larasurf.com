@@ -46,7 +46,7 @@
                                 <div class="absolute w-24 -mt-3 -ml-4 overflow-x-hidden copy-code-gradient-container">
                                     <div class="rounded-lg transition absolute w-24 copy-code-gradient-left"></div>
                                 </div>
-                                <pre>{{ $content['text'] }}</pre>
+                                <pre class="pr-2">{{ $content['text'] }}</pre>
                                 <div class="ml-6"></div>
                             </div>
                         </div>
