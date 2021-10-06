@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="relative flex">
-        <div class="hidden lg:block documentation-menu">
+        <div class="hidden xl:block documentation-menu">
             <div id="docs-menu"></div>
         </div>
         <div class="documentation">

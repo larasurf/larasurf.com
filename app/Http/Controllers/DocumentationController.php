@@ -3146,7 +3146,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'heading-1',
-                        'text' => 'Cloud Vars',
+                        'text' => 'Config',
                         'id' => 'larasurf-cli-reference-config',
                     ],
                     [
