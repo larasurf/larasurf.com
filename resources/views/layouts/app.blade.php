@@ -29,7 +29,7 @@
 <body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
     <div class="z-10">
         <nav class="relative px-6 py-9 mx-auto">
-            <div class="hidden xl:flex">
+            <div class="hidden lg:flex">
                 <div class="w-1/6 text-3xl font-extrabold text-left">
                     <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
                 </div>
