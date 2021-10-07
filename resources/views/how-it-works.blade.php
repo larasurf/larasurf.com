@@ -3,7 +3,7 @@
 @section('title', 'How it works - LaraSurf')
 
 @section('content')
-    <div class="relative how-it-works documentation mr-2 lg:mx-auto">
+    <div class="relative how-it-works documentation lg:mx-auto">
         <x-heading-1 id="title" margin-top="1">How it works</x-heading-1>
         <x-paragraph>LaraSurf is a turnkey solution for hitting the ground running with a fresh Laravel application in a matter of hours instead of days (or weeks), kickstarting your next application by simplifying environment prerequisites and interactions.</x-paragraph>
         <x-heading-2 id="mission">Mission</x-heading-2>

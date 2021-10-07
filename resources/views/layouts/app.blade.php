@@ -26,7 +26,7 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0 -mr-2 lg:mr-0">
+<body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0 lg:mr-0">
     <div class="z-10">
         <nav class="relative px-6 py-9 mx-auto">
             <div class="hidden lg:flex">
