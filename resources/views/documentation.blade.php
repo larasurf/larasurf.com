@@ -3,11 +3,11 @@
 @section('title', 'Documentation - LaraSurf')
 
 @section('content')
-    <div class="relative flex">
+    <div class="relative flex -mr-3 lg:mr-0">
         <div class="hidden lg:block documentation-menu">
             <div id="docs-menu"></div>
         </div>
-        <div class="documentation">
+        <div class="documentation lg:ml-12">
             @foreach($docs as $doc)
                 <h1 id="{{ $doc['id'] }}" class="text-3xl font-bold mt-12 mb-6">
                     <span class="twa twa-ocean"></span> <a class="header-link" href="/docs#{{ $doc['id'] }}">{{ $doc['title'] }}</a>
@@ -24,7 +24,7 @@
                     @elseif($content['type'] === 'paragraph')
                         <p class="my-3 text-lg">{!! $content['html'] !!}</p>
                     @elseif($content['type'] === 'callout')
-                        <div class="my-3 p-3 text-lg flex bg-gray-100 rounded-lg">
+                        <div class="my-3 p-3 text-lg flex bg-gray-100">
                             <div class="flex-shrink pr-3">
                                 <span class="twa twa-ocean"></span>
                             </div>
@@ -37,14 +37,14 @@
                             @if($content['show-copy-button'] ?? true)
                                 <div class="relative copy-code-container">
                                     <div class="absolute w-24 overflow-x-hidden right-0 copy-code-gradient-container">
-                                        <div class="rounded-lg transition z-10 absolute right-0 copy-code-gradient-right w-24 flex justify-end items-center"></div>
+                                        <div class="transition z-10 absolute right-0 copy-code-gradient-right w-24 flex justify-end items-center"></div>
                                     </div>
                                     <button class="z-20 absolute right-0 mt-1 w-10 h-10 copy-code transition filter hover:invert" data-code="{{ $content['text'] }}"></button>
                                 </div>
                             @endif
-                            <div class="code my-3 p-3 pl-4 bg-gray-100 rounded-lg text-left flex dont-show-gradient-left">
+                            <div class="code my-3 p-3 pl-4 bg-gray-100 text-left flex dont-show-gradient-left">
                                 <div class="absolute w-24 -mt-3 -ml-4 overflow-x-hidden copy-code-gradient-container">
-                                    <div class="rounded-lg transition absolute w-24 copy-code-gradient-left"></div>
+                                    <div class="transition absolute w-24 copy-code-gradient-left"></div>
                                 </div>
                                 <pre class="pr-2">{{ $content['text'] }}</pre>
                                 <div class="ml-6"></div>

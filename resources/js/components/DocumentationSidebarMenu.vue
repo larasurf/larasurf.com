@@ -34,10 +34,10 @@ export default {
             <div class="text-xl font-bold text-center mt-1 ml-9">v0.1</div>
         </div>
         <div v-for="(item, i) in menu" :key="i">
-            <a :href="`#${item.id}`" class="block menu-item bg-gray-100 font-medium rounded-lg pl-6 py-2 mr-9 hover:text-gray-400">
+            <a :href="`#${item.id}`" class="block menu-item bg-gray-100 font-bold pl-6 py-2 hover:text-gray-400 flex">
                 {{ item.title }}
             </a>
-            <a v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item font-medium rounded-lg pl-9 py-2 mr-9 hover:text-gray-400">
+            <a v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item font-medium pl-9 py-2 mr-9 hover:text-gray-400">
                 {{ subitem.title }}
             </a>
         </div>

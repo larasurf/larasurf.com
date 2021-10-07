@@ -1024,7 +1024,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'If this is your first time generating a project with LaraSurf, after the project generation completes the command <span class="inline-code">surf</span> should be aliased to <span class="inline-code">vendor/larasurf/larasurf/bin/surf.sh</span>.',
+                        'html' => 'If this is your first time generating a project with LaraSurf, after the project generation completes the command <span class="inline-code">surf</span> should be aliased to: <span class="inline-code">vendor/larasurf/larasurf/bin/surf.sh</span>.',
                     ],
                     [
                         'type' => 'paragraph',
