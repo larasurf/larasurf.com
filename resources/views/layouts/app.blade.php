@@ -26,7 +26,7 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0 lg:mr-0">
+<body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
     <div class="z-10">
         <nav class="relative px-6 py-9 mx-auto">
             <div class="hidden lg:flex">
@@ -51,12 +51,10 @@
             <div id="main-menu"></div>
         </nav>
         <div id="content" class="px-6 mx-auto">
-            <div class="-mr-3 lg:mr-0">
-                @yield('content')
-            </div>
+            @yield('content')
         </div>
     </div>
-    <div id="footer" class="z-10 mt-32 md:mt-64 mb-12 sm:mb-6 relative">
+    <div id="footer" class="z-10 mt-32 md:mt-64 mb-24 sm:mb-12 relative">
         <footer class="text-center text-sm font-medium">
             &copy; {{ date('Y') }} - LaraSurf LLC
         </footer>

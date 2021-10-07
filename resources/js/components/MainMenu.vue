@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="mr-3">
         <div class="flex lg:hidden justify-center mb-3">
             <div class="w-2/3 text-3xl font-extrabold text-left">
                 <a href="/" class="transition hover:text-gray-400">LaraSurf</a>

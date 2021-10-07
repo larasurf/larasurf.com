@@ -36,4 +36,5 @@
         <x-paragraph>Of course, you are free to customize your project however you wish. Out-of-the-box LaraSurf is intended to be starting point and can be built on top of.</x-paragraph>
         <x-callout>For a more in depth description of assumptions made by LaraSurf, head on over to the <a href="/docs">Overview</a> section of the documentation.</x-callout>
     </div>
+    <x-back-to-top-button css-class="lg:hidden"></x-back-to-top-button>
 @endsection

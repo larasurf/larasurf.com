@@ -65,4 +65,5 @@
             @endforeach
         </div>
     </div>
+    <x-back-to-top-button></x-back-to-top-button>
 @endsection

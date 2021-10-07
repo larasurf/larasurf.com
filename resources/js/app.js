@@ -35,7 +35,25 @@ const setupCopyButtons = () => {
             }
         });
     }
-}
+};
+
+const setupBackToTopButton = () => {
+    const backToTop = document.querySelector('#back-to-top-button');
+
+    if (backToTop) {
+        backToTop.addEventListener('click', (e) => {
+            window.scrollTo(0, 0);
+        });
+
+        window.addEventListener('scroll', (e) => {
+            if (window.scrollY > 50) {
+                backToTop.classList.add('scrolled');
+            } else {
+                backToTop.classList.remove('scrolled');
+            }
+        });
+    }
+};
 
 const fadeInContent = () => {
     document.querySelector('body').classList.remove('opacity-0');
@@ -43,4 +61,5 @@ const fadeInContent = () => {
 
 setupCodeBlockScrolling();
 setupCopyButtons();
+setupBackToTopButton();
 fadeInContent();

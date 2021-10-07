@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative">
+    <div class="relative mr-3">
         <div class="flex justify-center mt-16 lg:mt-48">
             <div class="text-center">
                 <h1 class="text-5xl font-medium">Build with LaraSurf</h1>

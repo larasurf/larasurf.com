@@ -150,7 +150,8 @@ nav,
 }
 
 .documentation .inline-code {
-    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-word;
     @apply text-red-400 bg-gray-100 py-1 rounded-lg;
     padding-left: 0.333rem;
     padding-right: 0.333rem;
@@ -300,4 +301,23 @@ nav,
 
 .how-it-works {
     max-width: calc(850px - 3rem);
+}
+
+#back-to-top-button {
+    bottom: 2rem;
+    right: 1.5rem;
+    cursor: pointer;
+    transform: translateY(5rem);
+    opacity: 0;
+}
+
+#back-to-top-button.scrolled {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+@media (min-width: 1024px) {
+    #back-to-top-button {
+        right: calc((100vw - 75rem) / 2 + 0.5rem);
+    }
 }
