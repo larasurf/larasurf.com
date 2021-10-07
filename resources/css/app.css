@@ -297,3 +297,7 @@ nav,
         transform: scale(1);
     }
 }
+
+.how-it-works {
+    max-width: calc(850px - 3rem);
+}

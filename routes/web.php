@@ -19,3 +19,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/docs', [DocumentationController::class, 'view'])->name('docs');
+
+Route::get('/how-it-works', function () {
+    return view('how-it-works');
+})->name('how-it-works');
