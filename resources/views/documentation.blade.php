@@ -3,23 +3,38 @@
 @section('title', 'Documentation - LaraSurf')
 
 @section('content')
-    <div class="relative flex -mr-3 lg:mr-0">
-        <div class="hidden lg:block documentation-menu">
-            <div id="docs-menu"></div>
+    <div class="relative block lg:flex">
+        <div class="documentation-menu">
+            <div class="flex mb-3">
+                <div class="text-2xl font-bold flex-grow">Documentation</div>
+                <div class="text-xl font-bold text-center mt-1 ml-9 lg:mr-9">v0.1</div>
+            </div>
+            @foreach($docs as $doc)
+                <a href="#{{ $doc['id'] }}" class="block menu-item bg-gray-100 font-bold pl-6 py-2 hover:text-gray-400 flex">
+                    {{ $doc['title'] }}
+                </a>
+                @foreach($doc['content'] as $content)
+                    @if ($content['type'] === 'heading-1')
+                        <a href="#{{ $content['id'] }}" class="block menu-item font-medium pl-9 py-2 mr-9 hover:text-gray-400">
+                            {{ $content['text'] }}
+                        </a>
+                    @endif
+                @endforeach
+            @endforeach
         </div>
-        <div class="documentation lg:ml-12">
+        <div class="w-full lg:w-auto documentation lg:ml-12">
             @foreach($docs as $doc)
                 <h1 id="{{ $doc['id'] }}" class="text-3xl font-bold mt-12 mb-6">
-                    <span class="twa twa-ocean"></span> <a class="header-link" href="/docs#{{ $doc['id'] }}">{{ $doc['title'] }}</a>
+                    <span class="twa twa-ocean"></span> <a class="header-link" href="#{{ $doc['id'] }}">{{ $doc['title'] }}</a>
                 </h1>
                 @foreach ($doc['content'] as $content)
                     @if($content['type'] === 'heading-1')
                         <h2 id="{{ $content['id'] }}" class="text-2xl font-bold mt-12 mb-3">
-                            <a class="header-link" href="/docs#{{ $content['id'] }}">{{ $content['text'] }}</a>
+                            <a class="header-link" href="#{{ $content['id'] }}">{{ $content['text'] }}</a>
                         </h2>
                     @elseif($content['type'] === 'heading-2')
                         <h3 id="{{ $content['id'] }}" class="text-lg font-bold mt-6 mb-3">
-                            <a class="header-link" href="/docs#{{ $content['id'] }}">{{ $content['text'] }}</a>
+                            <a class="header-link" href="#{{ $content['id'] }}">{{ $content['text'] }}</a>
                         </h3>
                     @elseif($content['type'] === 'paragraph')
                         <p class="my-3 text-lg">{!! $content['html'] !!}</p>
@@ -94,11 +109,4 @@
             @endforeach
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script type="text/javascript">
-        window.larasurfDocs = @json($docs);
-    </script>
-    <script src="{{ asset('js/documentation.js') }}"></script>
 @endsection

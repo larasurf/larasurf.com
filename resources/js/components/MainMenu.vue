@@ -66,6 +66,7 @@ export default {
                    'border-black': true,
                    'px-6': true,
                    'py-3': true,
+                   '-mr-3': true,
                }"
                 >{{ menuWord }}</a>
             </div>

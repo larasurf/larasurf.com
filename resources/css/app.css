@@ -93,7 +93,21 @@ nav,
 }
 
 .documentation-menu {
-    min-width: 300px;
+    min-width: 100%;
+}
+
+.documentation-menu .menu-item {
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .documentation-menu {
+        min-width: 300px;
+    }
+
+    .documentation-menu .menu-item {
+        width: 264px;
+    }
 }
 
 .documentation {
@@ -189,8 +203,8 @@ nav,
     --background: #fff;
     --border: #d1d6ee;
     --border-hover: #bbc1e1;
-    --border-active: #1e2235;
-    --tick: #fff;
+    --border-active: #000000;
+    --tick: #ffffff;
     position: relative;
     cursor: pointer;
 }
@@ -270,18 +284,6 @@ nav,
 
 .code-checklist {
     padding-left: 2rem;
-}
-
-@-webkit-keyframes bounce {
-    50% {
-        transform: scale(1.2);
-    }
-    75% {
-        transform: scale(0.9);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 
 @keyframes bounce {
