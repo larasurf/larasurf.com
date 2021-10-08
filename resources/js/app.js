@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 
 import MainMenu from './components/MainMenu.vue';
 
+require('fslightbox');
 require('./bootstrap');
 
 createApp(MainMenu).mount('#main-menu');

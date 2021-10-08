@@ -322,3 +322,12 @@ nav,
         right: calc((100vw - 75rem) / 2 + 0.5rem);
     }
 }
+
+.fslightbox-slide-btn-container,
+.fslightbox-slide-number-container {
+    display: none !important;
+}
+
+.fslightbox-container > .fslightbox-absoluted {
+    pointer-events: none;
+}

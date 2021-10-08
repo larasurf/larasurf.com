@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@fontsource/plus-jakarta-sans": "^4.5.0",
+        "fslightbox": "^3.3.0-2",
         "vue": "^3.2.19"
     }
 }
