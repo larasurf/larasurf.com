@@ -56,11 +56,22 @@ const setupBackToTopButton = () => {
     }
 };
 
+const setupLightboxExitOnClick = () => {
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('fslightbox-container')) {
+            fsLightbox.close();
+        }
+    });
+};
+
 const fadeInContent = () => {
     document.querySelector('body').classList.remove('opacity-0');
 }
 
-setupCodeBlockScrolling();
-setupCopyButtons();
-setupBackToTopButton();
-fadeInContent();
+window.addEventListener('load', (e) => {
+    setupCodeBlockScrolling();
+    setupCopyButtons();
+    setupBackToTopButton();
+    setupLightboxExitOnClick();
+    fadeInContent();
+});
