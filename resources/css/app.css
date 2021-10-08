@@ -133,6 +133,7 @@ nav,
 .documentation a {
     text-decoration: underline;
     color: #0092FF;
+    font-weight: 700;
 }
 
 .documentation a:hover {
@@ -160,7 +161,7 @@ nav,
 }
 
 .documentation .code {
-    overflow-x: scroll;
+    overflow-x: auto;
     white-space: nowrap;
 }
 
@@ -279,7 +280,7 @@ nav,
 
 .checkbox-content {
     position: relative;
-    bottom: 2px;
+    bottom: 3px;
     padding-left: 0.75rem;
 }
 
