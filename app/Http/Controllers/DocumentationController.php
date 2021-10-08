@@ -227,7 +227,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'It is assumed that every LaraSurf project will have the following needs and/or characteristics',
+                        'html' => 'It is assumed that every LaraSurf project will have the following needs and/or characteristics:',
                     ],
                     [
                         'type' => 'heading-2',
