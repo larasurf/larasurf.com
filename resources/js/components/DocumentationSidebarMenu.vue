@@ -2,9 +2,9 @@
 export default {
     data() {
         return {
-            menuExpanded: false,
+            menuExpanded: !!window.location.hash,
             menuItemsOnPage: [],
-            lastSurfIconPosition: { x: 0, y: 0},
+            lastSurfIconPosition: { x: -1000, y: -1000 },
             enableScrollAdjustment: true,
         };
     },
@@ -25,10 +25,26 @@ export default {
         },
     },
     mounted() {
+        const url = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+        document.querySelectorAll('a').forEach((el) => {
+            if (el.href.startsWith(`${url}#`) && !el.classList.contains('menu-item')) {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    window.location.hash = el.href.replace(url, '');
+                });
+            }
+        });
+
         window.addEventListener('scroll', (e) => {
             this.menuExpanded = window.scrollY > 80;
             this.updateSurfIconPosition();
         });
+
+        window.addEventListener('hashchange', (e) => {
+            this.onHashChange();
+        }, false);
 
         const options = {
             root: null,
@@ -56,23 +72,9 @@ export default {
                 observer.observe(document.querySelector(`#${this.menu[i].subitems[ii].id}`));
             }
         }
+
         if (window.location.hash) {
-            window.setTimeout(() => {
-                const el = document.querySelector(window.location.hash);
-
-                if (el) {
-                    this.enableScrollAdjustment = false;
-
-                    el.scrollIntoView({
-                        behavior: 'smooth',
-                    });
-
-                    window.setTimeout(() => {
-                        this.enableScrollAdjustment = true;
-                        this.updateSurfIconPosition();
-                    }, 1000);
-                }
-            }, 150);
+            this.onHashChange();
         }
     },
     methods: {
@@ -84,11 +86,6 @@ export default {
                     }
                 }
             });
-        },
-        getSurfIconPosition() {
-
-
-            return null;
         },
         updateSurfIconPosition() {
             const itemOnPage = this.menuItemsOnPage.find((item) => item.isOnPage);
@@ -137,6 +134,26 @@ export default {
                 window.setTimeout(() => this.enableScrollAdjustment = true, 1000);
             }
         },
+        onHashChange() {
+            window.setTimeout(() => {
+                const el = document.querySelector(window.location.hash);
+
+                console.log(el);
+
+                if (el) {
+                    this.enableScrollAdjustment = false;
+
+                    el.scrollIntoView({
+                        behavior: 'smooth',
+                    });
+
+                    window.setTimeout(() => {
+                        this.enableScrollAdjustment = true;
+                        this.updateSurfIconPosition();
+                    }, 1000);
+                }
+            }, 150);
+        }
     },
     watch: {
         menuExpanded: function (newValue, oldValue) {
@@ -192,14 +209,6 @@ export default {
 <style scoped>
 #menu-surf-icon {
     transition: all 150ms;
-}
-.documentation-intersection {
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 50vh;
-    width: 100vw;
 }
 .menu-wrapper {
     transition: top 150ms;
