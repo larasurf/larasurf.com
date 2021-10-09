@@ -2153,6 +2153,10 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'text' => 'surf cloud-stacks delete --environment production',
                     ],
                     [
+                        'type' => 'callout',
+                        'html' => 'Some resources will not be deleted as part of stack deletion, such as the S3 bucket, parameters in SSM Parameter Store, and the ACM certificate. These resources will need to be deleted manually through the AWS web console (if desired).',
+                    ],
+                    [
                         'type' => 'heading-1',
                         'text' => 'Environment Variables',
                         'id' => 'cloud-environments-environment-variables',
@@ -2725,6 +2729,19 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'paragraph',
                         'html' => 'This is used for the Load Balancer\'s Target Group.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Logs',
+                        'id' => 'cloud-environments-logs',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Container logs for the webserver, application, queue workers, and scheduler are all shipped to CloudWatch.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'These logs can be viewed in the AWS web console and are prefixed by project name, environment, and source type.',
                     ],
                 ],
             ],

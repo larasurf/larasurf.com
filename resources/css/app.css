@@ -13,38 +13,35 @@ body {
     font-weight: 400;
 }
 
-body::-webkit-scrollbar-track,
-.documentation .code::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background-color: #FFFFFF;
 }
 
-body::-webkit-scrollbar {
+::-webkit-scrollbar {
+    background-color: #FFFFFF;
+}
+
+::-webkit-scrollbar:vertical {
     width: 30px;
 }
 
-body::-webkit-scrollbar,
-.documentation .code::-webkit-scrollbar {
-    background-color: #FFFFFF;
-}
-
-.documentation .code::-webkit-scrollbar {
+::-webkit-scrollbar:horizontal {
     height: 30px;
 }
 
-body::-webkit-scrollbar-thumb,
-.documentation .code::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     @apply bg-gray-400;
     border-radius: 15px;
     background-clip: content-box;
 }
 
-body::-webkit-scrollbar-thumb:vertical {
+::-webkit-scrollbar-thumb:vertical {
     @apply bg-gray-400;
     border: 10px solid transparent;
     height: 120px;
 }
 
-.documentation .code::-webkit-scrollbar-thumb:horizontal {
+::-webkit-scrollbar-thumb:horizontal {
     @apply bg-gray-400;
     border: 10px solid transparent;
     width: 100px;
@@ -117,12 +114,14 @@ nav,
 @media (min-width: 1024px) {
     .documentation {
         max-width: calc(850px - 12rem);
+        margin-left: 305px;
     }
 }
 
 @media (min-width: 1200px) {
     .documentation {
         max-width: calc(850px - 3rem);
+        margin-left: 348px;
     }
 }
 

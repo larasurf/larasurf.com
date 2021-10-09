@@ -4,7 +4,8 @@
 
 @section('content')
     <div class="relative block lg:flex">
-        <div class="documentation-menu">
+        <div id="docs-menu" class="hidden lg:block"></div>
+        <div class="documentation-menu lg:hidden">
             <div class="flex mb-3">
                 <div class="text-2xl font-bold flex-grow">Documentation</div>
                 <div class="text-xl font-bold text-center mt-1 ml-9 lg:mr-9">v0.1</div>
@@ -22,7 +23,7 @@
                 @endforeach
             @endforeach
         </div>
-        <div class="w-full lg:w-auto documentation lg:ml-12">
+        <div class="w-full lg:w-auto documentation">
             @foreach($docs as $doc)
                 <x-heading-1 :id="$doc['id']">{{ $doc['title'] }}</x-heading-1>
                 @foreach ($doc['content'] as $content)
@@ -66,4 +67,11 @@
         </div>
     </div>
     <x-back-to-top-button></x-back-to-top-button>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        window.larasurfDocs = @json($docs);
+    </script>
+    <script src="{{ asset('js/documentation.js') }}"></script>
 @endsection
