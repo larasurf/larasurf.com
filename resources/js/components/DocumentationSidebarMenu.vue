@@ -5,6 +5,7 @@ export default {
             menuExpanded: false,
             menuItemsOnPage: [],
             lastSurfIconPosition: { x: 0, y: 0},
+            enableScrollAdjustment: true,
         };
     },
     computed: {
@@ -55,6 +56,24 @@ export default {
                 observer.observe(document.querySelector(`#${this.menu[i].subitems[ii].id}`));
             }
         }
+        if (window.location.hash) {
+            window.setTimeout(() => {
+                const el = document.querySelector(window.location.hash);
+
+                if (el) {
+                    this.enableScrollAdjustment = false;
+
+                    el.scrollIntoView({
+                        behavior: 'smooth',
+                    });
+
+                    window.setTimeout(() => {
+                        this.enableScrollAdjustment = true;
+                        this.updateSurfIconPosition();
+                    }, 1000);
+                }
+            }, 150);
+        }
     },
     methods: {
         onMenuItemIntersect(entries, observer) {
@@ -87,27 +106,42 @@ export default {
                         y: pos.y - 50 + scrollMenu.scrollTop,
                     };
 
-                    if (pos.y > screen.height / 2) {
-                        scrollMenu.scrollTo({
-                            top: menuItem.offsetTop - screen.height / 2 + 100,
-                            left: 0,
-                            behavior: 'smooth',
-                        });
-                    } else if (surfIcon.getBoundingClientRect().y < 300) {
-                        scrollMenu.scrollTo({
-                            top: menuItem.offsetTop - 300,
-                            left: 0,
-                            behavior: 'smooth',
-                        });
+                    if (this.enableScrollAdjustment) {
+                        if (pos.y > screen.height / 2) {
+                            scrollMenu.scrollTo({
+                                top: menuItem.offsetTop - screen.height / 2 + 100,
+                                left: 0,
+                                behavior: 'smooth',
+                            });
+                        } else if (surfIcon.getBoundingClientRect().y < 300) {
+                            scrollMenu.scrollTo({
+                                top: menuItem.offsetTop - 300,
+                                left: 0,
+                                behavior: 'smooth',
+                            });
+                        }
                     }
                 }
+            }
+        },
+        onMenuItemClick(id) {
+            const el = document.querySelector(`#${id}`);
+
+            if (el) {
+                this.enableScrollAdjustment = false;
+
+                el.scrollIntoView({
+                    behavior: 'smooth',
+                })
+
+                window.setTimeout(() => this.enableScrollAdjustment = true, 1000);
             }
         },
     },
     watch: {
         menuExpanded: function (newValue, oldValue) {
             if (newValue) {
-                setTimeout(() => {
+                window.setTimeout(() => {
                     this.updateSurfIconPosition();
                 }, 150);
             }
@@ -143,10 +177,10 @@ export default {
                     left: this.lastSurfIconPosition.x + 'px',
                 }"></div>
                 <div v-for="(item, i) in menu" :key="i" class="mr-3">
-                    <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400 flex">
+                    <a :id="`menu-${item.id}`" :href="`#${item.id}`" @click="onMenuItemClick(item.id)" class="block menu-item bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400 flex">
                         {{ item.title }}
                     </a>
-                    <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item font-medium pl-12 py-2 hover:text-gray-400">
+                    <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" @click="onMenuItemClick(subitem.id)" class="block menu-item font-medium pl-12 py-2 hover:text-gray-400">
                         {{ subitem.title }}
                     </a>
                 </div>
