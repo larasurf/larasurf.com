@@ -75,16 +75,31 @@ export default {
             const itemOnPage = this.menuItemsOnPage.find((item) => item.isOnPage);
 
             if (itemOnPage) {
-                const el = document.querySelector(`#menu-${itemOnPage.id}`);
+                const menuItem = document.querySelector(`#menu-${itemOnPage.id}`);
                 const scrollMenu = document.querySelector('.docs-sidebar-menu');
+                const surfIcon = document.querySelector('#menu-surf-icon');
 
-                if (el && scrollMenu) {
-                    const pos = el.getBoundingClientRect();
+                if (menuItem && scrollMenu) {
+                    const pos = menuItem.getBoundingClientRect();
 
                     this.lastSurfIconPosition = {
                         x: itemOnPage.isSubitem ? 20 : 10,
                         y: pos.y - 50 + scrollMenu.scrollTop,
                     };
+
+                    if (pos.y > screen.height / 2) {
+                        scrollMenu.scrollTo({
+                            top: menuItem.offsetTop - screen.height / 2 + 100,
+                            left: 0,
+                            behavior: 'smooth',
+                        });
+                    } else if (surfIcon.getBoundingClientRect().y < 300) {
+                        scrollMenu.scrollTo({
+                            top: menuItem.offsetTop - 300,
+                            left: 0,
+                            behavior: 'smooth',
+                        });
+                    }
                 }
             }
         },

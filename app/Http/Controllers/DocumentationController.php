@@ -1631,7 +1631,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'The above command will keep the queue worker open until the process is exited with <span class="inline-code">Ctrl + C</span>.',
+                        'html' => 'The above command will keep the queue worker open until the process is exited with <span class="inline-code">Ctrl+C</span>.',
                     ],
                     [
                         'type' => 'heading-1',
