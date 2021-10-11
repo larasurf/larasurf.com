@@ -3,7 +3,7 @@ export default {
     data() {
         return {
             isOpen: false,
-        }
+        };
     },
     computed: {
         menuWord: function() {

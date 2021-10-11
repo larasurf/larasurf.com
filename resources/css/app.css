@@ -13,6 +13,11 @@ body {
     font-weight: 400;
 }
 
+input[type='radio'] {
+    accent-color: #000000;
+    transform: scale(1.25);
+}
+
 ::-webkit-scrollbar-track {
     background-color: #FFFFFF;
 }
