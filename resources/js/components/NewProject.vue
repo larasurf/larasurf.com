@@ -18,7 +18,13 @@ export default {
     },
     computed: {
         isValid: function () {
-            return /^[a-z0-9-]{1,20}$/.test(this.projectName);
+            return /^[a-z0-9-]{1,20}$/.test(this.projectName) &&
+                this.projectPortAwsLocal &&
+                this.projectPortMailUi &&
+                this.projectPortApp &&
+                this.projectPortAppTls &&
+                this.projectPortDatabase &&
+                this.projectPortCache;
         }
     },
     mounted() {},
@@ -37,6 +43,26 @@ export default {
                 e.preventDefault();
             }
         },
+        onProjectGenerateClick() {
+            const params = {
+                name: this.projectName,
+                environments: this.projectEnvironments,
+                'starter-kit': this.projectStarterKit,
+                'port-awslocal': this.projectPortAwsLocal,
+                'port-mail-ui': this.projectPortMailUi,
+                'port-app': this.projectPortApp,
+                'port-app-tls': this.projectPortAppTls,
+                'port-database': this.projectPortDatabase,
+                'port-cache': this.projectPortCache,
+                'ide-helper': this.projectIdeHelper,
+                'cs-fixer': this.projectCodeStyleFixer,
+                'local-tls': this.projectUseTlsLocally,
+            };
+
+            const query = (new URLSearchParams(params)).toString();
+
+            window.location.href = `/new?${query}`;
+        },
     },
 }
 </script>
@@ -45,12 +71,12 @@ export default {
     <div class="flex flex-wrap">
         <div class="w-full">
             <label class="block text-xl font-bold" for="project-name">Project Name</label>
-            <input @keydown="onProjectNameKeydown($event)" @change="onProjectNameChange()" v-model="projectName" id="project-name" class="appearance-none border border-black rounded-lg w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="my-startup-idea"/>
+            <input @keydown="onProjectNameKeydown($event)" @change="onProjectNameChange()" v-model="projectName" id="project-name" class="appearance-none border border-black rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="my-startup-idea"/>
             <div class="text-sm">
                 Lowercase, alphanumeric, and hyphens only
             </div>
         </div>
-        <div class="w-full lg:w-1/2 mt-9 pr-0 lg:pr-6">
+        <div class="w-full mt-12">
             <div class="block text-xl font-bold">Environments</div>
             <div class="mt-3">
                 <input id="project-environments-local-stage-production" name="project-environments" value="local-stage-production" v-model="projectEnvironments" type="radio" checked/>
@@ -65,7 +91,8 @@ export default {
                 <label for="project-environments-local" class="ml-2">Local</label>
             </div>
         </div>
-        <div class="w-full lg:w-1/2 mt-9 pl-0 lg:pl-6">
+        <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
+        <div class="w-full lg:w-1/2 pr-0 lg:pr-12">
             <div class="block text-xl font-bold">Starter Kit</div>
             <div class="mt-3">
                 <input id="project-starter-kit-none" name="project-starter-kit" value="none" v-model="projectStarterKit" type="radio" checked/>
@@ -100,42 +127,7 @@ export default {
                 <label for="project-starter-kit-jetstream-livewire" class="ml-2">Jetstream: Livewire (without teams)</label>
             </div>
         </div>
-        <div class="w-full lg:w-1/2 mt-9 pr-0 lg:pr-6">
-            <div class="mt-3">
-                <div class="text-xl font-bold">Host Docker-Compose Ports</div>
-            </div>
-            <div class="mt-3 flex">
-                <div class="w-1/2 pr-2">
-                    <label for="project-port-awslocal" class="block">AWS Local</label>
-                    <input id="project-port-awslocal" v-model="projectPortAwsLocal" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
-                </div>
-                <div class="w-1/2 pl-2">
-                    <label for="project-port-mail-ui" class="block">Mail UI</label>
-                    <input id="project-port-mail-ui" v-model="projectPortMailUi" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
-                </div>
-            </div>
-            <div class="mt-3 flex">
-                <div class="w-1/2 pr-2">
-                    <label for="project-port-app" class="block">Application</label>
-                    <input id="project-port-app" v-model="projectPortApp" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
-                </div>
-                <div class="w-1/2 pl-2">
-                    <label for="project-port-app-tls" class="block">Application (TLS)</label>
-                    <input id="project-port-app-tls" v-model="projectPortAppTls" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
-                </div>
-            </div>
-            <div class="mt-3 flex">
-                <div class="w-1/2 pr-2">
-                    <label for="project-port-database" class="block">Database</label>
-                    <input id="project-port-database" v-model="projectPortDatabase" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
-                </div>
-                <div class="w-1/2 pl-2">
-                    <label for="project-port-cache" class="block">Cache</label>
-                    <input id="project-port-cache" v-model="projectPortCache" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
-                </div>
-            </div>
-        </div>
-        <div class="w-full lg:w-1/2 mt-9 pl-0 lg:pl-6">
+        <div class="w-full lg:w-1/2 pl-0 lg:pl-12">
             <div class="block text-xl font-bold">Miscellaneous</div>
             <div class="flex mt-3 text-lg">
                 <label class="checkbox bounce">
@@ -175,23 +167,69 @@ export default {
                 </label>
             </div>
         </div>
-        <div class="w-full text-right mt-9">
+        <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
+        <div class="w-full lg:w-1/2">
+            <div class="text-xl font-bold">Docker-Compose Host Ports</div>
+            <div class="text-sm">
+                These are the ports on your local machine that will be bound to services run by docker-compose. The specified ports must be available on your local machine. If you aren't sure, proceed with the defaults.
+            </div>
+            <div class="mt-3 flex">
+                <div class="w-1/2 pr-2">
+                    <label for="project-port-awslocal" class="block">AWS Local</label>
+                    <input id="project-port-awslocal" v-model="projectPortAwsLocal" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                </div>
+                <div class="w-1/2 pl-2">
+                    <label for="project-port-mail-ui" class="block">Mail UI</label>
+                    <input id="project-port-mail-ui" v-model="projectPortMailUi" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                </div>
+            </div>
+            <div class="mt-3 flex">
+                <div class="w-1/2 pr-2">
+                    <label for="project-port-app" class="block">Application</label>
+                    <input id="project-port-app" v-model="projectPortApp" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                </div>
+                <div class="w-1/2 pl-2">
+                    <label for="project-port-app-tls" class="block">Application (TLS)</label>
+                    <input id="project-port-app-tls" v-model="projectPortAppTls" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                </div>
+            </div>
+            <div class="mt-3 flex">
+                <div class="w-1/2 pr-2">
+                    <label for="project-port-database" class="block">Database</label>
+                    <input id="project-port-database" v-model="projectPortDatabase" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                </div>
+                <div class="w-1/2 pl-2">
+                    <label for="project-port-cache" class="block">Cache</label>
+                    <input id="project-port-cache" v-model="projectPortCache" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                </div>
+            </div>
+        </div>
+        <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
+        <div class="w-full">
             <button
-               class="
-                   transition
-                   bg-black
-                   hover:bg-white
-                   border-2
-                   border-black
-                   text-white
-                   hover:text-black
-                   active:bg-black
-                   active:text-white
-                   rounded-lg
-                   px-6
-                   py-3"
+                @click="onProjectGenerateClick()"
+                :class="{
+                    transition: true,
+                    'bg-black': isValid,
+                    'bg-gray-200': !isValid,
+                    'hover:bg-white': isValid,
+                    'border-2': true,
+                    'border-black': isValid,
+                    'border-gray-200': !isValid,
+                    'text-white': true,
+                    'hover:text-black': isValid,
+                    'active:bg-black': isValid,
+                    'active:text-white': isValid,
+                    'px-6': true,
+                    'py-3': true,
+                    'rounded-lg': true,
+                }"
+                :disabled="!isValid"
                 >Generate My Project
             </button>
+            <div class="inline text-sm ml-3 mt-3" v-if="!isValid">
+                Please check your input
+            </div>
         </div>
     </div>
 </template>
