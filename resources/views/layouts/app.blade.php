@@ -41,7 +41,8 @@
                         <a href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                     </div>
                     <div class="w-1/3 text-left font-medium">
-                        <a href="/pricing" class="nav-link transition hover:text-gray-400 {{ Route::is('pricing') ? 'underline' : '' }}">Pricing</a>
+                        <span class="nav-link line-through">Pricing</span>
+                        <span id="its-free" class="text-xs absolute ml-2">It's free!</span>
                     </div>
                 </div>
                 <div class="w-1/6 flex justify-end pt-2 font-medium">
