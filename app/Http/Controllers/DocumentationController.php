@@ -46,7 +46,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'While the Laravel ecosystem and what LaraSurf accomplishes may have some overlap, LaraSurf focuses on automating integrations between multiple technologies and providing a developer with everything they need to start a new project with growth and scale in mind.',
+                        'html' => 'While the Laravel ecosystem and what LaraSurf accomplishes may have some overlap, LaraSurf focuses on automating integrations between multiple technologies and providing a developer with everything they need to start a new project with cloud environments in mind.',
                     ],
                     [
                         'type' => 'paragraph',
@@ -719,7 +719,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Enter your project name, select your desired configuration options, copy the displayed command into your terminal (with a working directory of where you want the new project directory created), and execute the command.',
+                        'html' => 'Enter your project name, select your desired configuration options, click "Generate My Project", copy the displayed command into your terminal (with a working directory of where you want the new project directory created), and execute the command.',
                     ],
                     [
                         'type' => 'image',
@@ -2934,8 +2934,8 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'heading-1',
-                        'text' => 'Generating a New Project',
-                        'id' => 'tldr-checklist-generating-a-new-project',
+                        'text' => 'New Project Setup',
+                        'id' => 'tldr-checklist-new-project-setup',
                     ],
                     [
                         'type' => 'checkbox',
@@ -2987,7 +2987,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'code',
                         'class' => 'code-checklist',
-                        'text' => 'surf circleci set-api-key/my-project.git',
+                        'text' => 'surf circleci set-api-key',
                     ],
                     [
                         'type' => 'checkbox',

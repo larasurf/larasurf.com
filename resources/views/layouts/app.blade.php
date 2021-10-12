@@ -55,9 +55,9 @@
             @yield('content')
         </div>
     </div>
-    <div id="footer" class="z-10 mt-32 md:mt-64 mb-24 sm:mb-12 relative">
+    <div id="footer" class="z-10 mt-32 md:mt-56 mb-24 sm:mb-12 relative">
         <footer class="text-center text-sm font-medium">
-            &copy; {{ date('Y') }} - LaraSurf LLC
+            &copy; {{ date('Y') }} - LaraSurf
         </footer>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>

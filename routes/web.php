@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DocumentationController;
+use App\Http\Controllers\NewProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,4 @@ Route::get('/how-it-works', function () {
     return view('how-it-works');
 })->name('how-it-works');
 
-Route::get('/new', function () {
-    return view('new');
-})->name('new');
+Route::get('/new', [NewProjectController::class, 'view'])->name('new-project');

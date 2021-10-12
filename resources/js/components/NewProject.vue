@@ -54,9 +54,9 @@ export default {
                 'port-app-tls': this.projectPortAppTls,
                 'port-database': this.projectPortDatabase,
                 'port-cache': this.projectPortCache,
-                'ide-helper': this.projectIdeHelper,
-                'cs-fixer': this.projectCodeStyleFixer,
-                'local-tls': this.projectUseTlsLocally,
+                'ide-helper': this.projectIdeHelper ? 'true' : 'false',
+                'cs-fixer': this.projectCodeStyleFixer ? 'true' : 'false',
+                'local-tls': this.projectUseTlsLocally ? 'true' : 'false',
             };
 
             const query = (new URLSearchParams(params)).toString();
@@ -111,19 +111,19 @@ export default {
                 <label for="project-starter-kit-breeze-react" class="ml-2">Breeze (React)</label>
             </div>
             <div class="mt-3">
-                <input id="project-starter-kit-jetstream-inertia-teams" name="project-starter-kit" value="jetstream-inertia-teams" v-model="projectStarterKit" type="radio"/>
+                <input id="project-starter-kit-jetstream-inertia-teams" name="project-starter-kit" value="jet-inertia-teams" v-model="projectStarterKit" type="radio"/>
                 <label for="project-starter-kit-jetstream-inertia-teams" class="ml-2">Jetstream: Inertia (with teams)</label>
             </div>
             <div class="mt-3">
-                <input id="project-starter-kit-jetstream-inertia" name="project-starter-kit" value="jetstream-inertia" v-model="projectStarterKit" type="radio"/>
+                <input id="project-starter-kit-jetstream-inertia" name="project-starter-kit" value="jet-inertia" v-model="projectStarterKit" type="radio"/>
                 <label for="project-starter-kit-jetstream-inertia" class="ml-2">Jetstream: Inertia (without teams)</label>
             </div>
             <div class="mt-3">
-                <input id="project-starter-kit-jetstream-livewire-teams" name="project-starter-kit" value="jetstream-livewire-teams" v-model="projectStarterKit" type="radio"/>
+                <input id="project-starter-kit-jetstream-livewire-teams" name="project-starter-kit" value="jet-livewire-teams" v-model="projectStarterKit" type="radio"/>
                 <label for="project-starter-kit-jetstream-livewire-teams" class="ml-2">Jetstream: Livewire (with teams)</label>
             </div>
             <div class="mt-3">
-                <input id="project-starter-kit-jetstream-livewire" name="project-starter-kit" value="jetstream-livewire" v-model="projectStarterKit" type="radio"/>
+                <input id="project-starter-kit-jetstream-livewire" name="project-starter-kit" value="jet-livewire" v-model="projectStarterKit" type="radio"/>
                 <label for="project-starter-kit-jetstream-livewire" class="ml-2">Jetstream: Livewire (without teams)</label>
             </div>
         </div>
@@ -176,31 +176,31 @@ export default {
             <div class="mt-3 flex">
                 <div class="w-1/2 pr-2">
                     <label for="project-port-awslocal" class="block">AWS Local</label>
-                    <input id="project-port-awslocal" v-model="projectPortAwsLocal" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                    <input id="project-port-awslocal" v-model="projectPortAwsLocal" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
                 </div>
                 <div class="w-1/2 pl-2">
                     <label for="project-port-mail-ui" class="block">Mail UI</label>
-                    <input id="project-port-mail-ui" v-model="projectPortMailUi" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                    <input id="project-port-mail-ui" v-model="projectPortMailUi" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
                 </div>
             </div>
             <div class="mt-3 flex">
                 <div class="w-1/2 pr-2">
                     <label for="project-port-app" class="block">Application</label>
-                    <input id="project-port-app" v-model="projectPortApp" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                    <input id="project-port-app" v-model="projectPortApp" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
                 </div>
                 <div class="w-1/2 pl-2">
                     <label for="project-port-app-tls" class="block">Application (TLS)</label>
-                    <input id="project-port-app-tls" v-model="projectPortAppTls" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                    <input id="project-port-app-tls" v-model="projectPortAppTls" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
                 </div>
             </div>
             <div class="mt-3 flex">
                 <div class="w-1/2 pr-2">
                     <label for="project-port-database" class="block">Database</label>
-                    <input id="project-port-database" v-model="projectPortDatabase" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                    <input id="project-port-database" v-model="projectPortDatabase" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
                 </div>
                 <div class="w-1/2 pl-2">
                     <label for="project-port-cache" class="block">Cache</label>
-                    <input id="project-port-cache" v-model="projectPortCache" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number"/>
+                    <input id="project-port-cache" v-model="projectPortCache" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
                 </div>
             </div>
         </div>

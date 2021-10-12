@@ -134,12 +134,14 @@ nav,
     font-weight: 700;
 }
 
+a.app-link,
 .documentation a {
     text-decoration: underline;
     color: #0092FF;
     font-weight: 700;
 }
 
+a.app-link:hover,
 .documentation a:hover {
     text-decoration: underline;
     @apply text-gray-400;
@@ -164,44 +166,44 @@ nav,
     font-family: monospace;
 }
 
-.documentation .code {
+.code {
     overflow-x: auto;
     white-space: nowrap;
 }
 
-.documentation .copy-code-gradient-container {
+.copy-code-gradient-container {
     height: 3.25rem;
     pointer-events: none;
 }
 
-.documentation .copy-code-gradient-right {
+.copy-code-gradient-right {
     height: 3.25rem;
     background: linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgba(243, 244, 246, 1) 50%);
     transform: translateX(0);
 }
 
-.documentation .code-container.dont-show-gradient-right .copy-code-gradient-right {
+.code-container.dont-show-gradient-right .copy-code-gradient-right {
     transform: translateX(100%);
 }
 
-.documentation .copy-code-gradient-left {
+.copy-code-gradient-left {
     height: 3.25rem;
     background: linear-gradient(90deg, rgba(243,244,246,1) 0%, rgba(243,244,246,0) 100%);
     transform: translateX(0);
 }
 
-.documentation .code.dont-show-gradient-left .copy-code-gradient-left {
+.code.dont-show-gradient-left .copy-code-gradient-left {
     transform: translateX(-100%);
 }
 
-.documentation .copy-code {
+.copy-code {
     background-image: url('/img/copy.png');
     background-repeat: no-repeat;
     background-position: center center;
     object-fit: contain;
 }
 
-.documentation .copy-code:active {
+.copy-code:active {
     filter: invert(0);
 }
 
