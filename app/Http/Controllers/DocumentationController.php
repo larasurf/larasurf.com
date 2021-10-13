@@ -1518,6 +1518,10 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'All commands prefixed with <span class="inline-code">cloud-</span> interact with AWS services.',
                     ],
                     [
+                        'type' => 'callout',
+                        'html' => 'Some of the commands prefixed with <span class="inline-code">cloud-</span> will result in <strong>recurring AWS charges</strong>.',
+                    ],
+                    [
                         'type' => 'heading-1',
                         'text' => 'Domains',
                         'id' => 'cloud-environments-domains',

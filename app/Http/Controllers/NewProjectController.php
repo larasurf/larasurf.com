@@ -36,7 +36,7 @@ class NewProjectController extends Controller
         ) {
             $dev_branch = $request->query('dev-branch');
 
-            $command = "LARASURF_START=$(date +%s) LARASURF_PROJECT_NAME=$name && " .
+            $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) && " .
                 'curl -s ' . ($dev_branch ? '-k ' : '') . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
                 "--environments=$environments ";
 
