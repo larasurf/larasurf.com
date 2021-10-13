@@ -34,9 +34,15 @@ class NewProjectController extends Controller
             $cs_fixer &&
             $local_tls
         ) {
+            $dev_branch = $request->query('dev-branch');
+
             $command = "LARASURF_START=$(date +%s) LARASURF_PROJECT_NAME=$name && " .
-                'curl -s ' . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
+                'curl -s ' . ($dev_branch ? '-k ' : '') . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
                 "--environments=$environments ";
+
+            if ($dev_branch) {
+                $command .= "--dev-branch=$dev_branch ";
+            }
 
             if ($starter_kit !== 'none') {
                 $command .= "--auth=$starter_kit ";

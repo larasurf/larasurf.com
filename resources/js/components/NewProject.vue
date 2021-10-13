@@ -2,6 +2,8 @@
 export default {
     data() {
         return {
+            devMode: false,
+            devBranch: 'main',
             projectName: '',
             projectEnvironments: 'local-stage-production',
             projectStarterKit: 'none',
@@ -24,10 +26,15 @@ export default {
                 this.projectPortApp &&
                 this.projectPortAppTls &&
                 this.projectPortDatabase &&
-                this.projectPortCache;
+                this.projectPortCache &&
+                (!this.devMode || this.devBranch);
         }
     },
-    mounted() {},
+    mounted() {
+        window.startLaraSurfDevMode = () => {
+            this.devMode = true;
+        };
+    },
     methods: {
         onProjectNameChange() {
             this.projectName = this.projectName.replaceAll(/[^[a-z0-9-]/g, '');
@@ -59,6 +66,10 @@ export default {
                 'local-tls': this.projectUseTlsLocally ? 'true' : 'false',
             };
 
+            if (this.devMode) {
+                params['dev-branch'] = this.devBranch;
+            }
+
             const query = (new URLSearchParams(params)).toString();
 
             window.location.href = `/new?${query}`;
@@ -75,6 +86,10 @@ export default {
             <div class="text-sm">
                 Lowercase, alphanumeric, and hyphens only
             </div>
+        </div>
+        <div class="w-full mt-12" v-if="devMode">
+            <label class="block text-xl font-bold" for="dev-branch">Development Branch</label>
+            <input v-model="devBranch" id="dev-branch" class="appearance-none border border-black rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="branch"/>
         </div>
         <div class="w-full mt-12">
             <div class="block text-xl font-bold">Environments</div>
