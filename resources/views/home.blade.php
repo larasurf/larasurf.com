@@ -5,7 +5,9 @@
         <div class="flex justify-center mt-16 lg:mt-48">
             <div class="text-center">
                 <h1 class="text-5xl font-medium">Build with LaraSurf</h1>
-                <h2 class="text-2xl mt-6 mx-6">a way to run Laravel projects on AWS using containers</h2>
+                <div class="text-2xl mt-6 mx-6">
+                    <div id="home-typer"></div>
+                </div>
             </div>
         </div>
         <div class="flex justify-center mt-12 lg:mt-18">
@@ -30,4 +32,8 @@
             </x-button-link>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/home.js') }}"></script>
 @endsection

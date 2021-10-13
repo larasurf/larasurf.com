@@ -8,9 +8,14 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
+body,
+#home-typer .is-typed {
     font-family: "Plus Jakarta Sans";
     font-weight: 400;
+}
+
+#home-typer .is-typed span.cursor {
+    width: 2px;
 }
 
 input[type='radio'] {
