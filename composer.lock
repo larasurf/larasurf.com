@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea19eaf5b395d71621e3fe5bd12b5a1d",
+    "content-hash": "47cec8a76fe9c49332cf48b112391ad0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7271,12 +7271,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:larasurf/larasurf.git",
-                "reference": "53c2a4ea04415ae4b6b3ec61b97f5036f02e9138"
+                "reference": "f368b40e0c404e4df5ba603ac96338c57775e20d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/53c2a4ea04415ae4b6b3ec61b97f5036f02e9138",
-                "reference": "53c2a4ea04415ae4b6b3ec61b97f5036f02e9138",
+                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/f368b40e0c404e4df5ba603ac96338c57775e20d",
+                "reference": "f368b40e0c404e4df5ba603ac96338c57775e20d",
                 "shasum": ""
             },
             "require": {
@@ -7321,7 +7321,7 @@
                 "source": "https://github.com/larasurf/larasurf/tree/main",
                 "issues": "https://github.com/larasurf/larasurf/issues"
             },
-            "time": "2021-09-30T01:02:07+00:00"
+            "time": "2021-10-13T03:36:22+00:00"
         },
         {
             "name": "laravel/sail",
@@ -9837,7 +9837,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
