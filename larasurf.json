@@ -3,7 +3,9 @@
     "project-id": "818192",
     "aws-profile": "default",
     "environments": {
-      "stage": null,
-      "production": null
+        "stage": {
+            "aws-region": "us-east-1"
+        },
+        "production": null
     }
 }
