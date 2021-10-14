@@ -3403,6 +3403,11 @@ jest-worker@^27.0.6:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
+js-confetti@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/js-confetti/-/js-confetti-0.9.0.tgz#e00b5799d39292d0b8a537b696717aec279458d2"
+  integrity sha512-hxcUYGzcuiDlEWgnfPh7aFenXmVgslQF4ddzbPTj+5U1SNCkoUgPlWjUCS5vu2/Pdx3ZKiohk6OiPBPyw5ilRg==
+
 js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"

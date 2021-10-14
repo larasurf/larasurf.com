@@ -138,8 +138,6 @@ export default {
             window.setTimeout(() => {
                 const el = document.querySelector(window.location.hash);
 
-                console.log(el);
-
                 if (el) {
                     this.enableScrollAdjustment = false;
 
