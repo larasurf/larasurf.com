@@ -20,8 +20,7 @@ class RedirectTrailingSlash
     {
         $uri = $request->getRequestUri();
 
-        if (preg_match('/.+\/$/', $uri))
-        {
+        if (preg_match('/.+\/$/', $uri)) {
             return Redirect::to(rtrim($uri, '/'), Response::HTTP_MOVED_PERMANENTLY);
         }
 

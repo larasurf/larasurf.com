@@ -13,7 +13,6 @@ class CodeBlock extends Component
      */
     public function __construct(public string $cssClass = '', public bool $showCopyButton = true)
     {
-        //
     }
 
     /**

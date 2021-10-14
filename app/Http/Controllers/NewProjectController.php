@@ -44,19 +44,19 @@ class NewProjectController extends Controller
                 $command .= "--dev-branch=$dev_branch ";
             }
 
-            if ($starter_kit !== 'none') {
+            if ('none' !== $starter_kit) {
                 $command .= "--auth=$starter_kit ";
             }
 
-            if ($local_tls === 'true') {
+            if ('true' === $local_tls) {
                 $command .= '--tls ';
             }
 
-            if ($ide_helper === 'true') {
+            if ('true' === $ide_helper) {
                 $command .= '--ide-helper ';
             }
 
-            if ($cs_fixer === 'true') {
+            if ('true' === $cs_fixer) {
                 $command .= '--cs-fixer ';
             }
 

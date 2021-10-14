@@ -389,7 +389,7 @@ class DocumentationController extends Controller
                         'type' => 'image',
                         'src' => '/img/project-lifecycle.png',
                         'alt' => 'LaraSurf Project Lifecycle',
-                        'class' => 'w-full lg:w-1/2'
+                        'class' => 'w-full lg:w-1/2',
                     ],
                     [
                         'type' => 'heading-1',
@@ -530,7 +530,7 @@ class DocumentationController extends Controller
                         'type' => 'image',
                         'src' => '/img/branching-pattern.png',
                         'alt' => 'LaraSurf Branching Pattern',
-                        'class' => 'w-full'
+                        'class' => 'w-full',
                     ],
                     [
                         'type' => 'heading-1',
@@ -598,7 +598,7 @@ class DocumentationController extends Controller
                             'Netcat must be installed',
                             '<a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a> must be installed',
                             [
-                                'The v2 CLI in experimental settings should <strong>not</strong> be enabled'
+                                'The v2 CLI in experimental settings should <strong>not</strong> be enabled',
                             ],
                             'Git must be installed',
                             [
@@ -607,8 +607,8 @@ class DocumentationController extends Controller
                             ],
                             '<a href="https://github.com/FiloSottile/mkcert" target="_blank">Mkcert</a> is required if you want local TLS support',
                             [
-                                'On Windows, the executable must be named <span class="inline-code">mkcert.exe</span> and be accessible via your system <span class="inline-code">PATH</span>'
-                            ]
+                                'On Windows, the executable must be named <span class="inline-code">mkcert.exe</span> and be accessible via your system <span class="inline-code">PATH</span>',
+                            ],
                         ],
                     ],
                 ],
@@ -725,7 +725,7 @@ class DocumentationController extends Controller
                         'type' => 'image',
                         'src' => '/img/project-generation-screenshot.png',
                         'alt' => 'LaraSurf Project Generation',
-                        'class' => 'w-full'
+                        'class' => 'w-full',
                     ],
                     [
                         'type' => 'heading-1',
@@ -782,7 +782,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'code',
-                        'text'=> 'surf aws configure',
+                        'text' => 'surf aws configure',
                     ],
                     [
                         'type' => 'paragraph',
@@ -824,13 +824,13 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'By convention, the name of your GitHub repository should match the name of your LaraSurf project specified during project generation (lowercase alphanumeric and hyphens).<br/>If you are unsure of your project name you can run <span class="inline-code">surf config get project-name</span> to get the configured value.'
+                        'html' => 'By convention, the name of your GitHub repository should match the name of your LaraSurf project specified during project generation (lowercase alphanumeric and hyphens).<br/>If you are unsure of your project name you can run <span class="inline-code">surf config get project-name</span> to get the configured value.',
                     ],
                     [
                         'type' => 'image',
                         'src' => '/img/new-repository.png',
                         'alt' => 'New GitHub Repository',
-                        'class' => 'w-full'
+                        'class' => 'w-full',
                     ],
                     [
                         'type' => 'heading-1',
@@ -960,7 +960,7 @@ class DocumentationController extends Controller
                         'type' => 'image',
                         'src' => '/img/circleci-project-setup.png',
                         'alt' => 'CircleCI Project Setup',
-                        'class' => 'w-full lg:w-3/5'
+                        'class' => 'w-full lg:w-3/5',
                     ],
                     [
                         'type' => 'paragraph',
@@ -1207,11 +1207,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example:'
+                        'html' => 'For example:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf composer --version'
+                        'text' => 'surf composer --version',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1228,15 +1228,15 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example:'
+                        'html' => 'For example:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf yarn --version'
+                        'text' => 'surf yarn --version',
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'To watch front end assets for changes during local development, use the command: <br/><span class="inline-code">surf yarn watch-poll</span>'
+                        'html' => 'To watch front end assets for changes during local development, use the command: <br/><span class="inline-code">surf yarn watch-poll</span>',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1253,11 +1253,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example:'
+                        'html' => 'For example:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf npx --version'
+                        'text' => 'surf npx --version',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1274,11 +1274,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example:'
+                        'html' => 'For example:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf node --version'
+                        'text' => 'surf node --version',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1295,11 +1295,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example:'
+                        'html' => 'For example:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf awslocal --version'
+                        'text' => 'surf awslocal --version',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1316,11 +1316,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'For example:'
+                        'html' => 'For example:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf artisan tinker'
+                        'text' => 'surf artisan tinker',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1796,7 +1796,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                             'The fully qualified domain name for the environment',
                             'The ACM certificate ARN to use, if it already exists',
                             [
-                                'If an ACM certificate for your fully qualified domain is not specified, one will be created and verified on your behalf'
+                                'If an ACM certificate for your fully qualified domain is not specified, one will be created and verified on your behalf',
                             ],
                         ],
                     ],
@@ -2524,7 +2524,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                             [
                                 '<span class="inline-code">stage</span>',
                                 '<span class="inline-code">production</span>',
-                            ]
+                            ],
                         ],
                     ],
                     [
@@ -2591,11 +2591,11 @@ FileNotFoundError: [Errno 2] No such file or directory
                                 '<span class="inline-code">check-verification</span>: check SPF and DKIM verification for the environment\'s domain name',
                                 '<span class="inline-code">enable-sending</span>: request to get out of the AWS SES sandbox',
                                 [
-                                    'does not require the <span class="inline-code">environment</span> option'
+                                    'does not require the <span class="inline-code">environment</span> option',
                                 ],
                                 '<span class="inline-code">check-sending</span>: check if live email sending is enabled (not in sandbox)',
                                 [
-                                    'does not require the <span class="inline-code">environment</span> option'
+                                    'does not require the <span class="inline-code">environment</span> option',
                                 ],
                             ],
                         ],
@@ -2611,7 +2611,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                             [
                                 '<span class="inline-code">stage</span>',
                                 '<span class="inline-code">production</span>',
-                            ]
+                            ],
                         ],
                     ],
                     [
@@ -2652,7 +2652,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                             [
                                 '<span class="inline-code">stage</span>',
                                 '<span class="inline-code">production</span>',
-                            ]
+                            ],
                         ],
                     ],
                     [
@@ -2681,7 +2681,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                                 '<span class="inline-code">revoke</span>: revoke ingress of the specified type from the specified source for the specified environment',
                                 '<span class="inline-code">list</span>: list ingress rules of the specified type for the specified environment',
                                 [
-                                    'does not require the <span class="inline-code">type</span> or <span class="inline-code">source</span> options'
+                                    'does not require the <span class="inline-code">type</span> or <span class="inline-code">source</span> options',
                                 ],
                             ],
                         ],
@@ -2735,23 +2735,23 @@ FileNotFoundError: [Errno 2] No such file or directory
                             [
                                 '<span class="inline-code">status</span>: get the status of the stack for the specified environment',
                                 [
-                                    'does not require the <span class="inline-code">key</span> option'
+                                    'does not require the <span class="inline-code">key</span> option',
                                 ],
                                 '<span class="inline-code">create</span>: create the stack for the specified environment',
                                 [
-                                    'does not require the <span class="inline-code">key</span> option'
+                                    'does not require the <span class="inline-code">key</span> option',
                                 ],
                                 '<span class="inline-code">update</span>: update the stack for the specified environment',
                                 [
-                                    'does not require the <span class="inline-code">key</span> option'
+                                    'does not require the <span class="inline-code">key</span> option',
                                 ],
                                 '<span class="inline-code">delete</span>: delete the stack for the specified environment',
                                 [
-                                    'does not require the <span class="inline-code">key</span> option'
+                                    'does not require the <span class="inline-code">key</span> option',
                                 ],
                                 '<span class="inline-code">wait</span>: wait for the current stack changes for the specified environment',
                                 [
-                                    'does not require the <span class="inline-code">key</span> option'
+                                    'does not require the <span class="inline-code">key</span> option',
                                 ],
                                 '<span class="inline-code">output</span>: get the specified stack output for the specified environment',
                             ],
@@ -2918,7 +2918,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                 'content' => [
                     [
                         'type' => 'paragraph',
-                        'html' => 'The following is a TL;DR checklist for:'
+                        'html' => 'The following is a TL;DR checklist for:',
                     ],
                     [
                         'type' => 'list',
@@ -2934,7 +2934,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'This checklist assumes you have completed all prerequisites so be sure you have read and done everything required as described in the <a href="#prerequisites">Prerequisites</a> section.'
+                        'html' => 'This checklist assumes you have completed all prerequisites so be sure you have read and done everything required as described in the <a href="#prerequisites">Prerequisites</a> section.',
                     ],
                     [
                         'type' => 'heading-1',
