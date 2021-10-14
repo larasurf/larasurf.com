@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-    <VueWriter :array="items" :type-speed="75" :erase-speed="5" :intervals="1000" :start="1000" :delay="4000"/>
+    <VueWriter :array="items" :type-speed="50" :erase-speed="5" :intervals="1000" :start="1000" :delay="3000"/>
 </template>
 
 <style scoped>
