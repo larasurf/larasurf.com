@@ -30,5 +30,5 @@ checkboxes.forEach((checkbox) => {
                 })
             }, 150);
         }
-    });
+    });d
 });

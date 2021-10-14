@@ -3003,6 +3003,15 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'text' => 'surf aws configure',
                     ],
                     [
+                        'type' => 'checkbox',
+                        'html' => 'Create an IAM user for CircleCI',
+                    ],
+                    [
+                        'type' => 'code',
+                        'class' => 'code-checklist',
+                        'text' => 'surf cloud-users create --user circleci',
+                    ],
+                    [
                         'type' => 'heading-1',
                         'text' => 'Deploy to Stage',
                         'id' => 'tldr-checklist-deploy-to-stage',
