@@ -1,4 +1,4 @@
-FROM php:8.0.10-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 ENV COMPOSER_VERSION 2.0.13
 ENV COMPOSER_ALLOW_SUPERUSER 1
@@ -11,7 +11,6 @@ RUN until ping -c1 getcomposer.org > /dev/null 2>&1; do :; done && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION} && \
     php -r "unlink('composer-setup.php');" && \
     composer --ansi --version --no-interaction && \
-    echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories && \
     apk add --no-cache \
         shadow \
         su-exec \
