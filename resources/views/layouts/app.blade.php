@@ -7,6 +7,7 @@
     <script src="{{ asset('js/fonts.js') }}"></script>
 
     <title>@yield('title', 'LaraSurf')</title>
+    <meta name="description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications."/>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
