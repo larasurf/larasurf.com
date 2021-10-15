@@ -83,7 +83,7 @@ export default {
                     <a class="font-medium text-black hover:text-gray-400" href="/how-it-works">How it works</a>
                 </div>
                 <div class="my-6">
-                    <a class="font-medium text-black hover:text-gray-400" href="/pricing">Pricing</a>
+                    <span class="font-medium text-black line-through pr-2">Pricing</span> It's free!
                 </div>
                 <div class="font-medium text-gray-400 mt-12">LaraSurf</div>
                 <div class="border-gray-200 border-b mt-3"></div>
