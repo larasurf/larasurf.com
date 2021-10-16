@@ -74,8 +74,6 @@ export default {
         <transition name="slide-fade">
             <div v-show="isOpen" class="menu z-50 fixed left-0 bg-white w-screen px-6">
                 <div class="border-gray-200 border-b mt-3"></div>
-                <div class="font-medium text-gray-400 mt-12">Kickstart a project</div>
-                <div class="border-gray-200 border-b mt-3"></div>
                 <div class="my-6">
                     <a class="font-medium text-black hover:text-gray-400" href="/docs">Documentation</a>
                 </div>
@@ -84,14 +82,6 @@ export default {
                 </div>
                 <div class="my-6">
                     <span class="font-medium text-black line-through pr-2">Pricing</span> It's free!
-                </div>
-                <div class="font-medium text-gray-400 mt-12">LaraSurf</div>
-                <div class="border-gray-200 border-b mt-3"></div>
-                <div class="my-6">
-                    <a class="font-medium text-black hover:text-gray-400" href="/about">About us</a>
-                </div>
-                <div class="my-6">
-                    <a class="font-medium text-black hover:text-gray-400" href="/contact">Contact us</a>
                 </div>
             </div>
         </transition>
