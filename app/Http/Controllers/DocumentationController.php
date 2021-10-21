@@ -2220,7 +2220,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_HOST --value smtp.mailtrap.io',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_HOST --value smtp.mailtrap.io',
                     ],
                     [
                         'type' => 'code',
@@ -2232,7 +2232,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_PASSWORD --value 9z8y7x6w5v',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_PASSWORD --value 9z8y7x6w5v',
                     ],
                     [
                         'type' => 'code',
@@ -3079,7 +3079,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'code',
                         'class' => 'code-checklist',
-                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_HOST --value smtp.mailtrap.io',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_HOST --value smtp.mailtrap.io',
                     ],
                     [
                         'type' => 'code',
@@ -3094,7 +3094,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'code',
                         'class' => 'code-checklist',
-                        'text' => 'surf cloud-vars put --enviornment stage --key MAIL_PASSWORD --value <your SMTP password>',
+                        'text' => 'surf cloud-vars put --environment stage --key MAIL_PASSWORD --value <your SMTP password>',
                     ],
                     [
                         'type' => 'code',
