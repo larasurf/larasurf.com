@@ -82,9 +82,9 @@ export default {
     <div class="flex flex-wrap">
         <div class="w-full">
             <label class="block text-xl font-bold" for="project-name">Project Name</label>
-            <input @keydown="onProjectNameKeydown($event)" @change="onProjectNameChange()" v-model="projectName" id="project-name" class="appearance-none border border-black rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="my-startup-idea"/>
+            <input maxlength="20" @keydown="onProjectNameKeydown($event)" @change="onProjectNameChange()" v-model="projectName" id="project-name" class="appearance-none border border-black rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="my-startup-idea"/>
             <div class="text-sm">
-                Lowercase, alphanumeric, and hyphens only
+                Lowercase alphanumeric and hyphens only. Maximum of 20 characters.
             </div>
         </div>
         <div class="w-full mt-12" v-if="devMode">

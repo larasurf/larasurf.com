@@ -25,7 +25,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Your journey of rapidly implementing, deploying, and iterating on your next Laravel project with pre-built features begins here.',
+                        'html' => 'Your journey of rapidly implementing, deploying, and iterating on your next Laravel project begins here.',
                     ],
                     [
                         'type' => 'callout',
