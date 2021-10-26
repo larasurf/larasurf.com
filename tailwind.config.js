@@ -12,7 +12,13 @@ module.exports = {
             circle: 'circle',
             square: 'square',
         },
-        extend: {},
+        extend: {
+            invert: {
+                25: '.25',
+                50: '.5',
+                75: '.75',
+            },
+        },
     },
     variants: {
         extend: {

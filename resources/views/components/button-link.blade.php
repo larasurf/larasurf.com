@@ -4,7 +4,7 @@
            transition
            bg-{{ $color }}
            hover:bg-{{ $color === 'black' ? 'white' : 'black' }}
-           border-2
+           border
            border-black
            text-{{ $color === 'black' ? 'white' : 'black' }}
            hover:text-{{ $color === 'black' ? 'black' : 'white' }}

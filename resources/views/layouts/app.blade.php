@@ -33,7 +33,7 @@
     <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="antialiased bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
+<body class="bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
     <div class="z-10">
         <nav class="relative px-6 py-9 mx-auto">
             <div class="hidden lg:flex">
@@ -62,9 +62,23 @@
             @yield('content')
         </div>
     </div>
-    <div id="footer" class="z-10 mt-32 md:mt-56 mb-24 sm:mb-12 relative">
+    <div id="footer" class="z-10 mt-32 md:mt-56 mb-24 sm:mb-8 relative">
         <footer class="text-center text-sm font-medium">
-            &copy; {{ date('Y') }} - LaraSurf
+            <div class="flex">
+                <div class="w-1/2 text-right px-2">
+                    <a id="slack-invite" href="#" class="transition filter hover:invert-50">
+                        Join the community on Slack
+                        <img src="/svg/slack.svg" alt="Slack" class="ml-1 inline" />
+                    </a>
+                </div>
+                <div class="w-1/2 text-left px-2">
+                    <a target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50">
+                        <img src="/svg/github.svg" alt="GitHub" class="mr-1 inline" />
+                        Open an issue on GitHub
+                    </a>
+                </div>
+            </div>
+            <div class="mt-3">&copy; {{ date('Y') }} LaraSurf. All rights reserved.</div>
         </footer>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>

@@ -76,15 +76,15 @@ nav,
 }
 
 .hero-icon.generate {
-    background-image: url('/img/generate.png');
+    background-image: url('/svg/generate.svg');
 }
 
 .hero-icon.implement {
-    background-image: url('/img/implement.png');
+    background-image: url('/svg/implement.svg');
 }
 
 .hero-icon.deploy {
-    background-image: url('/img/deploy.png');
+    background-image: url('/svg/deploy.svg');
 }
 
 .list-disc {

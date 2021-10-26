@@ -54,7 +54,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'image',
-                        'src' => '/img/venn-diagram.png',
+                        'src' => '/svg/venn-diagram.svg',
                         'alt' => 'LaraSurf Overview',
                         'class' => 'w-full',
                     ],
@@ -387,9 +387,9 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'image',
-                        'src' => '/img/project-lifecycle.png',
+                        'src' => '/svg/project-lifecycle.svg',
                         'alt' => 'LaraSurf Project Lifecycle',
-                        'class' => 'w-full lg:w-1/2',
+                        'class' => 'w-full lg:w-2/3',
                     ],
                     [
                         'type' => 'heading-1',
@@ -528,7 +528,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'image',
-                        'src' => '/img/branching-pattern.png',
+                        'src' => '/svg/branching-pattern.svg',
                         'alt' => 'LaraSurf Branching Pattern',
                         'class' => 'w-full',
                     ],
