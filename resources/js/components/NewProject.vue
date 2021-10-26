@@ -228,7 +228,7 @@ export default {
                     'bg-black': isValid,
                     'bg-gray-200': !isValid,
                     'hover:bg-white': isValid,
-                    'border-2': true,
+                    'border': true,
                     'border-black': isValid,
                     'border-gray-200': !isValid,
                     'text-white': true,

@@ -62,7 +62,7 @@
             @yield('content')
         </div>
     </div>
-    <div id="footer" class="z-10 mt-32 md:mt-56 mb-24 sm:mb-8 relative">
+    <div id="footer" class="z-10 mt-32 md:mt-50 mb-24 sm:mb-8 relative">
         <footer class="text-center text-sm font-medium">
             <div class="flex">
                 <div class="w-1/2 text-right px-2">

@@ -62,7 +62,7 @@ export default {
                    'text-black': isOpen,
                    'hover:text-black': !isOpen,
                    'rounded-lg': true,
-                   'border-2': true,
+                   'border': true,
                    'border-black': true,
                    'px-6': true,
                    'py-3': true,
