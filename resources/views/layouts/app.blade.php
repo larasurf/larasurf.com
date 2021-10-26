@@ -35,7 +35,7 @@
 </head>
 <body class="bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
     <div class="z-10">
-        <nav class="relative px-6 py-9 mx-auto">
+        <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-20">
             <div class="hidden lg:flex">
                 <div class="w-1/6 text-3xl font-extrabold text-left">
                     <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
@@ -58,23 +58,23 @@
             </div>
             <div id="main-menu"></div>
         </nav>
-        <div id="content" class="px-6 mx-auto">
+        <div id="content" class="mt-36 px-6 mx-auto z-10">
             @yield('content')
         </div>
     </div>
-    <div id="footer" class="z-10 mt-32 md:mt-50 mb-24 sm:mb-8 relative">
+    <div id="footer" class="z-10 mt-32 md:mt-48 mb-24 sm:mb-8 relative">
         <footer class="text-center text-sm font-medium">
             <div class="flex">
                 <div class="w-1/2 text-right px-2">
-                    <a id="slack-invite" href="#" class="transition filter hover:invert-50">
-                        Join the community on Slack
-                        <img src="/svg/slack.svg" alt="Slack" class="ml-1 inline" />
+                    <a id="slack-invite" href="#" class="transition filter hover:invert-50 flex">
+                        <div class="flex-grow mr-2">Join the community on Slack</div>
+                        <div><img src="/svg/slack.svg" alt="Slack" class="inline" /></div>
                     </a>
                 </div>
                 <div class="w-1/2 text-left px-2">
-                    <a target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50">
-                        <img src="/svg/github.svg" alt="GitHub" class="mr-1 inline" />
-                        Open an issue on GitHub
+                    <a target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50 flex">
+                        <div><img src="/svg/github.svg" alt="GitHub" class="inline" /></div>
+                        <div class="flex-grow ml-2">Open an issue on GitHub</div>
                     </a>
                 </div>
             </div>

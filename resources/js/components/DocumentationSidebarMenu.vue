@@ -2,9 +2,8 @@
 export default {
     data() {
         return {
-            menuExpanded: !!window.location.hash,
             menuItemsOnPage: [],
-            lastSurfIconPosition: { x: -1000, y: -1000 },
+            lastSurfIconPosition: { x: 10, y: -30 },
             enableScrollAdjustment: true,
         };
     },
@@ -38,7 +37,6 @@ export default {
         });
 
         window.addEventListener('scroll', (e) => {
-            this.menuExpanded = window.scrollY > 80;
             this.updateSurfIconPosition();
         });
 
@@ -100,7 +98,7 @@ export default {
 
                     this.lastSurfIconPosition = {
                         x: itemOnPage.isSubitem ? 20 : 10,
-                        y: pos.y - 50 + scrollMenu.scrollTop,
+                        y: pos.y - 186 + scrollMenu.scrollTop,
                     };
 
                     if (this.enableScrollAdjustment) {
@@ -119,19 +117,6 @@ export default {
                         }
                     }
                 }
-            }
-        },
-        onMenuItemClick(id) {
-            const el = document.querySelector(`#${id}`);
-
-            if (el) {
-                this.enableScrollAdjustment = false;
-
-                el.scrollIntoView({
-                    behavior: 'smooth',
-                })
-
-                window.setTimeout(() => this.enableScrollAdjustment = true, 1000);
             }
         },
         onHashChange() {
@@ -153,15 +138,6 @@ export default {
             }, 150);
         }
     },
-    watch: {
-        menuExpanded: function (newValue, oldValue) {
-            if (newValue) {
-                window.setTimeout(() => {
-                    this.updateSurfIconPosition();
-                }, 150);
-            }
-        },
-    },
 }
 </script>
 
@@ -170,8 +146,6 @@ export default {
         <div :class="{
         'menu-wrapper': true,
         fixed: true,
-        'mt-3': menuExpanded,
-        expanded: menuExpanded,
     }">
             <div class="flex mb-3">
                 <div class="text-2xl font-bold">Documentation</div>
@@ -179,25 +153,26 @@ export default {
             </div>
             <div :class="{
                 'docs-sidebar-menu': true,
-                expanded: menuExpanded,
             }">
                 <div id="menu-surf-icon" :class="{
                     twa: true,
                     'twa-ocean': true,
                     relative: true,
                     'z-10': true,
-                    hidden: !menuExpanded,
+                    '-mb-12': true,
                 }" :style="{
                     top: this.lastSurfIconPosition.y + 'px',
                     left: this.lastSurfIconPosition.x + 'px',
                 }"></div>
-                <div v-for="(item, i) in menu" :key="i" class="mr-3">
-                    <a :id="`menu-${item.id}`" :href="`#${item.id}`" @click="onMenuItemClick(item.id)" class="block menu-item bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400 flex">
-                        {{ item.title }}
-                    </a>
-                    <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" @click="onMenuItemClick(subitem.id)" class="block menu-item font-medium pl-12 py-2 hover:text-gray-400">
-                        {{ subitem.title }}
-                    </a>
+                <div class="-mt-3">
+                    <div v-for="(item, i) in menu" :key="i" class="mr-3">
+                        <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400 flex">
+                            {{ item.title }}
+                        </a>
+                        <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item font-medium pl-12 py-2 hover:text-gray-400">
+                            {{ subitem.title }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -211,9 +186,6 @@ export default {
 .menu-wrapper {
     transition: top 150ms;
     top: 100px;
-}
-.menu-wrapper.expanded {
-    top: 0;
 }
 .docs-sidebar-menu {
     max-height: calc(100vh - 12rem);

@@ -843,7 +843,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'The below examples are for a project called <span class="inline-code">my-project</span> within an organization named <span class="inline-code">my-org</span>. Replace this project name and organization name with the name of your own project and organization/account.',
+                        'html' => 'The below example is for a project called <span class="inline-code">my-project</span> within an organization named <span class="inline-code">my-org</span>. Replace this project name and organization name with the name of your own project and organization/account.',
                     ],
                     [
                         'type' => 'paragraph',
