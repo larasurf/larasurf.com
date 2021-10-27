@@ -206,7 +206,7 @@ a.app-link:hover,
 }
 
 .copy-code {
-    background-image: url('/img/copy.png');
+    background-image: url('/svg/copy.svg');
     background-repeat: no-repeat;
     background-position: center center;
     object-fit: contain;
@@ -320,7 +320,7 @@ a.app-link:hover,
 }
 
 #back-to-top-button {
-    bottom: 5rem;
+    bottom: 1.5rem;
     right: 1.5rem;
     cursor: pointer;
     transform: translateY(5rem);

@@ -38,7 +38,7 @@
                     @elseif($content['type'] === 'code')
                         <x-code-block :css-class="$content['class'] ?? ''" :show-copy-button="$content['show-copy-button'] ?? true">{{ $content['text'] }}</x-code-block>
                     @elseif($content['type'] === 'image')
-                        <x-image :cssClass="$content['class'] ?? ''" :alt="$content['alt']" :src="$content['src']"></x-image>
+                        <x-image :css-class="$content['class'] ?? ''" :alt="$content['alt']" :src="$content['src']"></x-image>
                     @elseif($content['type'] === 'quote')
                         <x-quote>{!! $content['html'] !!}</x-quote>
                     @elseif($content['type'] === 'checkbox')

@@ -4,7 +4,7 @@
             <div class="absolute w-24 overflow-x-hidden right-0 copy-code-gradient-container">
                 <div class="transition z-10 absolute right-0 copy-code-gradient-right w-24 flex justify-end items-center"></div>
             </div>
-            <button class="z-20 absolute right-0 mt-1 w-10 h-10 copy-code transition filter hover:invert" data-code="{{ $slot }}"></button>
+            <button class="z-20 absolute right-0 mt-1 w-10 h-10 copy-code transition filter hover:invert-50" data-code="{{ $slot }}"></button>
         </div>
     @endif
     <div class="code my-3 p-3 pl-4 bg-gray-100 text-left flex dont-show-gradient-left">
