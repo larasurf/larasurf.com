@@ -47,7 +47,7 @@ export default {
         const options = {
             root: null,
             rootMargin: '0px',
-            threshold: [0, 1],
+            threshold: [0, .5],
         }
 
         const observer = new IntersectionObserver(this.onMenuItemIntersect, options);
@@ -96,11 +96,6 @@ export default {
                 if (menuItem && scrollMenu) {
                     const pos = menuItem.getBoundingClientRect();
 
-                    this.lastSurfIconPosition = {
-                        x: itemOnPage.isSubitem ? 20 : 10,
-                        y: pos.y - 186 + scrollMenu.scrollTop,
-                    };
-
                     if (this.enableScrollAdjustment) {
                         if (pos.y > screen.height / 2) {
                             scrollMenu.scrollTo({
@@ -116,6 +111,11 @@ export default {
                             });
                         }
                     }
+
+                    this.lastSurfIconPosition = {
+                        x: itemOnPage.isSubitem ? 20 : 10,
+                        y: pos.y - 186 + scrollMenu.scrollTop,
+                    };
                 }
             }
         },
@@ -128,6 +128,7 @@ export default {
 
                     el.scrollIntoView({
                         behavior: 'smooth',
+                        block: 'start',
                     });
 
                     window.setTimeout(() => {
