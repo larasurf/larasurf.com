@@ -134,6 +134,10 @@ export default {
                     window.setTimeout(() => {
                         this.enableScrollAdjustment = true;
                         this.updateSurfIconPosition();
+
+                        window.setTimeout(() => {
+                            window.scrollTo(0, window.scrollY - 10);
+                        }, 10)
                     }, 1000);
                 }
             }, 150);
