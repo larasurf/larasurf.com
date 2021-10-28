@@ -175,6 +175,10 @@ a.app-link:hover,
     font-family: monospace;
 }
 
+.documentation .callout .inline-code {
+    background-color: #DBDEE3;
+}
+
 .code {
     overflow-x: auto;
     white-space: nowrap;

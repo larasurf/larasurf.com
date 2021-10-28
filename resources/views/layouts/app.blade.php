@@ -41,10 +41,10 @@
                     <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
                 </div>
                 <div class="w-2/3 flex mt-2 justify-center">
-                    <div class="w-1/3 text-right font-medium">
+                    <div class="z-20 w-1/3 text-right font-medium">
                         <a href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                     </div>
-                    <div id="how-it-works-container" class="w-1/3 text-center font-medium">
+                    <div id="how-it-works-container" class="z-10 w-1/3 text-center font-medium">
                         <a href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                     </div>
                     <div class="w-1/3 text-left font-medium">
