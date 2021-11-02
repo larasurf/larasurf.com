@@ -87,6 +87,10 @@ nav,
     background-image: url('/svg/deploy.svg');
 }
 
+#tell-me-more-button {
+    padding-top: 0.85rem;
+}
+
 .list-disc {
     margin-left: 1.5rem;
 }

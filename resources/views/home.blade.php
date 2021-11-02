@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="flex justify-center mt-16">
-            <x-button-link href="/how-it-works" color="white" rounding="full">
+            <x-button-link id="tell-me-more-button" href="/how-it-works" color="white" rounding="full">
                 <span class="font-medium text-xl">Tell Me More</span>
             </x-button-link>
         </div>

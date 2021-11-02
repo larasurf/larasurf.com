@@ -8,7 +8,7 @@
 
     <title>@yield('title', 'LaraSurf')</title>
     <meta name="description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications."/>
-
+h
     <meta property="og:title" content="@yield('title', 'LaraSurf')" />
     <meta property="og:description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications." />
     <meta property="og:type" content="website" />

@@ -1,5 +1,6 @@
 <div>
     <a href="{{ $href }}"
+       id="{{ $id }}"
        class="
            transition
            bg-{{ $color }}
