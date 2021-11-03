@@ -24,13 +24,13 @@
             <div class="mt-6 bg-gray-100 px-6 py-4 w-full lg:w-5/6">
                 <div>If this is your first time using LaraSurf, we strongly recommend following the documentation.</div>
                 <div class="text-right">
-                    <a id="link-cta-generate-docs" class="font-bold filter transition p-3" href="/docs"><span class="underline">Go to Documentation</span> <img class="ml-1 inline" src="/img/cta-arrow.png"></a>
+                    <a id="link-cta-after-generate-docs" class="font-bold filter transition p-3" href="/docs"><span class="underline">Go to Documentation</span> <img class="ml-1 inline" src="/img/cta-arrow.png"></a>
                 </div>
             </div>
             <div class="mt-6 bg-gray-100 px-6 py-4 w-full lg:w-5/6">
                 <div>If this is not your first time using LaraSurf, you can follow the TL;DR Checklist for setting up a new project and deploying to Stage and Production.</div>
                 <div class="text-right">
-                    <a id="link-cta-generate-checklist" class="font-bold filter transition p-3" href="/docs#tldr-checklist"><span class="underline">Go to Checklist</span> <img class="ml-1 inline" src="/img/cta-arrow.png"></a>
+                    <a id="link-cta-after-generate-checklist" class="font-bold filter transition p-3" href="/docs#tldr-checklist"><span class="underline">Go to Checklist</span> <img class="ml-1 inline" src="/img/cta-arrow.png"></a>
                 </div>
             </div>
         </div>
