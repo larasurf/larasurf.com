@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class NewProjectController extends Controller
+class GenerateProjectController extends Controller
 {
     public function view(Request $request)
     {
@@ -63,11 +63,11 @@ class NewProjectController extends Controller
             $command .= "--awslocal-port=$port_awslocal --mail-ui-port=$port_mail_ui --app-port=$port_app --app-tls-port=$port_app_tls --db-port=$port_database --cache-port=$port_cache " .
                 '&& cd $LARASURF_PROJECT_NAME > /dev/null 2>&1; (test -f \'./larasurf.json\' && LARASURF_END=$(date +%s) && echo "Done in $((LARASURF_END-LARASURF_START))s" && git status) || (echo -e \'\033[91mInstallation failed\033[0m\' && test -f \'docker-compose.yml\' && cd $(pwd) && docker-compose down --volumes > /dev/null 2>&1 && cd $(pwd))';
 
-            return view('new-project-command', [
+            return view('generate-project', [
                 'command' => $command,
             ]);
         }
 
-        return view('new-project');
+        return redirect()->to(route('new-project'));
     }
 }

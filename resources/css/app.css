@@ -87,7 +87,7 @@ nav,
     background-image: url('/svg/deploy.svg');
 }
 
-#tell-me-more-button {
+#link-cta-tell-me-more {
     padding-top: 0.85rem;
 }
 
@@ -150,7 +150,7 @@ nav,
 a.app-link,
 .documentation a {
     text-decoration: underline;
-    color: #0092FF;
+    color: #0067C5;
     font-weight: 700;
 }
 
@@ -327,7 +327,7 @@ a.app-link:hover,
     max-width: calc(850px - 3rem);
 }
 
-#back-to-top-button {
+#btn-back-to-top {
     bottom: 1.5rem;
     right: 1.5rem;
     cursor: pointer;
@@ -335,13 +335,13 @@ a.app-link:hover,
     opacity: 0;
 }
 
-#back-to-top-button.scrolled {
+#btn-back-to-top.scrolled {
     transform: translateY(0);
     opacity: 1;
 }
 
 @media (min-width: 1024px) {
-    #back-to-top-button {
+    #btn-back-to-top {
         right: calc((100vw - 75rem) / 2 + 0.5rem);
     }
 }

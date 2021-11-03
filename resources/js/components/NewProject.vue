@@ -72,7 +72,7 @@ export default {
 
             const query = (new URLSearchParams(params)).toString();
 
-            window.location.href = `/new?${query}`;
+            window.location.href = `/generate?${query}`;
         },
     },
 }
@@ -222,6 +222,7 @@ export default {
         <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
         <div class="w-full">
             <button
+                id="btn-generate-project"
                 @click="onProjectGenerateClick()"
                 :class="{
                     transition: true,
@@ -252,7 +253,7 @@ export default {
 <style scoped>
 a {
     text-decoration: underline;
-    color: #0092FF;
+    color: #0067C5;
     font-weight: 700;
 }
 </style>

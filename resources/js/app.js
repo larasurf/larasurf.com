@@ -39,7 +39,7 @@ const setupCopyButtons = () => {
 };
 
 const setupBackToTopButton = () => {
-    const backToTop = document.querySelector('#back-to-top-button');
+    const backToTop = document.querySelector('#btn-back-to-top');
 
     if (backToTop) {
         backToTop.addEventListener('click', (e) => {
@@ -65,7 +65,7 @@ const setupLightboxExitOnClick = () => {
 };
 
 const setupSlackInvite = () => {
-    document.querySelector('#slack-invite').addEventListener('click', (e) => {
+    document.querySelector('#link-footer-slack-invite').addEventListener('click', (e) => {
         e.preventDefault();
 
         window.axios.get('/api/slack-invite').then((r) => window.open(r.data.url));
