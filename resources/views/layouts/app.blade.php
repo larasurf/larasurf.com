@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    @if(config('app.env') === 'production')
+        <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=dTxoPW3zcC21eM0fHvKqXQ&gtm_preview=env-1&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-K4RLG9M');</script>
+            <!-- End Google Tag Manager -->
+    @elseif(config('app.env') === 'stage')
+        <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=2E-kJeduQAMhTUgQtZxzxg&gtm_preview=env-7&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-K4RLG9M');</script>
+            <!-- End Google Tag Manager -->
+    @endif
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -8,7 +25,7 @@
 
     <title>@yield('title', 'LaraSurf')</title>
     <meta name="description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications."/>
-h
+
     <meta property="og:title" content="@yield('title', 'LaraSurf')" />
     <meta property="og:description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications." />
     <meta property="og:type" content="website" />
@@ -34,6 +51,17 @@ h
     <meta name="theme-color" content="#ffffff">
 </head>
 <body class="bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
+    @if(config('app.env') === 'production')
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4RLG9M&gtm_auth=dTxoPW3zcC21eM0fHvKqXQ&gtm_preview=env-1&gtm_cookies_win=x"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    @elseif(config('app.env') === 'stage')
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4RLG9M&gtm_auth=2E-kJeduQAMhTUgQtZxzxg&gtm_preview=env-7&gtm_cookies_win=x"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    @endif
     <div class="z-10">
         <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-20">
             <div class="hidden lg:flex">
