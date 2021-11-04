@@ -58,7 +58,8 @@ input[type='radio'] {
 }
 
 .nav-link {
-    text-underline-offset: .75rem;
+    text-underline-offset: .5rem;
+    text-decoration-thickness: 1px;
 }
 
 nav,
@@ -226,8 +227,8 @@ a.app-link:hover,
 
 .checkbox {
     --background: #fff;
-    --border: #d1d6ee;
-    --border-hover: #bbc1e1;
+    --border: #000000;
+    --border-hover: #000000;
     --border-active: #000000;
     --tick: #ffffff;
     position: relative;
@@ -309,6 +310,10 @@ a.app-link:hover,
 
 .code-checklist {
     padding-left: 2rem;
+}
+
+.code-checklist .code {
+    margin-top: 0;
 }
 
 @keyframes bounce {

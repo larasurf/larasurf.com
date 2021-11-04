@@ -62,14 +62,14 @@
                           height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
     @endif
-    <div class="z-10">
-        <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-20">
+    <div class="z-30">
+        <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-40">
             <div class="hidden lg:flex">
                 <div class="w-1/6 text-3xl font-extrabold text-left">
                     <a id="link-nav-logo" href="/" class="transition hover:text-gray-400">LaraSurf</a>
                 </div>
                 <div class="w-2/3 flex mt-2 justify-center">
-                    <div class="z-20 w-1/3 text-right font-medium">
+                    <div class="z-50 w-1/3 text-right font-medium">
                         <a id="link-nav-docs" href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                     </div>
                     <div id="how-it-works-container" class="z-10 w-1/3 text-center font-medium">

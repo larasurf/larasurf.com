@@ -2956,7 +2956,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'checkbox',
-                        'html' => 'Create a <a href="https://github.com/new" target="_blank">new GitHub repository</a> for your project, whose name should exactly match the project name (slug) of your LaraSurf project and be in lowercase. If you are unsure of this value, you can run the following command to get the project name: <span class="inline-code">surf config get project-name</span>.',
+                        'html' => 'Create a <a href="https://github.com/new" target="_blank">new GitHub repository</a> for your project, whose name should exactly match the project name (slug) of your LaraSurf project and be in lowercase.<br/>If you are unsure of this value, you can run the following command to get the project name: <span class="inline-code">surf config get project-name</span>.',
                     ],
                     [
                         'type' => 'checkbox',
