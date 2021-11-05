@@ -189,6 +189,26 @@ a.app-link:hover,
     white-space: nowrap;
 }
 
+.copy-code-container.copied {
+    pointer-events: none;
+    opacity: 0;
+    transition: all 150ms;
+    visibility: hidden;
+}
+
+.copy-code-container.copied.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.copy-code span {
+    pointer-events: none;
+}
+
+.copy-code.copied span {
+    top: 0.333rem;
+}
+
 .copy-code-gradient-container {
     height: 3.25rem;
     pointer-events: none;
@@ -196,8 +216,9 @@ a.app-link:hover,
 
 .copy-code-gradient-right {
     height: 3.25rem;
-    background: linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgba(243, 244, 246, 1) 50%);
+    background: linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgba(243, 244, 246, 1) 60%);
     transform: translateX(0);
+    width: 12rem;
 }
 
 .code-container.dont-show-gradient-right .copy-code-gradient-right {
@@ -217,8 +238,13 @@ a.app-link:hover,
 .copy-code {
     background-image: url('/svg/copy.svg');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: 4.25rem center;
     object-fit: contain;
+}
+
+.copy-code.copied {
+    background-image: url('/svg/check.svg');
+    background-position: center center;
 }
 
 .copy-code:active {

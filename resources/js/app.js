@@ -27,12 +27,20 @@ const setupCodeBlockScrolling = () => {
 };
 
 const setupCopyButtons = () => {
-    const copyButtons = document.querySelectorAll('.copy-code');
+    const copyButtons = document.querySelectorAll('button.copy-code');
 
     for (let i = 0; i < copyButtons.length; i++) {
         copyButtons[i].addEventListener('click', (e) => {
             if (e && e.target && e.target.dataset && e.target.dataset.code) {
                 navigator.clipboard.writeText(e.target.dataset.code);
+
+                const message = document.querySelector(`.copy-code-container.copied[data-ref="${e.target.dataset.id}"]`);
+
+                if (message) {
+                    message.classList.add('visible');
+
+                    setTimeout(() => message.classList.remove('visible'), 2000);
+                }
             }
         });
     }
