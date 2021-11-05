@@ -81,7 +81,11 @@
                     </div>
                 </div>
                 <div class="w-1/6 flex justify-end pt-2 font-medium">
-                    <x-button-link id="link-nav-start" href="/new"><span class="twa twa-ocean mr-1"></span>Start Surfin'</x-button-link>
+                    <x-button-link id="link-nav-start" href="/new">
+                        <div class="inline absolute">
+                            <span class="twa twa-ocean relative"></span>
+                        </div>
+                        Start Surfin'</x-button-link>
                 </div>
             </div>
             <div id="main-menu"></div>

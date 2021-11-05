@@ -148,24 +148,13 @@ export default {
 
 <template>
     <div>
-        <div :class="{
-        'menu-wrapper': true,
-        fixed: true,
-    }">
+        <div class="menu-wrapper fixed">
             <div class="flex mb-3">
                 <div class="text-2xl font-bold">Documentation</div>
                 <div class="text-xl font-bold text-center mt-1 ml-9">v0.1</div>
             </div>
-            <div :class="{
-                'docs-sidebar-menu': true,
-            }">
-                <div id="menu-surf-icon" :class="{
-                    twa: true,
-                    'twa-ocean': true,
-                    relative: true,
-                    'z-10': true,
-                    '-mb-12': true,
-                }" :style="{
+            <div class="docs-sidebar-menu">
+                <div id="menu-surf-icon" class="twa twa-ocean relative z-10 -mb-12" :style="{
                     top: this.lastSurfIconPosition.y + 'px',
                     left: this.lastSurfIconPosition.x + 'px',
                 }"></div>
@@ -189,16 +178,11 @@ export default {
     transition: all 150ms;
 }
 .menu-wrapper {
-    transition: top 150ms;
     top: 100px;
 }
 .docs-sidebar-menu {
-    max-height: calc(100vh - 12rem);
+    max-height: calc(100vh - 15rem);
     overflow-y: scroll;
-    transition: max-height 150ms;
-}
-.docs-sidebar-menu.expanded {
-    max-height: calc(100vh - 5rem);
 }
 .menu-item {
     width: 260px;

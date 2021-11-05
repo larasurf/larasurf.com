@@ -12,7 +12,7 @@
            active:bg-{{ $color }}
            active:text-{{ $color === 'black' ? 'white' : 'black' }}
            rounded-{{ $rounding }}
-           px-6
+           px-5
            py-3"
     >{{ $slot }}
     </a>
