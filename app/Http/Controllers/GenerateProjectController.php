@@ -38,7 +38,7 @@ class GenerateProjectController extends Controller
 
             $dev_branch = $request->query('dev-branch');
 
-            if (!$dev_branch && $environment !== 'production') {
+            if (!$dev_branch && 'production' !== $environment) {
                 $dev_branch = 'main';
             }
 
