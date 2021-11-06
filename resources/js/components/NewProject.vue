@@ -4,18 +4,27 @@ export default {
         return {
             devMode: false,
             devBranch: 'main',
+            devBranchValidationError: false,
             projectName: '',
+            projectNameValidationError: false,
             projectEnvironments: 'local-stage-production',
             projectStarterKit: 'none',
             projectPortAwsLocal: '4566',
+            projectPortAwsLocalValidationError: false,
             projectPortMailUi: '8025',
+            projectPortMailUiValidationError: false,
             projectPortApp: '80',
+            projectPortAppValidationError: false,
             projectPortAppTls: '443',
+            projectPortAppTlsValidationError: false,
             projectPortDatabase: '3306',
+            projectPortDatabaseValidationError: false,
             projectPortCache: '6379',
+            projectPortCacheValidationError: false,
             projectIdeHelper: true,
             projectCodeStyleFixer: true,
             projectUseTlsLocally: false,
+            isLoading: false,
         };
     },
     computed: {
@@ -51,28 +60,54 @@ export default {
             }
         },
         onProjectGenerateClick() {
-            const params = {
-                name: this.projectName,
-                environments: this.projectEnvironments,
-                'starter-kit': this.projectStarterKit,
-                'port-awslocal': this.projectPortAwsLocal,
-                'port-mail-ui': this.projectPortMailUi,
-                'port-app': this.projectPortApp,
-                'port-app-tls': this.projectPortAppTls,
-                'port-database': this.projectPortDatabase,
-                'port-cache': this.projectPortCache,
-                'ide-helper': this.projectIdeHelper ? 'true' : 'false',
-                'cs-fixer': this.projectCodeStyleFixer ? 'true' : 'false',
-                'local-tls': this.projectUseTlsLocally ? 'true' : 'false',
-            };
+            this.devBranchValidationError = this.devMode && !this.devBranch;
+            this.projectNameValidationError = !/^[a-z0-9-]{1,20}$/.test(this.projectName);
+            this.projectPortAwsLocalValidationError = !this.projectPortAwsLocal;
+            this.projectPortMailUiValidationError = !this.projectPortMailUi;
+            this.projectPortAppValidationError = !this.projectPortApp;
+            this.projectPortAppTlsValidationError = !this.projectPortAppTls;
+            this.projectPortDatabaseValidationError = !this.projectPortDatabase;
+            this.projectPortCacheValidationError = !this.projectPortCache;
 
-            if (this.devMode) {
-                params['dev-branch'] = this.devBranch;
+            const invalid = this.devBranchValidationError ||
+                this.projectNameValidationError ||
+                this.projectPortAwsLocalValidationError ||
+                this.projectPortMailUiValidationError ||
+                this.projectPortAppValidationError ||
+                this.projectPortAppTlsValidationError ||
+                this.projectPortDatabaseValidationError ||
+                this.projectPortCacheValidationError;
+
+            if (invalid) {
+                if (this.projectNameValidationError || this.devBranchValidationError) {
+                    window.scrollTo(0, 0);
+                }
+            } else {
+                const params = {
+                    name: this.projectName,
+                    environments: this.projectEnvironments,
+                    'starter-kit': this.projectStarterKit,
+                    'port-awslocal': this.projectPortAwsLocal,
+                    'port-mail-ui': this.projectPortMailUi,
+                    'port-app': this.projectPortApp,
+                    'port-app-tls': this.projectPortAppTls,
+                    'port-database': this.projectPortDatabase,
+                    'port-cache': this.projectPortCache,
+                    'ide-helper': this.projectIdeHelper ? 'true' : 'false',
+                    'cs-fixer': this.projectCodeStyleFixer ? 'true' : 'false',
+                    'local-tls': this.projectUseTlsLocally ? 'true' : 'false',
+                };
+
+                if (this.devMode) {
+                    params['dev-branch'] = this.devBranch;
+                }
+
+                const query = (new URLSearchParams(params)).toString();
+
+                this.isLoading = true;
+
+                window.location.href = `/generate?${query}`;
             }
-
-            const query = (new URLSearchParams(params)).toString();
-
-            window.location.href = `/generate?${query}`;
         },
     },
 }
@@ -82,14 +117,22 @@ export default {
     <div class="flex flex-wrap">
         <div class="w-full">
             <label class="block text-xl font-bold" for="project-name">Project Name</label>
-            <input maxlength="20" @keydown="onProjectNameKeydown($event)" @change="onProjectNameChange()" v-model="projectName" id="project-name" class="appearance-none border border-black rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="my-startup-idea"/>
-            <div class="text-sm">
+            <input maxlength="20" @keydown="onProjectNameKeydown($event)" @change="onProjectNameChange()" v-model="projectName" id="project-name" class="appearance-none border rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" :class="{
+                'border-black': !projectNameValidationError,
+                'border-red-400': projectNameValidationError,
+            }" placeholder="my-startup-idea"/>
+            <img v-if="projectNameValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
+            <div class="text-sm" :class="{'text-red-400': projectNameValidationError}">
                 Lowercase alphanumeric and hyphens only. Maximum of 20 characters.
             </div>
         </div>
         <div class="w-full mt-12" v-if="devMode">
             <label class="block text-xl font-bold" for="dev-branch">Development Branch</label>
-            <input v-model="devBranch" id="dev-branch" class="appearance-none border border-black rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="branch"/>
+            <input v-model="devBranch" id="dev-branch" class="appearance-none border rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="branch" :class="{
+                'border-black': !devBranchValidationError,
+                'border-red-400': devBranchValidationError,
+            }"/>
+            <img v-if="devBranchValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
         </div>
         <div class="w-full mt-12">
             <div class="block text-xl font-bold">Environments</div>
@@ -191,61 +234,67 @@ export default {
             <div class="mt-3 flex">
                 <div class="w-1/2 pr-2">
                     <label for="project-port-awslocal" class="block">AWS Local</label>
-                    <input id="project-port-awslocal" v-model="projectPortAwsLocal" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
+                    <input id="project-port-awslocal" v-model="projectPortAwsLocal" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortAwsLocalValidationError,
+                        'border-red-400': projectPortAwsLocalValidationError,
+                    }"/>
+                    <img v-if="projectPortAwsLocalValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
                 <div class="w-1/2 pl-2">
                     <label for="project-port-mail-ui" class="block">Mail UI</label>
-                    <input id="project-port-mail-ui" v-model="projectPortMailUi" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
+                    <input id="project-port-mail-ui" v-model="projectPortMailUi" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortMailUiValidationError,
+                        'border-red-400': projectPortMailUiValidationError,
+                    }"/>
+                    <img v-if="projectPortMailUiValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
             </div>
             <div class="mt-3 flex">
                 <div class="w-1/2 pr-2">
                     <label for="project-port-app" class="block">Application</label>
-                    <input id="project-port-app" v-model="projectPortApp" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
+                    <input id="project-port-app" v-model="projectPortApp" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortAppValidationError,
+                        'border-red-400': projectPortAppValidationError,
+                    }"/>
+                    <img v-if="projectPortAppValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
                 <div class="w-1/2 pl-2">
                     <label for="project-port-app-tls" class="block">Application (TLS)</label>
-                    <input id="project-port-app-tls" v-model="projectPortAppTls" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
+                    <input id="project-port-app-tls" v-model="projectPortAppTls" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortAppTlsValidationError,
+                        'border-red-400': projectPortAppTlsValidationError,
+                    }"/>
+                    <img v-if="projectPortAppTlsValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
             </div>
             <div class="mt-3 flex">
                 <div class="w-1/2 pr-2">
                     <label for="project-port-database" class="block">Database</label>
-                    <input id="project-port-database" v-model="projectPortDatabase" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
+                    <input id="project-port-database" v-model="projectPortDatabase" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortDatabaseValidationError,
+                        'border-red-400': projectPortDatabaseValidationError,
+                    }"/>
+                    <img v-if="projectPortDatabaseValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
                 <div class="w-1/2 pl-2">
                     <label for="project-port-cache" class="block">Cache</label>
-                    <input id="project-port-cache" v-model="projectPortCache" class="appearance-none border border-black rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1"/>
+                    <input id="project-port-cache" v-model="projectPortCache" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortCacheValidationError,
+                        'border-red-400': projectPortCacheValidationError,
+                    }"/>
+                    <img v-if="projectPortCacheValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
             </div>
         </div>
         <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
-        <div class="w-full">
+        <div class="w-full text-right">
             <button
                 id="btn-generate-project"
+                :disabled="isLoading"
                 @click="onProjectGenerateClick()"
-                :class="{
-                    transition: true,
-                    'bg-black': isValid,
-                    'bg-gray-200': !isValid,
-                    'hover:bg-white': isValid,
-                    'border': true,
-                    'border-black': isValid,
-                    'border-gray-200': !isValid,
-                    'text-white': true,
-                    'hover:text-black': isValid,
-                    'active:bg-black': isValid,
-                    'active:text-white': isValid,
-                    'px-6': true,
-                    'py-3': true,
-                    'rounded-lg': true,
-                }"
-                :disabled="!isValid"
-                >Generate My Project
+                class="transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-6 py-3 rounded-lg"
+                >Generate
             </button>
-            <div class="inline text-sm ml-3 mt-3" v-if="!isValid">
-                Please check your input
-            </div>
         </div>
     </div>
 </template>
@@ -255,5 +304,11 @@ a {
     text-decoration: underline;
     color: #0067C5;
     font-weight: 700;
+}
+input[type="radio"] {
+    margin-left: 2px;
+}
+.error-alert {
+    transform: translate(-2.25rem, 1.25rem);
 }
 </style>
