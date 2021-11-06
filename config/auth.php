@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'basic-auth' => [
+        'stage' => [
+            'username' => 'larasurf',
+            'password' => 'megasuperdupersecret',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults

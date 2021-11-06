@@ -30,3 +30,4 @@ Route::get('/new', function () {
 })->name('new-project');
 
 Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
+Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');

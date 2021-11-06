@@ -34,10 +34,19 @@ class GenerateProjectController extends Controller
             $cs_fixer &&
             $local_tls
         ) {
+            $environment = config('app.env');
+
             $dev_branch = $request->query('dev-branch');
 
+            if (!$dev_branch && $environment !== 'production') {
+                $dev_branch = 'main';
+            }
+
+            $username = config("auth.basic-auth.$environment.username");
+            $password = config("auth.basic-auth.$environment.password");
+
             $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) && " .
-                'curl -s ' . ($dev_branch ? '-k ' : '') . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
+                'curl -s ' . ($dev_branch ? '-k ' : '') . ($username && $password ? "-u $username:$password " : '') . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
                 "--environments=$environments ";
 
             if ($dev_branch) {
@@ -69,5 +78,10 @@ class GenerateProjectController extends Controller
         }
 
         return redirect()->to(route('new-project'));
+    }
+
+    public function generate()
+    {
+        return response()->file(resource_path('generate.sh'));
     }
 }
