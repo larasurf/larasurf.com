@@ -398,7 +398,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'LaraSurf projects begin by running a custom command in your terminal which cURLs a Bash script. At the end of the project generation process you will be setup to immediately begin implementation (or deploy the default project to stage/production if you so choose).',
+                        'html' => 'LaraSurf projects begin by running a custom command in your terminal which cURLs a shell script. At the end of the project generation process you will be setup to immediately begin implementation (or deploy the default project to stage/production if you so choose).',
                     ],
                     [
                         'type' => 'paragraph',
@@ -590,17 +590,17 @@ class DocumentationController extends Controller
                         'type' => 'list',
                         'items' => [
                             'You must be running MacOS or WSL2 on Windows',
-                            'Your terminal must have bash support',
+                            'You must be using bash or zsh',
                             [
                                 'For MacOS, <a href="https://iterm2.com/" target="_blank">iTerm2</a> is recommended',
                             ],
                             'cURL must be installed',
                             [
-                                'cURL is likely already installed',
+                                '(likely already installed)',
                             ],
                             'Netcat must be installed',
                             [
-                                'Netcat is likely already installed',
+                                '(likely already installed)',
                             ],
                             '<a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a> must be installed',
                             [
