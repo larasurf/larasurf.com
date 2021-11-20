@@ -2981,7 +2981,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'code',
                         'class' => 'code-checklist',
-                        'text' => '([[ -f ~/.bash_profile ]] && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile || (echo "source ~/.bashrc" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile)) && source ~/.bash_profile',
+                        'text' => 'if [ -n "$ZSH_VERSION" ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.zshenv && source ~/.zshenv; elif [ -f ~/.bash_profile ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile; else echo "if [ -f ~/.bashrc ]; then source ~/.bashrc; fi" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile && source ~/.bash_profile; fi',
                     ],
                     [
                         'type' => 'checkbox',
@@ -3011,11 +3011,11 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'checkbox',
-                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
+                        'html' => 'Configure LaraSurf with the CircleCI personal API token',
                     ],
                     [
                         'type' => 'checkbox',
-                        'html' => 'Configure LaraSurf with the CircleCI personal API token',
+                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
                     ],
                     [
                         'type' => 'code',
