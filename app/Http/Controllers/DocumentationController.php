@@ -595,10 +595,16 @@ class DocumentationController extends Controller
                                 'For MacOS, <a href="https://iterm2.com/" target="_blank">iTerm2</a> is recommended',
                             ],
                             'cURL must be installed',
+                            [
+                                'cURL is likely already installed',
+                            ],
                             'Netcat must be installed',
+                            [
+                                'Netcat is likely already installed',
+                            ],
                             '<a href="https://www.docker.com/products/docker-desktop" target="_blank">Docker Desktop</a> must be installed',
                             [
-                                'The v2 CLI in experimental settings should <strong>not</strong> be enabled',
+                                'The v2 Docker-Compose CLI should <strong>not</strong> be enabled',
                             ],
                             'Git must be installed',
                             [
@@ -719,13 +725,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Enter your project name, select your desired configuration options, click "Generate My Project", copy the displayed command into your terminal (with a working directory of where you want the new project directory created), and execute the command.',
+                        'html' => 'Enter your project name, select your desired configuration options, click "Generate", copy the displayed command into your terminal (with a working directory of where you want the new project directory created), and execute the command.',
                     ],
                     [
-                        'type' => 'image',
-                        'src' => '/img/project-generation-screenshot.png',
-                        'alt' => 'LaraSurf Project Generation',
-                        'class' => 'w-full',
+                        'type' => 'callout',
+                        'html' => 'You may be prompted for your SSH key passphrase (if configured) and/or your password during the project generation process.',
                     ],
                     [
                         'type' => 'heading-1',
@@ -738,11 +742,11 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'You may use the following command to create this alias within your bash profile:',
+                        'html' => 'You may use the following command to create this alias:',
                     ],
                     [
                         'type' => 'code',
-                        'text' => '([[ -f ~/.bash_profile ]] && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile || (echo "source ~/.bashrc" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile)) && source ~/.bash_profile',
+                        'text' => 'if [ -n "$ZSH_VERSION" ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.zshenv && source ~/.zshenv; elif [ -f ~/.bash_profile ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile; else echo "if [ -f ~/.bashrc ]; then source ~/.bashrc; fi" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile && source ~/.bash_profile; fi',
                     ],
                 ],
             ],
@@ -900,7 +904,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'To create a personal API token, first navigate to the Personal API Tokens page within the user settings of your CircleCI account.',
+                        'html' => 'To create a personal API token, first navigate to the <a href="https://app.circleci.com/settings/user/tokens" target="_blank">Personal API Tokens page</a> within the user settings of your CircleCI account.',
                     ],
                     [
                         'type' => 'paragraph',
@@ -908,7 +912,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Your new API token will be displayed <strong>only once</strong>, so be sure to copy the token carefully.',
+                        'html' => 'Your new API token will be displayed <strong>only once</strong> so be sure to copy the token carefully.',
                     ],
                     [
                         'type' => 'heading-2',
@@ -964,7 +968,32 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Finally, click <span class="inline-code">Let\'s Go</span> to enable the CircleCI pipeline for your project. This will trigger running through the pipeline for the first time.',
+                        'html' => 'Click <span class="inline-code">Let\'s Go</span> to enable the CircleCI pipeline for your project. This will trigger running through the pipeline for the first time.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'User Key',
+                        'id' => 'circleci-configuration-project-setup-user-key',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'A User Key must be added before the pipeline will succeed; feel free to either cancel the original workflow or wait for it to fail.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To add a User Key, navigate to <span class="inline-code">Project Settings</span> for your project and click the <span class="inline-code">SSH Keys</span> menu option.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Under <span class="inline-code">User Key</span>, authorize with GitHub if needed then add a new User Key.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'The CircleCI pipeline <strong>will fail</strong> until a User Key is added.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'After a User Key has been added, you are free to restart the original workflow as a sanity check (but this is not required).',
                     ],
                 ],
             ],
@@ -2978,11 +3007,11 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'checkbox',
-                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
+                        'html' => 'Create a <a href="https://app.circleci.com/settings/user/tokens" target="_blank">new Personal API Token on CircleCI</a>',
                     ],
                     [
                         'type' => 'checkbox',
-                        'html' => 'Create a <a href="https://app.circleci.com/settings/user/tokens" target="_blank">new Personal API Token on CircleCI</a>',
+                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
                     ],
                     [
                         'type' => 'checkbox',
@@ -2992,6 +3021,10 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'type' => 'code',
                         'class' => 'code-checklist',
                         'text' => 'surf circleci set-api-key',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Add a new User Key for the project within the Project Settings on CircleCI',
                     ],
                     [
                         'type' => 'checkbox',
