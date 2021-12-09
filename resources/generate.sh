@@ -6,14 +6,25 @@ ERROR='\033[91m'
 SUCCESS='\033[92m'
 RESET='\033[0m'
 
+LOG_FILE_NAME="larasurf.generate.log"
+BUFFERED_LOG="$(date +"%s"): Start"
+
 export SURF_USER_ID=${SURF_USER_ID:-$UID}
+
+function log_message() {
+    echo -e "$(date +"%s"): $1" >> $LOG_FILE_NAME
+}
+
+function log_message_buffered() {
+    BUFFERED_LOG=$(printf "$BUFFERED_LOG\n%s" "$(date +"%s"): $1")
+}
 
 function surf_install() {
   AUTH_JET_INERTIA=false
   AUTH_JET_INERTIA_TEAMS=false
   AUTH_JET_LIVEWIRE=false
   AUTH_JET_LIVEWIRE_TEAMS=false
-  AUTH_BREEZE=false
+  AUTH_BREEZE_BLADE=false
   AUTH_BREEZE_VUE=false
   AUTH_BREEZE_REACT=false
   PACKAGE_IDE_HELPER=false
@@ -36,32 +47,48 @@ function surf_install() {
   do
     if [[ "$var" =~ --dev-branch=[a-zA-Z0-9/\.-_]+ ]]; then
       DEV_BRANCH=$(echo $var | sed 's/--dev-branch=//')
+
+      log_message_buffered "Dev branch: $DEV_BRANCH"
     elif [[ "$var" == '--auth=jet-inertia' ]]; then
       AUTH_JET_INERTIA=true
+
+      log_message_buffered "Auth: jetstream inertia (no teams)"
     elif [[ "$var" == '--auth=jet-inertia-teams' ]]; then
       AUTH_JET_INERTIA_TEAMS=true
+
+      log_message_buffered "Auth: jetstream inertia (teams)"
     elif [[ "$var" == '--auth=jet-livewire' ]]; then
       AUTH_JET_LIVEWIRE=true
+
+      log_message_buffered "Auth: jetstream livewire (no teams)"
     elif [[ "$var" == '--auth=jet-livewire-teams' ]]; then
       AUTH_JET_LIVEWIRE_TEAMS=true
-    elif [[ "$var" == '--auth=breeze' ]]; then
-      AUTH_BREEZE=true
+
+      log_message_buffered "Auth: jetstream livewire (teams)"
+    elif [[ "$var" == '--auth=breeze-blade' ]]; then
+      AUTH_BREEZE_BLADE=true
+
+      log_message_buffered "Auth: breeze (blade)"
     elif [[ "$var" == '--auth=breeze-vue' ]]; then
       AUTH_BREEZE_VUE=true
+
+      log_message_buffered "Auth: breeze (vue)"
     elif [[ "$var" == '--auth=breeze-react' ]]; then
       AUTH_BREEZE_REACT=true
+
+      log_message_buffered "Auth: breeze (react)"
     elif [[ "$var" == '--ide-helper' ]]; then
       PACKAGE_IDE_HELPER=true
+
+      log_message_buffered "Package: IDE helper"
     elif [[ "$var" == '--cs-fixer' ]]; then
       PACKAGE_CS_FIXER=true
+
+      log_message_buffered "Package: code style fixer"
     elif [[ "$var" == '--tls' ]]; then
       LOCAL_TLS=true
-    elif [[ "$var" == '--environments=local' ]]; then
-      ENVIRONMENTS='local'
-    elif [[ "$var" == '--environments=local-production' ]]; then
-      ENVIRONMENTS='local-production'
-    elif [[ "$var" == '--environments=local-stage-production' ]]; then
-      ENVIRONMENTS='local-stage-production'
+
+      log_message_buffered "Use local TLS"
     elif [[ "$var" =~ --environments=[a-z-]+ ]]; then
       ENVIRONMENTS=$(echo $var | sed 's/--environments=//')
 
@@ -70,22 +97,40 @@ function surf_install() {
 
         exit 1
       fi
+
+      log_message_buffered "Environments: $ENVIRONMENTS"
     elif [[ "$var" =~ --awslocal-port=[0-9]+ ]]; then
       AWSLOCAL_PORT=$(echo $var | sed 's/--awslocal-port=//')
+
+      log_message_buffered "Docker-compose port - AWS local: $AWSLOCAL_PORT"
     elif [[ "$var" =~ --mail-ui-port=[0-9]+ ]]; then
       MAIL_UI_PORT=$(echo $var | sed 's/--mail-ui-port=//')
+
+      log_message_buffered "Docker-compose port - mail UI: $MAIL_UI_PORT"
     elif [[ "$var" =~ --app-port=[0-9]+ ]]; then
       APP_PORT=$(echo $var | sed 's/--app-port=//')
+
+      log_message_buffered "Docker-compose port - app: $APP_PORT"
     elif [[ "$var" =~ --app-tls-port=[0-9]+ ]]; then
       APP_TLS_PORT=$(echo $var | sed 's/--app-tls-port=//')
+
+      log_message_buffered "Docker-compose port - app TLS: $APP_TLS_PORT"
     elif [[ "$var" =~ --db-port=[0-9]+ ]]; then
       DB_PORT=$(echo $var | sed 's/--db-port=//')
+
+      log_message_buffered "Docker-compose port - database: $DB_PORT"
     elif [[ "$var" =~ --cache-port=[0-9]+ ]]; then
       CACHE_PORT=$(echo $var | sed 's/--cache-port=//')
+
+      log_message_buffered "Docker-compose port - cache: $CACHE_PORT"
     elif [[ "$var" =~ --project-dir=[a-z.-]+ ]]; then
       PROJECT_DIR=$(echo $var | sed 's/--project-dir=//')
+
+      log_message_buffered "Project directory: $PROJECT_DIR"
     elif [[ "$var" == '--no-splash' ]]; then
       SPLASH=false
+
+      log_message_buffered "Splash: false"
     else
       echo -e "${ERROR}Unknown option '$var' specified${RESET}"
 
@@ -149,6 +194,8 @@ function surf_install() {
 
         exit 1
       fi
+
+      log_message_buffered "TLS command: $TLS_COMMAND"
   fi
 
   # check starter pack options
@@ -171,7 +218,7 @@ function surf_install() {
     ((AUTH_COUNT=AUTH_COUNT+1))
   fi
 
-  if [[ "$AUTH_BREEZE" == true ]]; then
+  if [[ "$AUTH_BREEZE_BLADE" == true ]]; then
     ((AUTH_COUNT=AUTH_COUNT+1))
   fi
 
@@ -195,21 +242,33 @@ function surf_install() {
   nc -vz localhost "$AWSLOCAL_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified awslocal port $AWSLOCAL_PORT is not open${RESET}" && exit 1
   echo "Port $AWSLOCAL_PORT is open"
 
+  log_message_buffered "Port open: $AWSLOCAL_PORT"
+
   nc -vz localhost "$MAIL_UI_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified mail UI port $MAIL_UI_PORT is not open${RESET}" && exit 1
   echo "Port $MAIL_UI_PORT is open"
+
+  log_message_buffered "Port open: $MAIL_UI_PORT"
 
   nc -vz localhost "$APP_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app port $APP_PORT is not open${RESET}" && exit 1
   echo "Port $APP_PORT is open"
 
+  log_message_buffered "Port open: $APP_PORT"
+
   nc -vz localhost "$DB_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified db port $DB_PORT is not open${RESET}" && exit 1
   echo "Port $DB_PORT is open"
+
+  log_message_buffered "Port open: $DB_PORT"
 
   nc -vz localhost "$CACHE_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified cache port $CACHE_PORT is not open${RESET}" && exit 1
   echo "Port $CACHE_PORT is open"
 
+  log_message_buffered "Port open: $CACHE_PORT"
+
   if [[ "$LOCAL_TLS" == true ]]; then
     nc -vz localhost "$APP_TLS_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app TLS port $APP_TLS_PORT is not open${RESET}" && exit 1
     echo "Port $APP_TLS_PORT is open"
+
+    log_message_buffered "Port open: $APP_TLS_PORT"
   fi
 
   # clone template project
@@ -228,13 +287,15 @@ function surf_install() {
     exit 1
   fi
 
+  echo -e "$BUFFERED_LOG" >> $LOG_FILE_NAME
+
   # build installation command
 
   INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "8.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
 
   if [[ "$AUTH_JET_INERTIA" == true ]] || [[ "$AUTH_JET_INERTIA_TEAMS" == true ]] || [[ "$AUTH_JET_LIVEWIRE" == true ]] || [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
     INSTALL_CMD="$INSTALL_CMD && composer require laravel/jetstream"
-  elif [[ "$AUTH_BREEZE" == true ]] || [[ "$AUTH_BREEZE_VUE" == true ]] || [[ "$AUTH_REACT" == true ]]; then
+  elif [[ "$AUTH_BREEZE_BLADE" == true ]] || [[ "$AUTH_BREEZE_VUE" == true ]] || [[ "$AUTH_BREEZE_REACT" == true ]]; then
     INSTALL_CMD="$INSTALL_CMD && composer require laravel/breeze"
   fi
 
@@ -246,7 +307,7 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install livewire && php artisan vendor:publish --tag=jetstream-views"
   elif [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install livewire --teams && php artisan vendor:publish --tag=jetstream-views"
-  elif [[ "$AUTH_BREEZE" == true ]]; then
+  elif [[ "$AUTH_BREEZE_BLADE" == true ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install"
   elif [[ "$AUTH_BREEZE_VUE" == true ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install vue"
@@ -254,9 +315,8 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install react"
   fi
 
-  # todo: remove --update-with-dependencies
   # @see https://github.com/aws/aws-sdk-php/issues/2264
-  INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"~1.0\" --update-with-dependencies"
+  INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"~1.0\""
 
   # todo: remove pinning of psr/log
   # @see https://github.com/barryvdh/laravel-ide-helper/issues/1261
@@ -264,8 +324,9 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && composer require psr/log \"^1.0\" && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
   fi
 
+  # todo: remove --update-with-dependencies
   if [[ "$PACKAGE_CS_FIXER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\" --update-with-dependencies"
   fi
 
   INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run dev"
@@ -286,27 +347,45 @@ function surf_install() {
 
   # build images
 
+  log_message "Building laravel image"
+
   echo "Building images..."
   cd $(pwd)
   docker-compose build --no-cache laravel
 
+  log_message "Built laravel image"
+
   # generate project
+
+  log_message "Generation command is: $INSTALL_CMD"
 
   cd $(pwd)
   echo "Generating project..."
   docker-compose run --rm --no-deps laravel bash -c "$INSTALL_CMD"
   cd $(pwd)
 
+  log_message "Generated project"
+
   # install TLS certificate if applicable
 
   if [[ "$TLS_COMMAND" == 'mkcert.exe' ]]; then
     mkcert.exe -install
+
+    log_message "Trusted mkcert certificates"
+
     cd $(pwd)
     mkcert.exe -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost
+
+    log_message "Generated mkcert certificate"
   elif [[ "$TLS_COMMAND" == 'mkcert' ]]; then
     mkcert -install
+
+    log_message "Trusted mkcert certificates"
+
     cd $(pwd)
     mkcert -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost
+
+    log_message "Generated mkcert certificate"
   fi
 
   # write ports to environment files for docker-compose to pick up
@@ -323,6 +402,8 @@ SURF_CACHE_PORT=6379
 SURF_USER_ID=1000
 EOF
 
+  log_message "Created .env.example file"
+
   cat << EOF >> '.env'
 
 # LOCAL ONLY: LaraSurf docker-compose ports
@@ -334,6 +415,8 @@ SURF_DB_PORT=$DB_PORT
 SURF_CACHE_PORT=$CACHE_PORT
 SURF_USER_ID=$SURF_USER_ID
 EOF
+
+  log_message "Created .env file"
 
   # generate a random ID for the project
 
@@ -375,6 +458,8 @@ EOF
 EOF
   fi
 
+  log_message "Created larasurf.json file"
+
   # build the post installation command
 
   POST_INSTALL_CMD='php artisan larasurf:publish --env-changes --circleci --gitignore --healthcheck'
@@ -401,14 +486,25 @@ EOF
     POST_INSTALL_CMD="$POST_INSTALL_CMD && ./vendor/bin/php-cs-fixer fix"
   fi
 
+  log_message "Stopping services"
+
   cd $(pwd)
 
   # start the services
 
   docker-compose down --volumes
+
+  log_message "Services stopped"
+  log_message "Starting services"
+
   cd $(pwd)
+
   docker-compose up -d
   cd $(pwd)
+
+  log_message "Starting started"
+
+  log_message "Waiting for DB to respond"
 
   # wait for the database to respond
 
@@ -416,35 +512,64 @@ EOF
   do
       {
         echo 'Waiting for database to be ready...'
-        ((COUNT++)) && ((COUNT==20)) && echo -e "${ERROR}Could not connect to database after 20 tries!${RESET}" && exit 1
+        ((COUNT++)) && ((COUNT==20)) && echo -e "${ERROR}Could not connect to database after 20 tries!${RESET}" && log_message "Database never responded" && exit 1
         sleep 3
       } 1>&2
   done
+
+  log_message "Database responded"
 
   echo 'Database is ready!'
 
   # execute the post installation command
 
+  log_message "Post generation command: $POST_INSTALL_CMD"
+
+  cd $(pwd)
+
   docker-compose exec -T laravel bash -c "$POST_INSTALL_CMD" && cd $(pwd)
 
   # ensure surf CLI script is executable
 
+  log_message "Post generation command run"
+
+  cd $(pwd)
+
   chmod +x vendor/larasurf/larasurf/bin/surf.sh
+
+  log_message "surf.sh chmod"
 
   # make initial commit
 
   if [[ ! -d '.git' ]]; then
     git init
+
+    log_message "Initialized git repository"
+
     cd $(pwd)
     git add .
+
+    log_message "Staged files for commit"
+
     cd $(pwd)
-    git commit -q -m 'larasurf installation'
+
+    git commit -q -m 'larasurf project generation'
+
+    log_message "Made initial commit"
+
     cd $(pwd)
     git branch -M main
+
+    log_message "Renamed master to main"
   else
     git add .
+
+    log_message "Staged files for commit"
+
     cd $(pwd)
     git commit -q -m 'larasurf installation'
+
+    log_message "Made initial commit"
   fi
 
   cd $(pwd)
@@ -453,22 +578,40 @@ EOF
 
   if [[ "$ENVIRONMENTS" == 'local-stage-production' ]] && [[ -z "$(git branch -l stage)" ]] && [[ -z "$(git branch -l develop)" ]]; then
     git checkout -b stage
+
+    log_message "Checked out stage branch"
+
     cd $(pwd)
     git checkout -b develop
+
+    log_message "Checked out develop branch"
   elif [[ "$ENVIRONMENTS" == 'local-production' ]] && [[ -z "$(git branch -l develop)" ]]; then
     git checkout -b develop
+
+    log_message "Checked out develop branch"
   fi
 
   # rebuild webserver image if applicable
 
   if [[ "$LOCAL_TLS" == true ]]; then
     cd $(pwd)
+    log_message "Rebuilding webserver image"
+
     docker-compose build --no-cache webserver
+
+    log_message "Webserver image rebuilt"
+
+    log_message "Recreating services"
+
     cd $(pwd)
     docker-compose up --force-recreate -d
+
+    log_message "Services recreated"
   fi
 
   echo -e "${SUCCESS}Project generation complete${RESET}"
+
+  log_message "Project generation complete"
 
   # display the splash screen
 
