@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContinueController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\GenerateProjectController;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,21 @@ Route::get('/how-it-works', function () {
     return view('how-it-works');
 })->name('how-it-works');
 
-Route::get('/new', function () {
-    return view('new-project');
-})->name('new-project');
+Route::middleware('guest')->group(function () {
+    Route::get('/continue', function () {
+        return view('continue');
+    })->name('continue');
 
-Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
-Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');
+    Route::get('/continue/github/redirect', [ContinueController::class, 'redirectGitHub'])->name('continue.redirect.github');
+    Route::get('/continue/github/callback', [ContinueController::class, 'callbackGitHub'])->name('continue.callback.github');
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/new', function () {
+        return view('new-project');
+    })->name('new-project');
+
+    Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
+    Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');
+});

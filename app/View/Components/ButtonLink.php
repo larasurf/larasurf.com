@@ -11,7 +11,7 @@ class ButtonLink extends Component
      *
      * @return void
      */
-    public function __construct(public string $href, public string $id = '', public string $rounding = 'lg', public string $color = 'black')
+    public function __construct(public string $href, public string $id = '', public string $rounding = 'lg', public string $color = 'black', public string $paddingX = '5', public string $paddingY = '3')
     {
     }
 

@@ -20,9 +20,11 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'github_id',
         'name',
+        'nickname',
         'email',
-        'password',
+        'avatar_src',
     ];
 
     /**
@@ -44,7 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
         self::creating(function (self $user) {
