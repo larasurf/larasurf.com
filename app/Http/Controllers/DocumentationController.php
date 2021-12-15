@@ -1581,7 +1581,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'You must be on the <span class="inline-code">main</span> branch with no uncommitted changes in your working tree to change the configured environments for your project.',
+                        'html' => 'You must be on the <span class="inline-code">main</span> branch with no uncommitted changes in your working tree to change the configured environments for your project. After changing the configured environments you will be on the <span class="inline-code">develop</span> branch.',
                     ],
                     [
                         'type' => 'callout',
