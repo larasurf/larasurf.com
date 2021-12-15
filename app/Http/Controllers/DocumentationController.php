@@ -1552,6 +1552,82 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'heading-1',
+                        'text' => 'Configuration',
+                        'id' => 'cloud-environments-configuration',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The <span class="inline-code">larasurf.json</span> file at the root of your project directory contains data representing which environments exist for your project.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'If your project has a Stage or Production environment, a starter CircleCI configuration and CloudFormation template have been created for you as part of project generation.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may change the configured environments after project generation in the following ways:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            'From Local to Local and Production',
+                            'From Local to Local, Stage, and Production',
+                            'From Local and Production to Local, Stage, and Production',
+                        ],
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'No AWS resources will be affected by changing the configured environments for your project.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You must be on the <span class="inline-code">main</span> branch with no uncommitted changes in your working tree to change the configured environments for your project.',
+                    ],
+                    [
+                        'type' => 'callout',
+                        'html' => 'After changing the configured environments for your project you should use git to commit the local changes.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Adding Production',
+                        'id' => 'cloud-environments-configuration-adding-production',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To configure your project to have a Production environment in addition to your Local environment, use the <span class="inline-code">configure-new-environments</span> command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf configure-new-environments --environments production',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Adding Stage and Production',
+                        'id' => 'cloud-environments-configuration-adding-stage-and-production',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To configure your project to have a Stage environment and a Production environment in addition to your Local environment, use the <span class="inline-code">configure-new-environments</span> command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf configure-new-environments --environments stage-production',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Adding Stage',
+                        'id' => 'cloud-environments-configuration-adding-stage',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'To configure your project to have a Stage in addition to your Local environment and Production environment, use the <span class="inline-code">configure-new-environments</span> command:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf configure-new-environments --environments stage',
+                    ],
+                    [
+                        'type' => 'heading-1',
                         'text' => 'Domains',
                         'id' => 'cloud-environments-domains',
                     ],
@@ -2936,6 +3012,34 @@ FileNotFoundError: [Errno 2] No such file or directory
                             '<span class="inline-code">value</span>: the value to set',
                             [
                                 'only required for the <span class="inline-code">set</span> subcommand',
+                            ],
+                        ],
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Configure New Environments',
+                        'id' => 'larasurf-cli-reference-configure-new-environments',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Command signature:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf configure-new-environments --environments <environments>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Options:',
+                    ],
+                    [
+                        'type' => 'list',
+                        'items' => [
+                            '<span class="inline-code">environments</span>: the new environment(s) to configure',
+                            [
+                                '<span class="inline-code">production</span>',
+                                '<span class="inline-code">stage-production</span>',
+                                '<span class="inline-code">stage</span>',
                             ],
                         ],
                     ],
