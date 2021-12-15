@@ -66,27 +66,30 @@
         @if(!isset($show_header) || $show_header)
             <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-40">
                 <div class="hidden lg:flex">
-                    <div class="w-1/6 text-3xl font-extrabold text-left">
+                    <div class="w-1/4 text-3xl font-extrabold text-left">
                         <a id="link-nav-logo" href="/" class="transition hover:text-gray-400">LaraSurf</a>
                     </div>
-                    <div class="w-2/3 flex mt-2 justify-center">
-                        <div class="z-50 w-1/3 text-right font-medium">
+                    <div class="w-1/2 flex mt-2 px-6 justify-center">
+                        <div class="z-10 text-center font-medium px-6">
                             <a id="link-nav-docs" href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                         </div>
-                        <div id="how-it-works-container" class="z-10 w-1/3 text-center font-medium">
+                        <div class="z-10 text-center font-medium px-6">
                             <a id="link-nav-how-it-works" href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                         </div>
-                        <div class="w-1/3 text-left font-medium">
-                            <span class="nav-link line-through">Pricing</span>
-                            <span id="its-free" class="text-xs absolute ml-2">It's free!</span>
+                        <div class="z-10 text-center font-medium px-6">
+                            <a id="link-nav-pricing" href="/pricing" class="nav-link transition hover:text-gray-400 {{ Route::is('pricing') ? 'underline' : '' }}">Pricing</a>
+                        </div>
+                        <div class="z-10 text-center font-medium px-6">
+                            <a id="link-nav-hire-us" href="/hire-us" class="nav-link transition hover:text-gray-400 {{ Route::is('hire-us') ? 'underline' : '' }}">Hire Us</a>
                         </div>
                     </div>
-                    <div class="w-1/6 flex justify-end pt-2 font-medium">
-                        <x-button-link id="link-nav-start" href="/new">
+                    <div class="w-1/4 flex justify-end pt-2 font-medium">
+                        <x-button-link id="link-nav-start" href="/continue">
                             <div class="inline absolute">
                                 <span class="twa twa-ocean relative"></span>
                             </div>
                             Start Surfin'</x-button-link>
+                        <a id="link-nav-login" href="/continue" class="nav-link transition hover:text-gray-400 ml-6">Login</a>
                     </div>
                 </div>
                 <div id="main-menu"></div>

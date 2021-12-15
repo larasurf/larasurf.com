@@ -75,10 +75,6 @@ nav,
     max-width: 75rem;
 }
 
-#how-it-works-container {
-    margin: 0 -1.5rem;
-}
-
 .hero-icon {
     background-position: center;
     background-repeat: no-repeat;
@@ -152,7 +148,7 @@ nav,
 @media (min-width: 1200px) {
     .documentation {
         max-width: calc(850px - 3rem);
-        margin-left: 348px;
+        margin-left: 340px;
     }
 }
 
