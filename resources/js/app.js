@@ -64,14 +64,6 @@ const setupLightboxExitOnClick = () => {
     });
 };
 
-const setupSlackInvite = () => {
-    document.querySelector('#link-footer-slack-invite').addEventListener('click', (e) => {
-        e.preventDefault();
-
-        window.axios.get('/api/slack-invite').then((r) => window.open(r.data.url));
-    });
-};
-
 const fadeInContent = () => {
     document.querySelector('body').classList.remove('opacity-0');
 }
@@ -81,6 +73,5 @@ window.addEventListener('load', (e) => {
     setupCopyButtons();
     setupBackToTopButton();
     setupLightboxExitOnClick();
-    setupSlackInvite();
     fadeInContent();
 });

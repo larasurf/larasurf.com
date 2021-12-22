@@ -43,4 +43,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
     Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');
+
+    Route::get('/logout', function () {
+        Auth::logout();
+
+        return redirect()->to(route('home'));
+    });
 });

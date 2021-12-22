@@ -83,14 +83,20 @@
                             <a id="link-nav-hire-us" href="/hire-us" class="nav-link transition hover:text-gray-400 {{ Route::is('hire-us') ? 'underline' : '' }}">Hire Us</a>
                         </div>
                     </div>
-                    <div class="w-1/4 flex justify-end pt-2 font-medium">
-                        <x-button-link id="link-nav-start" href="/continue">
-                            <div class="inline absolute">
-                                <span class="twa twa-ocean relative"></span>
-                            </div>
-                            Start Surfin'</x-button-link>
-                        <a id="link-nav-login" href="/continue" class="nav-link transition hover:text-gray-400 ml-6">Login</a>
-                    </div>
+                    @auth
+                        <div class="w-1/4 flex justify-center items-center font-medium">
+                            <img class="rounded-full w-8 h-8" src="{{ auth()->user()->avatar_src }}" alt="{{ auth()->user()->nickname }}"/>
+                        </div>
+                    @elseguest
+                        <div class="w-1/4 flex justify-end pt-2 font-medium">
+                            <x-button-link id="link-nav-start" href="/continue">
+                                <div class="inline absolute">
+                                    <span class="twa twa-ocean relative"></span>
+                                </div>
+                                Start Surfin'</x-button-link>
+                            <a id="link-nav-login" href="/continue" class="nav-link transition hover:text-gray-400 ml-6">Login</a>
+                        </div>
+                    @endauth
                 </div>
                 <div id="main-menu"></div>
             </nav>
@@ -101,23 +107,16 @@
     </div>
     <div id="footer" class="z-10 mt-32 md:mt-48 mb-24 sm:mb-8 relative">
         <footer class="text-center text-sm font-medium">
-            <div class="flex">
-                <div class="w-1/2 text-right px-2">
-                    <a id="link-footer-slack-invite" href="#" class="transition filter hover:invert-50 flex">
-                        <div class="flex-grow mr-2">Join the community on Slack</div>
-                        <div><img src="/svg/slack.svg" alt="Slack" class="inline" /></div>
-                    </a>
-                </div>
-                <div class="w-1/2 text-left px-2">
-                    <a id="link-footer-github" target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50 flex">
-                        <div><img src="/svg/github.svg" alt="GitHub" class="inline" /></div>
-                        <div class="flex-grow ml-2">Open an issue on GitHub</div>
-                    </a>
-                </div>
-            </div>
-            <div class="mt-3">&copy; {{ date('Y') }} LaraSurf. All rights reserved.</div>
+            <div class="mt-3">&copy; {{ date('Y') }} - All rights reserved by <strong>LaraSurf</strong></div>
         </footer>
     </div>
+    <script>
+        @auth
+            window.user = @json(['avatar_src' => auth()->user()->avatar_src, 'nickname' => auth()->user()->nickname])
+        @elseguest
+            window.user = false;
+        @endauth
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts', '')
 </body>

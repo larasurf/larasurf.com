@@ -324,9 +324,8 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && composer require psr/log \"^1.0\" && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
   fi
 
-  # todo: remove --update-with-dependencies
   if [[ "$PACKAGE_CS_FIXER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\" --update-with-dependencies"
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\""
   fi
 
   INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run dev"
