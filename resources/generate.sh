@@ -279,7 +279,7 @@ function surf_install() {
       exit 1
     fi
 
-    echo 'Cloning template project...'
+    echo 'Cloning project template...'
     cd $(pwd)
     mkdir "$PROJECT_DIR" && cd "$PROJECT_DIR" && curl --silent "%PROJECT_TEMPLATE_PRESIGNED_URL%" | tar -x
     cd $(pwd)
@@ -322,13 +322,10 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install react"
   fi
 
-  # @see https://github.com/aws/aws-sdk-php/issues/2264
   INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"~1.0\""
 
-  # todo: remove pinning of psr/log
-  # @see https://github.com/barryvdh/laravel-ide-helper/issues/1261
   if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require psr/log \"^1.0\" && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
   fi
 
   if [[ "$PACKAGE_CS_FIXER" == true ]]; then
