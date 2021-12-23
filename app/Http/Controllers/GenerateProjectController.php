@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use File;
 use Illuminate\Http\Request;
+use Storage;
 
 class GenerateProjectController extends Controller
 {
+    const PROJECT_TEMPLATE_VERSION_TAG = 'v0.1.3';
+
     public function view(Request $request)
     {
         $name = $request->query('name');
@@ -82,6 +86,18 @@ class GenerateProjectController extends Controller
 
     public function generate()
     {
-        return response()->file(resource_path('generate.sh'));
+        $script = File::get(resource_path('generate.sh'));
+
+        $presigned_url = Storage::disk('s3')->temporaryUrl('laravel-docker-template/dist/' . self::PROJECT_TEMPLATE_VERSION_TAG . '/project-template.tar', now()->addMinutes(5));
+
+        foreach ([
+            '%PROJECT_TEMPLATE_PRESIGNED_URL%' => $presigned_url,
+                 ] as $search => $replace) {
+            $script = str_replace($search, $replace, $script);
+        }
+
+        return response()->streamDownload(function () use ($script) {
+            echo $script;
+        }, 'generate.sh');
     }
 }

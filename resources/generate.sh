@@ -281,7 +281,14 @@ function surf_install() {
 
     echo 'Cloning template project...'
     cd $(pwd)
-    git clone -q --single-branch --branch main --depth=1 git@github.com:larasurf/laravel-docker-template.git "$PROJECT_DIR" && cd "$PROJECT_DIR" && rm -rf .git
+    mkdir "$PROJECT_DIR" && cd "$PROJECT_DIR" && curl --silent "%PROJECT_TEMPLATE_PRESIGNED_URL%" | tar -x
+    cd $(pwd)
+
+    if [[ -f "pax_global_header" ]]; then
+        rm -f pax_global_header
+    fi
+
+    cd $(pwd)
   elif [[ "$PROJECT_DIR" == '.' ]] && [[ -f 'composer.json' ]] && [[ -d 'app' ]]; then
     echo -e "${ERROR}Laravel project already exists!${RESET}"
     exit 1

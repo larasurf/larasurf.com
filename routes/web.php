@@ -36,13 +36,14 @@ Route::middleware('guest')->group(function () {
 
 });
 
+Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');
+
 Route::middleware('auth')->group(function () {
     Route::get('/new', function () {
         return view('new-project');
     })->name('new-project');
 
     Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
-    Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');
 
     Route::get('/logout', function () {
         Auth::logout();
