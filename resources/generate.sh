@@ -468,7 +468,7 @@ EOF
 
   # build the post installation command
 
-  POST_INSTALL_CMD='php artisan larasurf:publish --env-changes --circleci --gitignore --healthcheck'
+  POST_INSTALL_CMD='php artisan larasurf:publish --awslocal --env-changes --circleci --gitignore --healthcheck'
 
   if [[ "$ENVIRONMENTS" == 'local-stage-production' ]] || [[ "$ENVIRONMENTS" == 'local-production' ]] ; then
     POST_INSTALL_CMD="$POST_INSTALL_CMD --cloudformation --proxies"
