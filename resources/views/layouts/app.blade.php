@@ -84,8 +84,9 @@
                         </div>
                     </div>
                     @auth
-                        <div class="w-1/4 flex justify-center items-center font-medium">
-                            <img class="rounded-full w-8 h-8" src="{{ auth()->user()->avatar_src }}" alt="{{ auth()->user()->nickname }}"/>
+                        <div class="w-1/4 flex items-center justify-end font-medium">
+                            <img class="rounded-full w-8 h-8 mr-12" src="{{ auth()->user()->avatar_src }}" alt="{{ auth()->user()->nickname }}"/>
+                            <span class="pr-3 relative font-bold">{{ auth()->user()->nickname }}</span>
                         </div>
                     @elseguest
                         <div class="w-1/4 flex justify-end pt-2 font-medium">
