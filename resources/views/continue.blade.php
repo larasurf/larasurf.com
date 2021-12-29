@@ -17,7 +17,6 @@
                        border
                        border-white
                        text-black
-                       rounded-lg
                        py-3">
                     <img src="/svg/github.svg" alt="GitHub" class="inline mr-2" />
                     Continue with GitHub

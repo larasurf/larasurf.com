@@ -66,10 +66,10 @@
         @if(!isset($show_header) || $show_header)
             <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-40">
                 <div class="hidden lg:flex">
-                    <div class="w-1/4 text-3xl font-extrabold text-left">
+                    <div class="w-1/5 text-3xl font-extrabold text-left">
                         <a id="link-nav-logo" href="/" class="transition hover:text-gray-400">LaraSurf</a>
                     </div>
-                    <div class="w-1/2 flex mt-2 px-6 justify-center">
+                    <div class="w-3/5 flex mt-2 px-6 justify-end">
                         <div class="z-10 text-center font-medium px-6">
                             <a id="link-nav-docs" href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                         </div>
@@ -80,26 +80,25 @@
                             <a id="link-nav-pricing" href="/pricing" class="nav-link transition hover:text-gray-400 {{ Route::is('pricing') ? 'underline' : '' }}">Pricing</a>
                         </div>
                         <div class="z-10 text-center font-medium px-6">
-                            <a id="link-nav-hire-us" href="/hire-us" class="nav-link transition hover:text-gray-400 {{ Route::is('hire-us') ? 'underline' : '' }}">Hire Us</a>
+                            <a id="link-nav-custom-project" href="/custom-project" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-project') ? 'underline' : '' }}">Custom Project</a>
                         </div>
                     </div>
                     @auth
-                        <div class="w-1/4 flex items-center justify-end font-medium">
-                            <img class="rounded-full w-8 h-8 mr-12" src="{{ auth()->user()->avatar_src }}" alt="{{ auth()->user()->nickname }}"/>
-                            <span class="pr-3 relative font-bold">{{ auth()->user()->nickname }}</span>
-                        </div>
+                        <div id="avatar-menu" class="w-1/5"></div>
                     @elseguest
-                        <div class="w-1/4 flex justify-end pt-2 font-medium">
-                            <x-button-link id="link-nav-start" href="/continue">
+                        <div class="w-1/5 flex justify-end pt-2 font-medium">
+                            <x-button-link id="link-nav-sign-up" href="/continue">
+                                Sign Up
                                 <div class="inline absolute">
                                     <span class="twa twa-ocean relative"></span>
                                 </div>
-                                Start Surfin'</x-button-link>
-                            <a id="link-nav-login" href="/continue" class="nav-link transition hover:text-gray-400 ml-6">Login</a>
+                            </x-button-link>
+                            <a id="link-nav-login" href="/continue" class="nav-link transition hover:text-gray-400 ml-6 font-bold">Login</a>
                         </div>
                     @endauth
                 </div>
                 <div id="main-menu"></div>
+                <div class="mt-6 w-100 border-b border-gray-100"></div>
             </nav>
         @endif
         <div id="content" class="mt-36 px-6 mx-auto z-10">

@@ -1,11 +1,16 @@
 import { createApp } from 'vue';
 
 import MainMenu from './components/MainMenu.vue';
+import AvatarMenu from './components/AvatarMenu.vue';
 
 require('fslightbox');
 require('./bootstrap');
 
 createApp(MainMenu).mount('#main-menu');
+
+if (document.querySelector('#avatar-menu')) {
+    createApp(AvatarMenu).mount('#avatar-menu');
+}
 
 const setupCodeBlockScrolling = () => {
     const codeBlocks = document.querySelectorAll('.code');

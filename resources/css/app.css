@@ -62,12 +62,12 @@ input[type='radio'] {
     text-decoration-thickness: 1px;
 }
 
-#link-nav-start {
-    padding-left: 3rem;
+#link-nav-sign-up {
+    padding-right: 3rem;
 }
 
-#link-nav-start span {
-    right: 2rem;
+#link-nav-sign-up span {
+    left: 0.75rem;
 }
 
 nav,
