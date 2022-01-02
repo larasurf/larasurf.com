@@ -139,7 +139,13 @@ export default {
                 <div class="my-3">
                     <a id="link-nav-custom-project-mobile" class="font-medium text-black hover:text-gray-400" href="/custom-project">Custom Project</a>
                 </div>
-                <template v-if="user">
+                <template v-if="!user">
+                    <div class="border-gray-200 border-b mt-3"></div>
+                    <div class="my-3">
+                        <a id="link-nav-contact-mobile" class="font-medium text-black hover:text-gray-400" href="/contact">Contact Us</a>
+                    </div>
+                </template>
+                <template v-else>
                     <div class="border-gray-200 border-b mt-3"></div>
                     <div class="my-3">
                         <a id="link-nav-projects-mobile" class="font-medium text-black hover:text-gray-400" href="/projects">My Projects</a>
@@ -155,16 +161,12 @@ export default {
                     </div>
                     <div class="border-gray-200 border-b mt-3"></div>
                     <div class="my-3">
+                        <a id="link-nav-contact-mobile" class="font-medium text-black hover:text-gray-400" href="/contact">Contact Us</a>
+                    </div>
+                    <div class="my-3">
                         <a id="link-nav-logout-mobile" class="font-medium text-black hover:text-gray-400" href="/logout">Logout</a>
                     </div>
                 </template>
-                <div class="mt-12 mb-3">
-                    <span class="font-medium text-gray-400" >LaraSurf</span>
-                </div>
-                <div class="border-gray-200 border-b mt-3"></div>
-                <div class="my-3">
-                    <a id="link-nav-contact-mobile" class="font-medium text-black hover:text-gray-400" href="/contact">Contact Us</a>
-                </div>
             </div>
         </transition>
     </div>
