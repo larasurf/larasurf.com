@@ -4,12 +4,29 @@ export default {
         return {
             isOpen: false,
             user: window.user,
+            scrollKeys: [37, 38, 39, 40],
         };
     },
     computed: {
         menuWord: function() {
             return this.isOpen ? 'Close' : 'Menu';
-        }
+        },
+        wheelOption: function() {
+            let supportsPassive = false;
+
+            try {
+                window.addEventListener('test', null, Object.defineProperty({}, 'passive', {
+                    get: function() { supportsPassive = true; }
+                }));
+            } catch (e) {
+                //
+            }
+
+            return supportsPassive ? { passive: false } : false;
+        },
+        wheelEvent: function() {
+            return 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+        },
     },
     mounted() {
         window.addEventListener('resize', this.onWindowResize);
@@ -21,28 +38,45 @@ export default {
         onMenuClick() {
             this.$refs.menuRef.blur();
 
-            const content = document.querySelector('#content');
-            const footer = document.querySelector('#footer');
+            this.isOpen = !this.isOpen;
+        },
+        preventDefault(e) {
+            e.preventDefault();
+        },
+        preventDefaultScrollKeys(e) {
+            if (this.scrollKeys.includes(e.keyCode)) {
+                e.preventDefault();
 
-            if (this.isOpen) {
-                this.isOpen = false;
-                content.style.display = 'block';
-                footer.style.display = 'block';
-            } else {
-                this.isOpen = true;
-
-                window.setTimeout(() => {
-                    content.style.display = 'none';
-                    footer.style.display = 'none';
-                }, 500);
+                return false;
             }
-        }
+        },
+        disableScroll() {
+            window.addEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
+            window.addEventListener(this.wheelEvent, this.preventDefault, this.wheelOption); // modern desktop
+            window.addEventListener('touchmove', this.preventDefault, this.wheelOption); // mobile
+            window.addEventListener('keydown', this.preventDefaultScrollKeys, false);
+        },
+        enableScroll() {
+            window.removeEventListener('DOMMouseScroll', this.preventDefault, false); // older FF
+            window.removeEventListener(this.wheelEvent, this.preventDefault, this.wheelOption); // modern desktop
+            window.removeEventListener('touchmove', this.preventDefault, this.wheelOption); // mobile
+            window.removeEventListener('keydown', this.preventDefaultScrollKeys, false);
+        },
     },
+    watch: {
+        isOpen: function(newValue, oldValue) {
+            if (oldValue === false && newValue === true) {
+                this.disableScroll();
+            } else if (oldValue === true && newValue === false) {
+                this.enableScroll();
+            }
+        },
+    }
 }
 </script>
 
 <template>
-    <div class="mr-3">
+    <div>
         <div class="flex lg:hidden justify-center mb-3">
             <div class="w-2/3 text-3xl font-extrabold text-left">
                 <a href="/" class="transition hover:text-gray-400">LaraSurf</a>
@@ -65,7 +99,7 @@ export default {
             </div>
         </div>
         <transition name="slide-fade">
-            <div v-show="isOpen" class="menu z-50 fixed left-0 right-0 bg-white w-screen px-6">
+            <div v-show="isOpen" class="menu fixed left-0 right-0 bg-white px-6">
                 <template v-if="!user">
                     <div class="border-gray-100 border-b mt-3"></div>
                     <div class="my-6">
@@ -89,6 +123,9 @@ export default {
                         </div>
                     </div>
                 </template>
+                <div class="my-3">
+                    <span class="font-medium text-gray-400" >Main Menu</span>
+                </div>
                 <div class="border-gray-200 border-b mt-3"></div>
                 <div class="my-3">
                     <a id="link-nav-docs-mobile" class="font-medium text-black hover:text-gray-400" href="/docs">Documentation</a>
@@ -100,7 +137,7 @@ export default {
                     <a id="link-nav-pricing-mobile" class="font-medium text-black hover:text-gray-400" href="/pricing">Pricing</a>
                 </div>
                 <div class="my-3">
-                    <a id="link-nav-hire-us-mobile" class="font-medium text-black hover:text-gray-400" href="/hire-us">Hire Us</a>
+                    <a id="link-nav-custom-project-mobile" class="font-medium text-black hover:text-gray-400" href="/custom-project">Custom Project</a>
                 </div>
                 <template v-if="user">
                     <div class="border-gray-200 border-b mt-3"></div>
@@ -128,7 +165,8 @@ export default {
 
 <style scoped>
 .menu {
-    height: calc(100vh - 72px);
+    height: 100vh;
+    z-index: 100;
 }
 
 .fade-enter-active,
@@ -145,7 +183,7 @@ export default {
 .slide-fade-leave-active {
     transition: all 500ms;
     overflow: hidden;
-    height: calc(100vh - 72px);
+    height: 100vh;
 }
 
 .slide-fade-enter-from,

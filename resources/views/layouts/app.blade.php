@@ -64,7 +64,7 @@
     @endif
     <div class="z-30">
         @if(!isset($show_header) || $show_header)
-            <nav class="fixed left-0 right-0 top-0 px-6 py-9 mx-auto bg-white z-40">
+            <nav class="fixed left-0 top-0 right-0 px-6 py-9 mx-auto bg-white z-50">
                 <div class="hidden lg:flex">
                     <div class="w-1/5 text-3xl font-extrabold text-left">
                         <a id="link-nav-logo" href="/" class="transition hover:text-gray-400">LaraSurf</a>
@@ -101,7 +101,7 @@
                 <div class="mt-6 w-100 border-b border-gray-100"></div>
             </nav>
         @endif
-        <div id="content" class="mt-36 px-6 mx-auto z-10">
+        <div id="content" class="mt-36 px-6 mx-auto z-10 block">
             @yield('content')
         </div>
     </div>
