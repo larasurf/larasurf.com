@@ -11,7 +11,7 @@
     <div class="block lg:hidden">
         <span class="font-bold text-2xl py-2">Generate Project</span>
     </div>
-    <div class="relative w-full lg:w-auto documentation" style="padding-top:1.34rem;">
+    <div class="relative w-full lg:w-auto content" style="padding-top:1.34rem;">
         <div id="new-project"></div>
     </div>
 @endsection

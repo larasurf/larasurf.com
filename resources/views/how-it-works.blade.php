@@ -12,7 +12,7 @@
             <a href="#circleci-pipeline" class="block static-menu-width font-medium pl-12 py-2 hover:text-gray-400">CircleCI Pipeline</a>
         </div>
     </div>
-    <div class="relative how-it-works documentation w-full lg:w-auto pt-2">
+    <div class="relative content w-full lg:w-auto pt-2">
         <x-heading-1 id="title" margin-top="1">How it works</x-heading-1>
         <x-paragraph>LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, deploying, and iterating upon Laravel applications. No more fiddling with different software versions and dockerizing new applications; LaraSurf provides everything needed to spin up a new project and start implementation as quickly as possible.</x-paragraph>
         <x-heading-2 id="project-generation">Project Generation</x-heading-2>
@@ -21,22 +21,22 @@
         <x-heading-2 id="assumed-needs">Assumed Needs</x-heading-2>
         <x-paragraph>LaraSurf projects come with a preconfigured CloudFormation template, a preconfigured CircleCI configuration, and CLI commands to help along the way.</x-paragraph>
         <x-paragraph>Out of the box, LaraSurf assumes your project will need all of the following:</x-paragraph>
-        <div class="flex">
-            <ul class="my-3 text-lg  w-full lg:w-1/3">
+        <div class="flex flex-col lg:flex-row">
+            <ul class="my-3 text-lg lg:w-1/3">
                 <li class="list-disc my-1">Application Load Balancer</li>
                 <li class="list-disc my-1">Webserver (NGINX)</li>
                 <li class="list-disc my-1">FastCGI daemon for <br/>PHP 8 (PHP-FPM)</li>
                 <li class="list-disc my-1">MySQL 8 database</li>
                 <li class="list-disc my-1">Private S3 bucket</li>
             </ul>
-            <ul class="my-3 text-lg w-full lg:w-1/3">
+            <ul class="my-3 text-lg lg:w-1/3">
                 <li class="list-disc my-1">Redis cluster</li>
                 <li class="list-disc my-1">Queue worker support</li>
                 <li class="list-disc my-1">Scheduled commands</li>
                 <li class="list-disc my-1">Environment variables</li>
                 <li class="list-disc my-1">Centralized Logging</li>
             </ul>
-            <ul class="my-3 text-lg w-full lg:w-1/3">
+            <ul class="my-3 text-lg lg:w-1/3">
                 <li class="list-disc my-1">DNS record</li>
                 <li class="list-disc my-1">TLS certificate</li>
                 <li class="list-disc my-1">Outbound emails</li>
