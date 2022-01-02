@@ -26,10 +26,25 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center mt-16">
-            <x-button-link id="link-cta-tell-me-more" href="/how-it-works" color="white" rounding="full">
-                <span class="font-medium text-xl">Tell Me More</span>
-            </x-button-link>
+        <div class="mx-auto mt-16 max-w-2xl">
+            <span class="text-lg">
+                LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for implementing and deploying new Laravel applications.
+            </span>
+        </div>
+        <div class="mx-auto mt-4 max-w-2xl">
+            <span class="text-lg">
+                A fully functional AWS CloudFormation template paired with a preconfigured CircleCI configuration file mean you're up and running quickly with cloud infrastructure CI/CD and pipelines for your Stage or Production environments.
+            </span>
+        </div>
+        <div class="mx-auto mt-4 max-w-2xl">
+            <span class="text-lg">
+                LaraSurf is not a middle-man charging you to sublet AWS; we only charge a single payment per project.
+            </span>
+        </div>
+        <div class="mx-auto mt-4 max-w-2xl">
+            <span class="text-lg">
+                Interacting with a containerized local development environment or your cloud infrastructure is a piece of cake with the LaraSurf CLI.
+            </span>
         </div>
     </div>
 @endsection

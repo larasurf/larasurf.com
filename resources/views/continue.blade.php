@@ -3,7 +3,7 @@
 @section('title', 'Continue with GitHub - LaraSurf')
 
 @section('content')
-    <div class="flex justify-center items-center" style="height: calc(100vh - 480px)">
+    <div class="flex justify-center items-center mb-64" style="height: calc(100vh - 480px)">
         <div>
             <h1 class="text-4xl font-bold">LaraSurf</h1>
             <a href="/continue/github/redirect"

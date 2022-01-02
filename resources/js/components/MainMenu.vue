@@ -158,6 +158,13 @@ export default {
                         <a id="link-nav-logout-mobile" class="font-medium text-black hover:text-gray-400" href="/logout">Logout</a>
                     </div>
                 </template>
+                <div class="mt-12 mb-3">
+                    <span class="font-medium text-gray-400" >LaraSurf</span>
+                </div>
+                <div class="border-gray-200 border-b mt-3"></div>
+                <div class="my-3">
+                    <a id="link-nav-contact-mobile" class="font-medium text-black hover:text-gray-400" href="/contact">Contact Us</a>
+                </div>
             </div>
         </transition>
     </div>

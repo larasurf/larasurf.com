@@ -105,17 +105,26 @@
             @yield('content')
         </div>
     </div>
-    <div id="footer" class="z-10 mt-32 md:mt-48 mb-24 sm:mb-8 relative">
+    <div id="footer" class="z-10 mt-16 md:mt-16 mb-4 relative">
         <footer class="text-center text-sm font-medium">
+            <div class="mt-3 text-center">
+                <a href="/contact" id="link-footer-contact" class="filter invert-0 hover:invert-50">
+                    <svg class="inline" width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 16H2C0.89543 16 0 15.1046 0 14V1.913C0.0466084 0.842548 0.928533 -0.00101238 2 9.11911e-07H18C19.1046 9.11911e-07 20 0.895432 20 2V14C20 15.1046 19.1046 16 18 16ZM2 3.868V14H18V3.868L10 9.2L2 3.868ZM2.8 2L10 6.8L17.2 2H2.8Z" fill="black"/>
+                    </svg>
+                    <span class="ml-1 relative font-medium text-black" style="top: 0.07rem">Contact Us</span>
+                </a>
+            </div>
             <div class="mt-3">&copy; {{ date('Y') }} - All rights reserved by <strong>LaraSurf</strong></div>
         </footer>
     </div>
     <script>
         @auth
-            window.user = @json(['avatar_src' => auth()->user()->avatar_src, 'nickname' => auth()->user()->nickname])
+            window.user = @json(['avatar_src' => auth()->user()->avatar_src, 'nickname' => auth()->user()->nickname]);
         @elseguest
             window.user = false;
         @endauth
+        window.route = @json(request()->route()->getName());
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts', '')
