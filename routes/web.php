@@ -26,28 +26,10 @@ Route::get('/how-it-works', function () {
     return view('how-it-works');
 })->name('how-it-works');
 
-Route::middleware('guest')->group(function () {
-    Route::get('/continue', function () {
-        return view('continue');
-    })->name('continue');
+Route::get('/new', function () {
+    return view('new-project');
+})->name('new-project');
 
-    Route::get('/continue/github/redirect', [ContinueController::class, 'redirectGitHub'])->name('continue.redirect.github');
-    Route::get('/continue/github/callback', [ContinueController::class, 'callbackGitHub'])->name('continue.callback.github');
-
-});
+Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
 
 Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/new', function () {
-        return view('new-project');
-    })->name('new-project');
-
-    Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
-
-    Route::get('/logout', function () {
-        Auth::logout();
-
-        return redirect()->to(route('home'));
-    });
-});

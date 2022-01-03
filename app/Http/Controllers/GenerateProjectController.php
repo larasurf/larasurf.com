@@ -86,18 +86,6 @@ class GenerateProjectController extends Controller
 
     public function generate()
     {
-        $script = File::get(resource_path('generate.sh'));
-
-        $presigned_url = Storage::disk('s3')->temporaryUrl('laravel-docker-template/dist/' . self::PROJECT_TEMPLATE_VERSION_TAG . '/project-template.tar', now()->addMinutes(5));
-
-        foreach ([
-            '%PROJECT_TEMPLATE_PRESIGNED_URL%' => $presigned_url,
-                 ] as $search => $replace) {
-            $script = str_replace($search, $replace, $script);
-        }
-
-        return response()->streamDownload(function () use ($script) {
-            echo $script;
-        }, 'generate.sh');
+        return response()->file(resource_path('generate.sh'));
     }
 }

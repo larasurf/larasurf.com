@@ -281,12 +281,8 @@ function surf_install() {
 
     echo 'Cloning project template...'
     cd $(pwd)
-    mkdir "$PROJECT_DIR" && cd "$PROJECT_DIR" && curl --silent "%PROJECT_TEMPLATE_PRESIGNED_URL%" | tar -x
+    git clone -q --single-branch --branch main --depth=1 git@github.com:larasurf/laravel-docker-template.git "$PROJECT_DIR" && cd "$PROJECT_DIR" && rm -rf .git
     cd $(pwd)
-
-    if [[ -f "pax_global_header" ]]; then
-        rm -f pax_global_header
-    fi
 
     cd $(pwd)
   elif [[ "$PROJECT_DIR" == '.' ]] && [[ -f 'composer.json' ]] && [[ -d 'app' ]]; then

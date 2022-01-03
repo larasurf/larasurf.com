@@ -20,11 +20,8 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'github_id',
         'name',
-        'nickname',
         'email',
-        'avatar_src',
     ];
 
     /**
@@ -45,13 +42,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        self::creating(function (self $user) {
-            $user->password = Str::random(64);
-        });
-    }
 }
