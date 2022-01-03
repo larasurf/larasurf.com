@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use File;
 use Illuminate\Http\Request;
-use Storage;
 
 class GenerateProjectController extends Controller
 {
-    const PROJECT_TEMPLATE_VERSION_TAG = 'v0.1.3';
+    public const PROJECT_TEMPLATE_VERSION_TAG = 'v0.1.3';
 
     public function view(Request $request)
     {

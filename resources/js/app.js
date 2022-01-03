@@ -1,16 +1,11 @@
 import { createApp } from 'vue';
 
 import MainMenu from './components/MainMenu.vue';
-import AvatarMenu from './components/AvatarMenu.vue';
 
 require('fslightbox');
 require('./bootstrap');
 
 createApp(MainMenu).mount('#main-menu');
-
-if (document.querySelector('#avatar-menu')) {
-    createApp(AvatarMenu).mount('#avatar-menu');
-}
 
 const setupCodeBlockScrolling = () => {
     const codeBlocks = document.querySelectorAll('.code');
@@ -73,10 +68,19 @@ const fadeInContent = () => {
     document.querySelector('body').classList.remove('opacity-0');
 }
 
+const setupSlackInvite = () => {
+    document.querySelector('#link-footer-slack-invite').addEventListener('click', (e) => {
+        e.preventDefault();
+
+        window.axios.get('/api/slack-invite').then((r) => window.open(r.data.url));
+    });
+};
+
 window.addEventListener('load', (e) => {
     setupCodeBlockScrolling();
     setupCopyButtons();
     setupBackToTopButton();
     setupLightboxExitOnClick();
+    setupSlackInvite();
     fadeInContent();
 });

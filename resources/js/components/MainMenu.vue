@@ -3,14 +3,10 @@ export default {
     data() {
         return {
             isOpen: false,
-            user: window.user,
             scrollKeys: [37, 38, 39, 40],
         };
     },
     computed: {
-        menuWord: function() {
-            return this.isOpen ? 'Close' : 'Menu';
-        },
         wheelOption: function() {
             let supportsPassive = false;
 
@@ -100,29 +96,6 @@ export default {
         </div>
         <transition name="slide-fade">
             <div v-show="isOpen" class="menu fixed left-0 right-0 bg-white px-6">
-                <template v-if="!user">
-                    <div class="border-gray-100 border-b mt-3"></div>
-                    <div class="my-6">
-                        <a id="link-nav-sign-up-mobile" class="block px-6 py-3 border border-black text-center bg-black hover:bg-white text-white hover:text-black" href="/continue">
-                            Sign Up
-                            <span class="ml-2 twa twa-ocean relative"></span>
-                        </a>
-                    </div>
-                    <div class="my-6">
-                        <a id="link-nav-login-mobile" class="block px-6 py-3 border border-black text-center bg-white hover:bg-black text-black hover:text-white" href="/continue">Login</a>
-                    </div>
-                </template>
-                <template v-else>
-                    <div class="border-gray-100 border-b mt-3"></div>
-                    <div class="flex items-center justify-center mt-3">
-                        <div class="w-1/3">
-                            <img class="rounded-full w-12 h-12" :src="user.avatar_src" :alt="user.nickname"/>
-                        </div>
-                        <div class="w-2/3 text-right">
-                            <span class="pr-3 font-bold">{{ user.nickname }}</span>
-                        </div>
-                    </div>
-                </template>
                 <div class="my-3">
                     <span class="font-medium text-gray-400" >Main Menu</span>
                 </div>
@@ -134,39 +107,11 @@ export default {
                     <a id="link-nav-how-it-works-mobile" class="font-medium text-black hover:text-gray-400" href="/how-it-works">How it works</a>
                 </div>
                 <div class="my-3">
-                    <a id="link-nav-pricing-mobile" class="font-medium text-black hover:text-gray-400" href="/pricing">Pricing</a>
+                    <span class="font-medium text-black line-through pr-2">Pricing</span> It's free!
                 </div>
                 <div class="my-3">
-                    <a id="link-nav-custom-project-mobile" class="font-medium text-black hover:text-gray-400" href="/custom-project">Custom Project</a>
+                    <a id="link-nav-custom-projects-mobile" class="font-medium text-black hover:text-gray-400" href="/custom-projects">Custom Projects</a>
                 </div>
-                <template v-if="!user">
-                    <div class="border-gray-200 border-b mt-3"></div>
-                    <div class="my-3">
-                        <a id="link-nav-contact-mobile" class="font-medium text-black hover:text-gray-400" href="/contact">Contact Us</a>
-                    </div>
-                </template>
-                <template v-else>
-                    <div class="border-gray-200 border-b mt-3"></div>
-                    <div class="my-3">
-                        <a id="link-nav-projects-mobile" class="font-medium text-black hover:text-gray-400" href="/projects">My Projects</a>
-                    </div>
-                    <div class="my-3">
-                        <a id="link-nav-support-mobile" class="font-medium text-black hover:text-gray-400" href="/support">Submit a Help Ticket</a>
-                    </div>
-                    <div class="my-3">
-                        <a id="link-nav-billing-mobile" class="font-medium text-black hover:text-gray-400" href="/billing">Billing & Payments</a>
-                    </div>
-                    <div class="my-3">
-                        <a id="link-nav-account-mobile" class="font-medium text-black hover:text-gray-400" href="/account">Account Settings</a>
-                    </div>
-                    <div class="border-gray-200 border-b mt-3"></div>
-                    <div class="my-3">
-                        <a id="link-nav-contact-mobile" class="font-medium text-black hover:text-gray-400" href="/contact">Contact Us</a>
-                    </div>
-                    <div class="my-3">
-                        <a id="link-nav-logout-mobile" class="font-medium text-black hover:text-gray-400" href="/logout">Logout</a>
-                    </div>
-                </template>
             </div>
         </transition>
     </div>

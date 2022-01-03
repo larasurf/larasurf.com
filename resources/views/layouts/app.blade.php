@@ -76,26 +76,22 @@
                         <div class="z-10 text-center font-medium px-6">
                             <a id="link-nav-how-it-works" href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                         </div>
-                        <div class="z-10 text-center font-medium px-6">
-                            <a id="link-nav-pricing" href="/pricing" class="nav-link transition hover:text-gray-400 {{ Route::is('pricing') ? 'underline' : '' }}">Pricing</a>
+                        <div class="z-10 text-center font-medium pl-6 pr-16">
+                            <span class="nav-link line-through">Pricing</span>
+                            <span id="its-free" class="text-xs absolute ml-2">It's free!</span>
                         </div>
                         <div class="z-10 text-center font-medium px-6">
-                            <a id="link-nav-custom-project" href="/custom-project" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-project') ? 'underline' : '' }}">Custom Project</a>
+                            <a id="link-nav-custom-projects" href="/custom-projects" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-projects') ? 'underline' : '' }}">Custom Projects</a>
                         </div>
                     </div>
-                    @auth
-                        <div id="avatar-menu" class="w-1/5"></div>
-                    @elseguest
-                        <div class="w-1/5 flex justify-end pt-2 font-medium">
-                            <x-button-link id="link-nav-sign-up" href="/continue">
-                                Sign Up
-                                <div class="inline absolute">
-                                    <span class="twa twa-ocean relative"></span>
-                                </div>
-                            </x-button-link>
-                            <a id="link-nav-login" href="/continue" class="nav-link transition hover:text-gray-400 ml-6 font-bold">Login</a>
-                        </div>
-                    @endauth
+                    <div class="w-1/5 text-right pt-2 font-medium">
+                        <x-button-link id="link-nav-start" href="/new">
+                            Start Surfin'
+                            <div class="inline absolute">
+                                <span class="twa twa-ocean relative"></span>
+                            </div>
+                        </x-button-link>
+                    </div>
                 </div>
                 <div id="main-menu"></div>
                 <div class="mt-6 w-100 border-b border-gray-100"></div>
@@ -107,24 +103,24 @@
     </div>
     <div id="footer" class="z-10 mt-16 md:mt-16 mb-4 relative">
         <footer class="text-center text-sm font-medium">
-            <div class="mt-3 text-center">
-                <a href="/contact" id="link-footer-contact" class="filter invert-0 hover:invert-50">
-                    <svg class="inline" width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 16H2C0.89543 16 0 15.1046 0 14V1.913C0.0466084 0.842548 0.928533 -0.00101238 2 9.11911e-07H18C19.1046 9.11911e-07 20 0.895432 20 2V14C20 15.1046 19.1046 16 18 16ZM2 3.868V14H18V3.868L10 9.2L2 3.868ZM2.8 2L10 6.8L17.2 2H2.8Z" fill="black"/>
-                    </svg>
-                    <span class="ml-1 relative font-medium text-black" style="top: 0.07rem">Contact Us</span>
-                </a>
+            <div class="flex">
+                <div class="w-1/2 text-right px-2">
+                    <a id="link-footer-slack-invite" href="#" class="transition filter hover:invert-50 flex">
+                        <div class="flex-grow mr-2">Join the community on Slack</div>
+                        <div><img src="/svg/slack.svg" alt="Slack" class="inline" /></div>
+                    </a>
+                </div>
+                <div class="w-1/2 text-left px-2">
+                    <a id="link-footer-github" target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50 flex">
+                        <div><img src="/svg/github.svg" alt="GitHub" class="inline" /></div>
+                        <div class="flex-grow ml-2">Open an issue on GitHub</div>
+                    </a>
+                </div>
             </div>
-            <div class="mt-3">&copy; {{ date('Y') }} - All rights reserved by <strong>LaraSurf</strong></div>
         </footer>
     </div>
     <script>
-        @auth
-            window.user = @json(['avatar_src' => auth()->user()->avatar_src, 'nickname' => auth()->user()->nickname]);
-        @elseguest
-            window.user = false;
-        @endauth
-        window.route = @json(request()->route()->getName());
+        window.larasurfRoute = @json(request()->route()->getName());
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts', '')
