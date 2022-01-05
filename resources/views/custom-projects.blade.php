@@ -50,10 +50,10 @@
                             <select class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline @error('budget') border-red-700 @else border-gray-700 @enderror" id="budget" name="budget">
                                 <option value="" disabled {{ empty(old('budget')) ? 'selected' : '' }}>Please select an option</option>
                                 <option value="less-than-5000" {{ old('budget') === 'less-than-5000' ? 'selected' : '' }}>Less than $5,000</option>
-                                <option value="5000-10000" {{ old('budget') === '5000-10000' ? 'selected' : '' }}>$5,000 - $10,000</option>
-                                <option value="10000-25000" {{ old('budget') === '10000-25000' ? 'selected' : '' }}>$10,000 - $25,000</option>
-                                <option value="25000-50000" {{ old('budget') === '25000-50000' ? 'selected' : '' }}>$25,000 - $50,000</option>
-                                <option value="50000-100000" {{ old('budget') === '50000-100000' ? 'selected' : '' }}>$50,000 - $100,000</option>
+                                <option value="5000-10000" {{ old('budget') === '5000-10000' ? 'selected' : '' }}>$5,000 to $10,000</option>
+                                <option value="10000-25000" {{ old('budget') === '10000-25000' ? 'selected' : '' }}>$10,000 to $25,000</option>
+                                <option value="25000-50000" {{ old('budget') === '25000-50000' ? 'selected' : '' }}>$25,000 to $50,000</option>
+                                <option value="50000-100000" {{ old('budget') === '50000-100000' ? 'selected' : '' }}>$50,000 to $100,000</option>
                                 <option value="more-than-100000" {{ old('budget') === 'more-than-100000' ? 'selected' : '' }}>More than $100,000</option>
                             </select>
                         </div>
