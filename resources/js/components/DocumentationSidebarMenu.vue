@@ -159,7 +159,7 @@ export default {
                     left: this.lastSurfIconPosition.x + 'px',
                 }"></div>
                 <div class="-mt-3">
-                    <div v-for="(item, i) in menu" :key="i" class="mr-3">
+                    <div v-for="(item, i) in menu" :key="i">
                         <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400 flex">
                             {{ item.title }}
                         </a>
@@ -185,6 +185,6 @@ export default {
     overflow-y: scroll;
 }
 .menu-item {
-    width: 260px;
+    width: 240px;
 }
 </style>

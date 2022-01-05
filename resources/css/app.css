@@ -158,15 +158,8 @@ nav,
 
 @media (min-width: 1024px) {
     .content {
-        max-width: calc(850px - 12rem);
-        margin-left: 305px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .content {
-        max-width: calc(850px - 3rem);
-        margin-left: 340px;
+        max-width: 860px;
+        margin-left: 292px;
     }
 }
 
