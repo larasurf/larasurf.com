@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 class GenerateProjectController extends Controller
 {
-    public const PROJECT_TEMPLATE_VERSION_TAG = 'v0.1.3';
-
     public function view(Request $request)
     {
         $name = $request->query('name');

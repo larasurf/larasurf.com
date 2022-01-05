@@ -59,6 +59,22 @@ input[type='radio'] {
     width: 100px;
 }
 
+select {
+    appearance: none;
+}
+
+.select-wrap::after {
+    content: "◀ ▶";
+    position: absolute;
+    right: 0;
+    transform: scaleX(.75) scaleY(.5) rotate(90deg);
+    width: 50px;
+    padding: 8px 8px;
+    z-index: 1;
+    text-align: center;
+    pointer-events: none;
+}
+
 .nav-link {
     text-underline-offset: .5rem;
     text-decoration-thickness: 1px;
