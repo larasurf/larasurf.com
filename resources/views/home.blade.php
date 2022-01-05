@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative">
+    <div class="relative mb-12 lg:mb-36">
         <div class="flex justify-center mt-16 lg:mt-48 mb-32 lg:mb-48">
             <div class="text-center absolute">
                 <h1 class="text-3xl lg:text-5xl font-medium">Build with LaraSurf</h1>
@@ -26,25 +26,42 @@
                 </div>
             </div>
         </div>
-        <div class="mx-auto mt-16 max-w-2xl">
-            <span class="text-lg">
-                LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for implementing and deploying new Laravel applications.
-            </span>
+        <div class="mx-auto mt-16 p-6 max-w-2xl border border-black">
+            <div class="flex mb-1">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    Fully functional AWS CloudFormation template for Laravel applications
+                </div>
+            </div>
+            <div class="flex mb-1">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    Dockerized and customizable local development environment
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    CLI tool to manage local and cloud environments from your terminal
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    Complete CircleCI configuration for automated testing and deploying
+                </div>
+            </div>
         </div>
-        <div class="mx-auto mt-4 max-w-2xl">
-            <span class="text-lg">
-                A fully functional AWS CloudFormation template paired with a preconfigured CircleCI configuration file mean you're up and running quickly with cloud infrastructure CI/CD and pipelines for your Stage or Production environments.
-            </span>
-        </div>
-        <div class="mx-auto mt-4 max-w-2xl">
-            <span class="text-lg">
-                LaraSurf is not a middle-man charging you to sublet AWS; we only charge a single payment per project.
-            </span>
-        </div>
-        <div class="mx-auto mt-4 max-w-2xl">
-            <span class="text-lg">
-                Interacting with a containerized local development environment or your cloud infrastructure is a piece of cake with the LaraSurf CLI.
-            </span>
+        <div class="mx-auto text-center mt-12">
+            Free and open source. No restrictions.
         </div>
     </div>
 @endsection
