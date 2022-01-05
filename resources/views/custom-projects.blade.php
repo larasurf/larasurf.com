@@ -86,7 +86,7 @@
             </form>
         </div>
     @else
-        <div class="relative w-full lg:w-auto pt-2 pb-0 mb-52 lg:pb-64 lg:mb-96">
+        <div class="relative w-full content lg:w-auto pt-2 pb-0 mb-52 lg:pb-64 lg:mb-96">
             <h1 class="text-3xl font-bold my-12">Thanks!</h1>
             <x-paragraph>We appreciate your interest. Your message has been received and we'll be in touch soon!</x-paragraph>
         </div>
