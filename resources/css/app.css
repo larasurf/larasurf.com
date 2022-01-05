@@ -6,6 +6,7 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body,
@@ -22,6 +23,7 @@ input[type='radio'] {
     accent-color: #000000;
     transform: scale(1.25);
 }
+
 
 ::-webkit-scrollbar-track {
     background-color: #FFFFFF;
@@ -57,26 +59,38 @@ input[type='radio'] {
     width: 100px;
 }
 
+select {
+    appearance: none;
+}
+
+.select-wrap::after {
+    content: "◀ ▶";
+    position: absolute;
+    right: 0;
+    transform: scaleX(.75) scaleY(.5) rotate(90deg);
+    width: 50px;
+    padding: 8px 8px;
+    z-index: 1;
+    text-align: center;
+    pointer-events: none;
+}
+
 .nav-link {
     text-underline-offset: .5rem;
     text-decoration-thickness: 1px;
 }
 
 #link-nav-start {
-    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 #link-nav-start span {
-    right: 2rem;
+    left: 0.75rem;
 }
 
 nav,
 #content {
     max-width: 75rem;
-}
-
-#how-it-works-container {
-    margin: 0 -1.5rem;
 }
 
 .hero-icon {
@@ -124,7 +138,7 @@ nav,
     width: 100%;
 }
 
-.documentation #overview + h1 {
+.content #overview + h1 {
     margin-top: 0.7rem;
 }
 
@@ -138,51 +152,44 @@ nav,
     }
 }
 
-.documentation {
-    max-width: 100%;
+.content {
+    max-width: 100vw;
 }
 
 @media (min-width: 1024px) {
-    .documentation {
-        max-width: calc(850px - 12rem);
-        margin-left: 305px;
+    .content {
+        max-width: 860px;
+        margin-left: 292px;
     }
 }
 
-@media (min-width: 1200px) {
-    .documentation {
-        max-width: calc(850px - 3rem);
-        margin-left: 348px;
-    }
-}
-
-.documentation strong {
+.content strong {
     font-weight: 700;
 }
 
 a.app-link,
-.documentation a {
+.content a {
     text-decoration: underline;
     color: #0067C5;
     font-weight: 700;
 }
 
 a.app-link:hover,
-.documentation a:hover {
+.content a:hover {
     text-decoration: underline;
     @apply text-gray-400;
 }
 
-.documentation a.header-link {
+.content a.header-link {
     text-decoration: none;
     color: #000000;
 }
 
-.documentation a.header-link:hover {
+.content a.header-link:hover {
     @apply text-gray-400;
 }
 
-.documentation .inline-code {
+.content .inline-code {
     white-space: pre-wrap;
     word-break: break-word;
     @apply text-red-400 bg-gray-100 py-1 rounded-lg;
@@ -192,7 +199,7 @@ a.app-link:hover,
     font-family: monospace;
 }
 
-.documentation .callout .inline-code {
+.content .callout .inline-code {
     background-color: #DBDEE3;
 }
 
@@ -338,10 +345,6 @@ a.app-link:hover,
     100% {
         transform: scale(1);
     }
-}
-
-.how-it-works {
-    max-width: calc(850px - 3rem);
 }
 
 #btn-back-to-top {

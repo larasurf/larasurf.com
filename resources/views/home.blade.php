@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative">
+    <div class="relative mb-12 lg:mb-36">
         <div class="flex justify-center mt-16 lg:mt-48 mb-32 lg:mb-48">
             <div class="text-center absolute">
                 <h1 class="text-3xl lg:text-5xl font-medium">Build with LaraSurf</h1>
@@ -26,10 +26,42 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-center mt-16">
-            <x-button-link id="link-cta-tell-me-more" href="/how-it-works" color="white" rounding="full">
-                <span class="font-medium text-xl">Tell Me More</span>
-            </x-button-link>
+        <div class="mx-auto mt-16 p-6 max-w-2xl border border-black">
+            <div class="flex mb-1">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    Fully functional AWS CloudFormation template for Laravel applications
+                </div>
+            </div>
+            <div class="flex mb-1">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    Dockerized and customizable local development environment
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    CLI tool to manage local and cloud environments from your terminal
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-5">
+                    <img alt="checkmark" src="/svg/check.svg" class="w-5 h-5 inline" />
+                </div>
+                <div class="w-full pl-2 text-lg">
+                    Complete CircleCI configuration for automated testing and deploying
+                </div>
+            </div>
+        </div>
+        <div class="mx-auto text-center mt-12">
+            Free and open source. No restrictions.
         </div>
     </div>
 @endsection

@@ -23,7 +23,7 @@
                 @endforeach
             @endforeach
         </div>
-        <div class="w-full lg:w-auto documentation">
+        <div class="w-full lg:w-auto content">
             @foreach($docs as $doc)
                 <x-heading-1 :id="$doc['id']">{{ $doc['title'] }}</x-heading-1>
                 @foreach ($doc['content'] as $content)

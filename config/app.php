@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'slack-notification-webhook-url' => env('SLACK_NOTIFICATION_WEBHOOK_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ContinueController;
+use App\Http\Controllers\CustomProjectsController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\GenerateProjectController;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +27,13 @@ Route::get('/how-it-works', function () {
     return view('how-it-works');
 })->name('how-it-works');
 
+Route::get('/custom-projects', [CustomProjectsController::class, 'view'])->name('custom-projects');
+Route::post('/custom-projects', [CustomProjectsController::class, 'create'])->name('custom-projects.submit');
+
 Route::get('/new', function () {
     return view('new-project');
 })->name('new-project');
 
 Route::get('/generate', [GenerateProjectController::class, 'view'])->name('generate-project');
+
 Route::get('/generate.sh', [GenerateProjectController::class, 'generate'])->name('generate.sh');

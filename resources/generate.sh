@@ -279,9 +279,12 @@ function surf_install() {
       exit 1
     fi
 
-    echo 'Cloning template project...'
+    echo 'Cloning project template...'
     cd $(pwd)
     git clone -q --single-branch --branch main --depth=1 git@github.com:larasurf/laravel-docker-template.git "$PROJECT_DIR" && cd "$PROJECT_DIR" && rm -rf .git
+    cd $(pwd)
+
+    cd $(pwd)
   elif [[ "$PROJECT_DIR" == '.' ]] && [[ -f 'composer.json' ]] && [[ -d 'app' ]]; then
     echo -e "${ERROR}Laravel project already exists!${RESET}"
     exit 1
@@ -315,18 +318,14 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install react"
   fi
 
-  # @see https://github.com/aws/aws-sdk-php/issues/2264
   INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"~1.0\""
 
-  # todo: remove pinning of psr/log
-  # @see https://github.com/barryvdh/laravel-ide-helper/issues/1261
   if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require psr/log \"^1.0\" && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
   fi
 
-  # todo: remove --update-with-dependencies
   if [[ "$PACKAGE_CS_FIXER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\" --update-with-dependencies"
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\""
   fi
 
   INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run dev"

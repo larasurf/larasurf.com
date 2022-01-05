@@ -1331,6 +1331,10 @@ class DocumentationController extends Controller
                         'text' => 'surf awslocal --version',
                     ],
                     [
+                        'type' => 'callout',
+                        'html' => 'The name of the local S3 bucket is <span class="inline-code">laravel</span>.',
+                    ],
+                    [
                         'type' => 'heading-1',
                         'text' => 'Artisan Commands',
                         'id' => 'local-development-artisan-commands',
@@ -1369,8 +1373,21 @@ class DocumentationController extends Controller
                         'text' => 'surf artisan queue:work',
                     ],
                     [
+                        'type' => 'callout',
+                        'html' => 'You can exit the looping queue worker process with <span class="inline-code">Ctrl+C</span>.',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Mail',
+                        'id' => 'local-development-mail',
+                    ],
+                    [
                         'type' => 'paragraph',
-                        'html' => 'The above command will keep the queue worker open until the process is exited with <span class="inline-code">Ctrl+C</span>.',
+                        'html' => 'MailHog can be accessed locally by visiting <span class="inline-code">localhost</span> over an HTTP connection and specifying the mapped port of the docker-compose service.',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'By default this is <a href="http://localhost:8025" target="_blank">http://localhost:8025</a>.',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1438,7 +1455,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'You may manage values in your project\'s larasurf.json file, which <strong>should not be manually edited</strong>, using the <span class="inline-code">config</span> command.',
+                        'html' => 'You may manage values in your project\'s <span class="inline-code">larasurf.json</span> file, which <strong>should not be manually edited</strong>, using the <span class="inline-code">config</span> command.',
                     ],
                     [
                         'type' => 'heading-2',

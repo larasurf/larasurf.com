@@ -12,8 +12,8 @@
            active:bg-{{ $color }}
            active:text-{{ $color === 'black' ? 'white' : 'black' }}
            rounded-{{ $rounding }}
-           px-5
-           py-3"
+           px-{{ $paddingX }}
+           py-{{ $paddingY }}"
     >{{ $slot }}
     </a>
 </div>

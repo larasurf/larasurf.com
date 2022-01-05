@@ -64,6 +64,10 @@ const setupLightboxExitOnClick = () => {
     });
 };
 
+const fadeInContent = () => {
+    document.querySelector('body').classList.remove('opacity-0');
+}
+
 const setupSlackInvite = () => {
     document.querySelector('#link-footer-slack-invite').addEventListener('click', (e) => {
         e.preventDefault();
@@ -71,10 +75,6 @@ const setupSlackInvite = () => {
         window.axios.get('/api/slack-invite').then((r) => window.open(r.data.url));
     });
 };
-
-const fadeInContent = () => {
-    document.querySelector('body').classList.remove('opacity-0');
-}
 
 window.addEventListener('load', (e) => {
     setupCodeBlockScrolling();
