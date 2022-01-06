@@ -37,20 +37,29 @@ class GenerateProjectController extends Controller
             $environment = config('app.env');
 
             $dev_branch = $request->query('dev-branch');
+            $template_branch = $request->query('template-branch');
 
             if (!$dev_branch && 'production' !== $environment) {
                 $dev_branch = 'main';
+            }
+
+            if (!$template_branch && 'production' !== $environment) {
+                $template_branch = 'main';
             }
 
             $username = config("auth.basic-auth.$environment.username");
             $password = config("auth.basic-auth.$environment.password");
 
             $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) && " .
-                'curl -s ' . ($dev_branch ? '-k ' : '') . ($username && $password ? "-u $username:$password " : '') . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
+                'curl -s ' . ($dev_branch || $template_branch ? '-k ' : '') . ($username && $password ? "-u $username:$password " : '') . secure_url('generate.sh') . ' | bash -s -- --project-dir=$LARASURF_PROJECT_NAME ' .
                 "--environments=$environments ";
 
             if ($dev_branch) {
                 $command .= "--dev-branch=$dev_branch ";
+            }
+
+            if ($template_branch) {
+                $command .= "--template-branch=$template_branch ";
             }
 
             if ('none' !== $starter_kit) {

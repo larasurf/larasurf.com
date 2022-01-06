@@ -9,6 +9,9 @@ RESET='\033[0m'
 LOG_FILE_NAME="larasurf.generate.log"
 BUFFERED_LOG="$(date +"%s"): Start"
 
+TAG_LARAVEL_DOCKER_TEMPLATE="0.1.0"
+TAG_LARASURF="0.1.0"
+
 export SURF_USER_ID=${SURF_USER_ID:-$UID}
 
 function log_message() {
@@ -39,6 +42,7 @@ function surf_install() {
   CACHE_PORT='6379'
   PROJECT_DIR=''
   DEV_BRANCH=''
+  TEMPLATE_BRANCH=''
   SPLASH=true
 
   # parse options
@@ -49,6 +53,10 @@ function surf_install() {
       DEV_BRANCH=$(echo $var | sed 's/--dev-branch=//')
 
       log_message_buffered "Dev branch: $DEV_BRANCH"
+    elif [[ "$var" =~ --template-branch=[a-zA-Z0-9/\.-_]+ ]]; then
+      TEMPLATE_BRANCH=$(echo $var | sed 's/--template-branch=//')
+
+      log_message_buffered "Template branch: $TEMPLATE_BRANCH"
     elif [[ "$var" == '--auth=jet-inertia' ]]; then
       AUTH_JET_INERTIA=true
 
@@ -281,8 +289,16 @@ function surf_install() {
 
     echo 'Cloning project template...'
     cd $(pwd)
-    git clone -q --single-branch --branch main --depth=1 git@github.com:larasurf/laravel-docker-template.git "$PROJECT_DIR" && cd "$PROJECT_DIR" && rm -rf .git
-    cd $(pwd)
+
+    if [[ -n "$TEMPLATE_BRANCH" ]]; then
+        git clone -q --single-branch --branch "$TEMPLATE_BRANCH" --depth=1 git@github.com:larasurf/laravel-docker-template.git "$PROJECT_DIR" && cd "$PROJECT_DIR" && rm -rf .git
+    else
+        mkdir "$PROJECT_DIR" && cd "$PROJECT_DIR" && curl --silent --location "https://github.com/larasurf/laravel-docker-template/releases/tag/v$TAG_LARAVEL_DOCKER_TEMPLATE" | tar -xz && find "laravel-docker-template-$TAG_LARAVEL_DOCKER_TEMPLATE" -mindepth 1 -maxdepth 1 -exec mv {} . \; && rmdir "laravel-docker-template-$TAG_LARAVEL_DOCKER_TEMPLATE"
+
+        if [[ -f "pax_global_header" ]]; then
+            rm -f pax_global_header
+        fi
+    fi
 
     cd $(pwd)
   elif [[ "$PROJECT_DIR" == '.' ]] && [[ -f 'composer.json' ]] && [[ -d 'app' ]]; then
@@ -294,6 +310,7 @@ function surf_install() {
 
   # build installation command
 
+  # todo: update to Laravel 9
   INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "8.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
 
   if [[ "$AUTH_JET_INERTIA" == true ]] || [[ "$AUTH_JET_INERTIA_TEAMS" == true ]] || [[ "$AUTH_JET_LIVEWIRE" == true ]] || [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
@@ -341,7 +358,7 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && composer config prefer-stable true"
     INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf dev-$DEV_BRANCH"
   else
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf \"^0.1\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf \"^$TAG_LARASURF\""
   fi
 
   # build images

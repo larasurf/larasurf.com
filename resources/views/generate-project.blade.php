@@ -10,7 +10,7 @@
         <div class="mt-6">
             <h2 class="text-2xl font-medium">Here is the command to generate your project <span class="font-bold">{{ request()->query('name') }}</span></h2>
             <div class="mt-1">
-                Copy and paste this into your terminal with a working directory of where you'd like the project to be generated.
+                Copy and paste this into your terminal with the working directory that you'd like to be the parent of your new project directory.
             </div>
             <div class="mt-1">
                 Be sure to copy the entire command!

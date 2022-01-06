@@ -4,7 +4,9 @@ export default {
         return {
             devMode: false,
             devBranch: 'main',
+            templateBranch: 'main',
             devBranchValidationError: false,
+            templateBranchValidationError: false,
             projectName: '',
             projectNameValidationError: false,
             projectEnvironments: 'local-stage-production',
@@ -36,7 +38,7 @@ export default {
                 this.projectPortAppTls &&
                 this.projectPortDatabase &&
                 this.projectPortCache &&
-                (!this.devMode || this.devBranch);
+                (!this.devMode || (this.devBranch && this.templateBranch));
         }
     },
     mounted() {
@@ -61,6 +63,7 @@ export default {
         },
         onProjectGenerateClick() {
             this.devBranchValidationError = this.devMode && !this.devBranch;
+            this.templateBranchValidationError = this.devMode && !this.templateBranch;
             this.projectNameValidationError = !/^[a-z0-9-]{1,20}$/.test(this.projectName);
             this.projectPortAwsLocalValidationError = !this.projectPortAwsLocal;
             this.projectPortMailUiValidationError = !this.projectPortMailUi;
@@ -70,6 +73,7 @@ export default {
             this.projectPortCacheValidationError = !this.projectPortCache;
 
             const invalid = this.devBranchValidationError ||
+                this.templateBranchValidationError ||
                 this.projectNameValidationError ||
                 this.projectPortAwsLocalValidationError ||
                 this.projectPortMailUiValidationError ||
@@ -79,7 +83,7 @@ export default {
                 this.projectPortCacheValidationError;
 
             if (invalid) {
-                if (this.projectNameValidationError || this.devBranchValidationError) {
+                if (this.projectNameValidationError || this.devBranchValidationError || this.templateBranchValidationError) {
                     window.scrollTo(0, 0);
                 }
             } else {
@@ -100,6 +104,7 @@ export default {
 
                 if (this.devMode) {
                     params['dev-branch'] = this.devBranch;
+                    params['template-branch'] = this.templateBranch;
                 }
 
                 const query = (new URLSearchParams(params)).toString();
@@ -126,13 +131,21 @@ export default {
                 Lowercase alphanumeric and hyphens only. Maximum of 20 characters.
             </div>
         </div>
-        <div class="w-full mt-12" v-if="devMode">
-            <label class="block text-xl font-bold" for="dev-branch">Development Branch</label>
+        <div class="w-full mt-6" v-if="devMode">
+            <label class="block text-xl font-bold" for="dev-branch">LaraSurf Branch</label>
             <input v-model="devBranch" id="dev-branch" class="appearance-none border rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="branch" :class="{
                 'border-black': !devBranchValidationError,
                 'border-red-400': devBranchValidationError,
             }"/>
             <img v-if="devBranchValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
+        </div>
+        <div class="w-full mt-6" v-if="devMode">
+            <label class="block text-xl font-bold" for="dev-branch">Template Branch</label>
+            <input v-model="templateBranch" id="template-branch" class="appearance-none border rounded-lg w-full lg:w-1/2 mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" placeholder="branch" :class="{
+                'border-black': !templateBranchValidationError,
+                'border-red-400': templateBranchValidationError,
+            }"/>
+            <img v-if="templateBranchValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
         </div>
         <div class="w-full mt-12">
             <div class="block text-xl font-bold">Environments</div>
