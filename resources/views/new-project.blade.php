@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="hidden lg:block static-menu-width">
-        <div class="fixed" style="top:9.75rem;">
-            <span class="block static-menu-width font-bold text-2xl pl-9 py-2">Generate Project</span>
+        <div class="fixed static-side-menu">
+            <span class="block static-menu-width font-bold text-2xl pl-9 pt-1">Generate Project</span>
         </div>
     </div>
     <div class="block lg:hidden">

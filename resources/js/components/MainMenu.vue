@@ -84,10 +84,10 @@ export default {
                    href="#"
                 >
                     <transition name="fade">
-                        <svg v-if="!isOpen" class="absolute" style="right:1.5rem;" xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12" fill="none">
+                        <svg v-if="!isOpen" class="absolute" style="right:1.5rem;top:1.66rem;" xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12" fill="none">
                             <path d="M18 12H0V10H18V12ZM18 7H0V5H18V7ZM18 2H0V0H18V2Z" fill="black"/>
                         </svg>
-                        <svg v-else class="absolute" style="right:1.75rem;" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <svg v-else class="absolute" style="right:1.75rem;top:1.66rem;" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
                             <path d="M8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41L8.59 0Z" fill="black"/>
                         </svg>
                     </transition>

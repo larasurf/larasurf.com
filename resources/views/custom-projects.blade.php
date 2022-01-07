@@ -5,7 +5,7 @@
 @section('content')
     @if (empty($is_submitted))
         <div class="hidden lg:block static-menu-width">
-            <div class="fixed" style="top:9.75rem;">
+            <div class="fixed static-side-menu">
                 <a href="#title" class="block static-menu-width bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400">Custom Projects</a>
                 <a href="#services" class="block static-menu-width font-medium pl-12 py-2 hover:text-gray-400">Services</a>
                 <a href="#how-it-works" class="block static-menu-width font-medium pl-12 py-2 hover:text-gray-400">How it works</a>

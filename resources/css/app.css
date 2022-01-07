@@ -118,6 +118,10 @@ nav,
     width: 260px;
 }
 
+.static-side-menu {
+    top: 7rem;
+}
+
 .list-disc {
     margin-left: 1.5rem;
 }
@@ -364,6 +368,12 @@ a.app-link:hover,
     #btn-back-to-top {
         right: calc((100vw - 75rem) / 2 + 0.5rem);
         bottom: 6.75rem;
+    }
+
+    @supports (-moz-appearance:none) {
+        #btn-back-to-top {
+            right: calc((100vw - 75rem) / 2 + 1rem);
+        }
     }
 }
 
