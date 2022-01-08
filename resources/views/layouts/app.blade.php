@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    @if(config('app.env') === 'production')
-        <!-- Google Tag Manager -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=dTxoPW3zcC21eM0fHvKqXQ&gtm_preview=env-1&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-K4RLG9M');</script>
-            <!-- End Google Tag Manager -->
-    @elseif(config('app.env') === 'stage')
-        <!-- Google Tag Manager -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=2E-kJeduQAMhTUgQtZxzxg&gtm_preview=env-7&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-K4RLG9M');</script>
-            <!-- End Google Tag Manager -->
-    @endif
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -51,17 +34,6 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body class="bg-white overflow-y-scroll transition-opacity duration-500 opacity-0">
-    @if(config('app.env') === 'production')
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4RLG9M&gtm_auth=dTxoPW3zcC21eM0fHvKqXQ&gtm_preview=env-1&gtm_cookies_win=x"
-                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-    @elseif(config('app.env') === 'stage')
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4RLG9M&gtm_auth=2E-kJeduQAMhTUgQtZxzxg&gtm_preview=env-7&gtm_cookies_win=x"
-                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-    @endif
     <div class="z-30">
         @if(!isset($show_header) || $show_header)
             <nav class="fixed left-0 top-0 right-0 px-6 pt-3 pb-6 lg:py-6 mx-auto bg-white z-50">
@@ -99,6 +71,19 @@
         @endif
         <div id="content" class="mt-24 px-6 mx-auto z-10 block">
             @yield('content')
+            <div id="cookie-consent-toast" class="transition z-50 -ml-6 lg:ml-0 p-5 pt-4 fixed bottom-0 lg:bottom-5 border border-black bg-white">
+                <div class="text-xl font-bold">Cookie Consent</div>
+                <p class="mt-2.5 text-sm">Cookies are used for preferences, sessions, security, and analyzing traffic.</p>
+                <p class="mt-2.5 text-sm">We <span class="font-bold underline">do not share</span> your information.</p>
+                <div class="mt-5 lg:flex">
+                    <div id="cookie-consent-button-accept-limited" class="lg:flex-grow w-full lg:w-auto mb-6 lg:mb-0 lg:ml-7 lg:mr-10 pt-1 lg:pt-2.5 text-right">
+                        <span class="underline text-sm lg:text-base select-none cursor-pointer" style="text-underline-offset:0.5rem;">Accept Only Necessary Cookies</span>
+                    </div>
+                    <div id="cookie-consent-button-accept-all" class="px-5 py-3 text-sm lg:text-base text-center border border-black bg-black text-white hover:bg-white hover:text-black active:bg-black active:text-white cursor-pointer transition">
+                        <span class="select-none">Accept All Cookies</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="footer" class="z-10 mt-16 md:mt-16 mb-4 relative">
@@ -119,6 +104,7 @@
             </div>
         </footer>
     </div>
+    <script>window.larasurfEnvironment = @json(config('app.env'));</script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts', '')
 </body>

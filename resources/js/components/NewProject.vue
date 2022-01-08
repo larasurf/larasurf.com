@@ -42,7 +42,7 @@ export default {
         }
     },
     mounted() {
-        window.startLaraSurfDevMode = () => {
+        window.larasurfDevMode = () => {
             this.devMode = true;
         };
     },
