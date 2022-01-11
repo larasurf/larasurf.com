@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="relative content w-full lg:w-auto pt-2">
-            <x-heading-1 id="title" margin-top="1">Custom Projects</x-heading-1>
+            <x-heading-1 id="title" margin-top="2">Custom Projects</x-heading-1>
             <x-heading-2 id="services">Services</x-heading-2>
             <x-paragraph>Do you need a custom built solution? We offer services ranging from custom infrastructure and CI/CD pipelines to implementing a full MVP.</x-paragraph>
             <x-heading-2 id="how-it-works">How it works</x-heading-2>
