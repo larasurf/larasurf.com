@@ -75,7 +75,7 @@
             @yield('content')
             <div id="cookie-consent-toast" class="transition z-50 -ml-6 lg:ml-0 p-5 pt-4 fixed bottom-0 lg:bottom-5 border border-black bg-white">
                 <div class="text-xl font-bold">Cookie Consent</div>
-                <p class="mt-2.5 text-sm">Cookies are used for preferences, sessions, security, and analyzing traffic.</p>
+                <p class="mt-2.5 text-sm">Cookies are used for sessions, security, and analytics.</p>
                 <p class="mt-2.5 text-sm">We <span class="font-bold underline">do not share</span> your information.</p>
                 <div class="mt-5 lg:flex">
                     <div id="cookie-consent-button-accept-limited" class="lg:flex-grow w-full lg:w-auto mb-6 lg:mb-0 lg:ml-7 lg:mr-10 py-3 text-right">
