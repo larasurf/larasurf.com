@@ -78,8 +78,8 @@
                 <p class="mt-2.5 text-sm">Cookies are used for sessions, security, and analytics.</p>
                 <p class="mt-2.5 text-sm">We <span class="font-bold underline">do not share</span> your information.</p>
                 <div class="mt-5 lg:flex">
-                    <div id="cookie-consent-button-accept-limited" class="lg:flex-grow w-full lg:w-auto mb-6 lg:mb-0 lg:ml-7 lg:mr-10 py-3 text-right">
-                        <span class="underline text-sm lg:text-base select-none cursor-pointer" style="text-underline-offset:0.5rem;">Accept Only Necessary Cookies</span>
+                    <div id="cookie-consent-button-accept-limited" class="lg:flex-grow w-full lg:w-auto mb-6 lg:mb-0 lg:ml-7 lg:mr-10 py-3 text-right hover:text-gray-400 active:text-black cursor-pointer">
+                        <span class="underline text-sm lg:text-base select-none" style="text-underline-offset:0.5rem;">Accept Only Necessary Cookies</span>
                     </div>
                     <div id="cookie-consent-button-accept-all" class="px-5 py-3 text-sm lg:text-base text-center border border-black bg-black text-white hover:bg-white hover:text-black active:bg-black active:text-white cursor-pointer transition">
                         <span class="select-none">Accept All Cookies</span>
