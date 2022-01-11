@@ -21,7 +21,7 @@
             <x-paragraph>2. If we're a good fit, we will provide a quote and draft a contract</x-paragraph>
             <x-paragraph>3. We always receive 50% of the payment upfront and the remaining 50% upon delivery</x-paragraph>
             <x-heading-2 id="project-details">Submit your project details</x-heading-2>
-            <form method="POST">
+            <form method="POST" id="form-custom-project">
                 @csrf
                 <div class="mb-4">
                     <label class="block text-sm font-bold mb-2 text-gray-700" for="name">
@@ -81,7 +81,7 @@
                     @enderror
                 </div>
                 <div class="mb-4 text-right">
-                    <button class="transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-5 py-3" type="submit">Send Message</button>
+                    {!! ReCaptcha::htmlFormButton('Send Message', ['class' => 'transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-5 py-3']) !!}
                 </div>
             </form>
         </div>
@@ -91,4 +91,10 @@
             <x-paragraph>We appreciate your interest. Your message has been received and we'll be in touch soon!</x-paragraph>
         </div>
     @endif
+@endsection
+
+@section('head')
+    {!! ReCaptcha::htmlScriptTagJsApi([
+            'form_id' => 'form-custom-project'
+        ]) !!}
 @endsection
