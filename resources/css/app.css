@@ -93,16 +93,6 @@ nav,
     max-width: 75rem;
 }
 
-#cookie-consent-toast {
-    opacity: 0;
-    transform: translateY(5rem);
-}
-
-#cookie-consent-toast.open {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 .hero-icon {
     background-position: center;
     background-repeat: no-repeat;

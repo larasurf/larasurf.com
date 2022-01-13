@@ -47,7 +47,7 @@
                     </label>
                     <div>
                         <div class="select-wrap">
-                            <select class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline @error('budget') border-red-700 @else border-gray-700 @enderror" id="budget" name="budget">
+                            <select class="border rounded w-full py-2 px-3 bg-white text-gray-700 focus:outline-none focus:shadow-outline @error('budget') border-red-700 @else border-gray-700 @enderror" id="budget" name="budget">
                                 <option value="" disabled {{ empty(old('budget')) ? 'selected' : '' }}>Please select an option</option>
                                 <option value="less-than-5000" {{ old('budget') === 'less-than-5000' ? 'selected' : '' }}>Less than $5,000</option>
                                 <option value="5000-10000" {{ old('budget') === '5000-10000' ? 'selected' : '' }}>$5,000 to $10,000</option>
@@ -66,7 +66,7 @@
                     <label class="block text-sm font-bold mb-2 text-gray-700" for="deadline">
                         When do you need this project completed?
                     </label>
-                    <input class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline @error('deadline') border-red-700 @else border-gray-700 @enderror" id="deadline" name="deadline" type="date" placeholder="mm/dd/yyyy" min="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d') }}" value="{{ old('deadline') }}">
+                    <input class="border rounded w-full py-2 px-3 bg-white text-gray-700 focus:outline-none focus:shadow-outline @error('deadline') border-red-700 @else border-gray-700 @enderror" id="deadline" name="deadline" type="date" placeholder="mm/dd/yyyy" min="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d') }}" value="{{ old('deadline') }}">
                     @error('deadline')
                         <span class="text-sm text-red-700">{{ $message }}</span>
                     @enderror

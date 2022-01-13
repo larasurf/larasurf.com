@@ -44,17 +44,17 @@
                         <a id="link-nav-logo" href="/" class="transition hover:text-gray-400">LaraSurf</a>
                     </div>
                     <div class="w-3/5 flex mt-2 px-6 justify-end">
-                        <div class="z-10 text-center font-medium px-6">
+                        <div class="z-10 text-center font-medium xl:px-6">
                             <a id="link-nav-docs" href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                         </div>
-                        <div class="z-10 text-center font-medium px-6">
+                        <div class="z-10 text-center font-medium xl:px-6">
                             <a id="link-nav-how-it-works" href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                         </div>
-                        <div class="z-10 text-center font-medium pl-6 pr-16">
+                        <div class="z-10 text-center font-medium xl:pl-6 xl:pr-16">
                             <span class="nav-link line-through">Pricing</span>
                             <span id="its-free" class="text-xs absolute ml-2">It's free!</span>
                         </div>
-                        <div class="z-10 text-center font-medium px-6">
+                        <div class="z-10 text-center font-medium xl:px-6">
                             <a id="link-nav-custom-projects" href="/custom-projects" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-projects') ? 'underline' : '' }}">Custom Projects</a>
                         </div>
                     </div>
@@ -73,19 +73,6 @@
         @endif
         <div id="content" class="mt-24 px-6 mx-auto z-10 block">
             @yield('content')
-            <div id="cookie-consent-toast" class="transition z-50 -ml-6 lg:ml-0 p-5 pt-4 fixed bottom-0 lg:bottom-5 border border-black bg-white">
-                <div class="text-xl font-bold">Cookie Consent</div>
-                <p class="mt-2.5 text-sm">Cookies are used for sessions, security, and analytics.</p>
-                <p class="mt-2.5 text-sm">We <span class="font-bold underline">do not share</span> your information.</p>
-                <div class="mt-5 lg:flex">
-                    <div id="cookie-consent-button-accept-limited" class="lg:flex-grow w-full lg:w-auto mb-6 lg:mb-0 lg:ml-7 lg:mr-10 py-3 text-right hover:text-gray-400 active:text-black cursor-pointer">
-                        <span class="underline text-sm lg:text-base select-none" style="text-underline-offset:0.5rem;">Accept Only Necessary Cookies</span>
-                    </div>
-                    <div id="cookie-consent-button-accept-all" class="px-5 py-3 text-sm lg:text-base text-center border border-black bg-black text-white hover:bg-white hover:text-black active:bg-black active:text-white cursor-pointer transition">
-                        <span class="select-none">Accept All Cookies</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <div id="footer" class="z-10 mt-16 md:mt-16 mb-4 relative">
@@ -106,7 +93,6 @@
             </div>
         </footer>
     </div>
-    <script>window.larasurfEnvironment = @json(config('app.env'));</script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts', '')
 </body>
