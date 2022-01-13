@@ -7549,12 +7549,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:larasurf/larasurf.git",
-                "reference": "f3734879a4325ebf75df89afe35725bfb5f7e22e"
+                "reference": "1c0a2ec2d8b8d6da7027280d0246ba3d9dc9ac8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/f3734879a4325ebf75df89afe35725bfb5f7e22e",
-                "reference": "f3734879a4325ebf75df89afe35725bfb5f7e22e",
+                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/1c0a2ec2d8b8d6da7027280d0246ba3d9dc9ac8a",
+                "reference": "1c0a2ec2d8b8d6da7027280d0246ba3d9dc9ac8a",
                 "shasum": ""
             },
             "require": {
@@ -7599,7 +7599,7 @@
                 "source": "https://github.com/larasurf/larasurf/tree/main",
                 "issues": "https://github.com/larasurf/larasurf/issues"
             },
-            "time": "2021-12-22T05:54:18+00:00"
+            "time": "2022-01-11T00:41:30+00:00"
         },
         {
             "name": "laravel/sail",
