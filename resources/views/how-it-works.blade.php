@@ -53,7 +53,7 @@
         <x-paragraph>A high level diagram outlining this pipeline is below.</x-paragraph>
         <x-image css-class="w-full lg:w-4/5" alt="LaraSurf Default CircleCI Pipeline" src="/svg/circleci-pipeline.svg"></x-image>
         <x-paragraph>Before getting started with LaraSurf, you are <strong>strongly encouraged</strong> to <a href="/docs">read the documentation</a>.</x-paragraph>
-        <x-paragraph>If you encounter a bug or need some help troubleshooting, don't hesitate to open an issue on GitHub or join or Slack workspace. Happy building!</x-paragraph>
+        <x-paragraph>If you encounter a bug or need some help troubleshooting don't hesitate to open an issue on GitHub. Happy building!</x-paragraph>
     </div>
     <x-back-to-top-button css-class="lg:hidden"></x-back-to-top-button>
 @endsection

@@ -14,12 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/slack-invite', function () {
-    return response()->json([
-        'url' => 'https://join.slack.com/t/larasurf/shared_invite/zt-x9cn1z4m-lh1cQlk29Gp7HWljj3cBrQ',
-    ]);
-});
-
 // AWS Health Check Route
 Route::get('/healthcheck', function () {
     return response()->noContent(\Illuminate\Http\Response::HTTP_OK);

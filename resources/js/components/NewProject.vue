@@ -305,7 +305,7 @@ export default {
                 id="btn-generate-project"
                 :disabled="isLoading"
                 @click="onProjectGenerateClick()"
-                class="transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-6 py-3 rounded-lg"
+                class="transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-6 py-3"
                 >Generate
             </button>
         </div>
