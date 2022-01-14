@@ -17,5 +17,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/new.js') }}"></script>
+    <script src="{{ mix('js/new.js') }}"></script>
 @endsection

@@ -73,5 +73,5 @@
     <script type="text/javascript">
         window.larasurfDocs = @json($docs);
     </script>
-    <script src="{{ asset('js/documentation.js') }}"></script>
+    <script src="{{ mix('js/documentation.js') }}"></script>
 @endsection
