@@ -77,17 +77,18 @@
     </div>
     <div id="footer" class="z-10 mt-16 md:mt-16 mb-4 relative">
         <footer class="text-center text-sm font-medium">
-            <div class="flex">
-                <div class="w-1/2 text-right px-2">
-                    <a id="link-footer-slack-invite" href="#" class="transition filter hover:invert-50 flex">
-                        <div class="flex-grow mr-2">Join the community on Slack</div>
-                        <div><img src="/svg/slack.svg" alt="Slack" class="inline" /></div>
+            <div class="pl-3 lg:pl-0 lg:flex">
+                <div class="lg:w-1/2 text-left lg:text-right px-2">
+                    <a id="link-footer-slack-invite" href="#" class="transition filter hover:invert-50">
+                        <span class="lg:hidden mr-2"><img src="/svg/slack.svg" alt="Slack" class="inline" /></span>
+                        <span class="flex-grow mr-2">Join the community on Slack</span>
+                        <span class="hidden lg:inline"><img src="/svg/slack.svg" alt="Slack" class="inline" /></span>
                     </a>
                 </div>
-                <div class="w-1/2 text-left px-2">
-                    <a id="link-footer-github" target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50 flex">
-                        <div><img src="/svg/github.svg" alt="GitHub" class="inline" /></div>
-                        <div class="flex-grow ml-2">Open an issue on GitHub</div>
+                <div class="text-left px-2 mt-3 lg:mt-0 lg:w-1/2 ">
+                    <a id="link-footer-github" target="_blank" href="https://github.com/larasurf/larasurf/issues" class="transition filter hover:invert-50">
+                        <span><img src="/svg/github.svg" alt="GitHub" class="inline" /></span>
+                        <span class="ml-2">Open an issue on GitHub</span>
                     </a>
                 </div>
             </div>

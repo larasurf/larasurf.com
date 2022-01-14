@@ -83,6 +83,9 @@
                 <div class="mb-4 text-right">
                     {!! ReCaptcha::htmlFormButton('Send Message', ['class' => 'transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-5 py-3']) !!}
                 </div>
+                <div class="mb-4 text-xs lg:text-right">
+                    This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+                </div>
             </form>
         </div>
     @else

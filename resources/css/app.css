@@ -385,3 +385,5 @@ a.app-link:hover,
 .fslightbox-container > .fslightbox-absoluted {
     pointer-events: none;
 }
+
+.grecaptcha-badge { visibility: hidden; }
