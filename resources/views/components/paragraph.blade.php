@@ -1,1 +1,1 @@
-<p class="text-lg">{!! $slot !!}</p>
+<p class="text-md">{!! $slot !!}</p>

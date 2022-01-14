@@ -1,4 +1,4 @@
-<div class="flex mt-3 text-lg">
+<div class="flex mt-3 text-md">
     <label class="checkbox bounce">
         <span class="flex">
             <span><input type="checkbox">

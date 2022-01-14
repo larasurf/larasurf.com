@@ -1,4 +1,4 @@
-<div class="code-container text-right text-lg {{ $cssClass }}">
+<div class="code-container text-right text-md {{ $cssClass }}">
     @if($showCopyButton)
         <div class="relative copy-code-container">
             <div class="absolute w-24 overflow-x-hidden right-0 copy-code-gradient-container">

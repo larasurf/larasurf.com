@@ -44,7 +44,7 @@
                     @elseif($content['type'] === 'checkbox')
                         <x-checkbox>{!! $content['html'] !!}</x-checkbox>
                     @elseif($content['type'] === 'list')
-                        <ul class="my-3 text-lg">
+                        <ul class="my-3 text-md">
                             @foreach($content['items'] as $item)
                                 @if (is_array($item))
                                     @foreach($item as $subitem)

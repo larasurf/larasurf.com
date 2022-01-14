@@ -22,21 +22,21 @@
         <x-paragraph>LaraSurf projects come with a preconfigured CloudFormation template, a preconfigured CircleCI configuration, and CLI commands to help along the way.</x-paragraph>
         <x-paragraph>Out of the box, LaraSurf assumes your project will need all of the following:</x-paragraph>
         <div class="flex flex-col lg:flex-row">
-            <ul class="my-3 text-lg lg:w-1/3">
+            <ul class="my-3 text-md lg:w-1/3">
                 <li class="list-disc my-1">Application Load Balancer</li>
                 <li class="list-disc my-1">Webserver (NGINX)</li>
                 <li class="list-disc my-1">FastCGI daemon for <br/>PHP 8 (PHP-FPM)</li>
                 <li class="list-disc my-1">MySQL 8 database</li>
                 <li class="list-disc my-1">Private S3 bucket</li>
             </ul>
-            <ul class="my-3 text-lg lg:w-1/3">
+            <ul class="my-3 text-md lg:w-1/3">
                 <li class="list-disc my-1">Redis cluster</li>
                 <li class="list-disc my-1">Queue worker support</li>
                 <li class="list-disc my-1">Scheduled commands</li>
                 <li class="list-disc my-1">Environment variables</li>
                 <li class="list-disc my-1">Centralized Logging</li>
             </ul>
-            <ul class="my-3 text-lg lg:w-1/3">
+            <ul class="my-3 text-md lg:w-1/3">
                 <li class="list-disc my-1">DNS record</li>
                 <li class="list-disc my-1">TLS certificate</li>
                 <li class="list-disc my-1">Outbound emails</li>
