@@ -227,7 +227,7 @@ a.app-link:hover,
 }
 
 .copy-code-gradient-right {
-    height: 3.25rem;
+    height: 3rem;
     background: linear-gradient(90deg, rgba(243, 244, 246, 0) 0%, rgba(243, 244, 246, 1) 50%);
     transform: translateX(0);
 }

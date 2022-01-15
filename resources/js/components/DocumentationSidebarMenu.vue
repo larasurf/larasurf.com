@@ -1,6 +1,4 @@
 <script>
-import Emitter from 'tiny-emitter/instance';
-
 export default {
     data() {
         return {
@@ -9,6 +7,7 @@ export default {
             enableScrollAdjustment: true,
             intersectionObserver: null,
             anchorElements: [],
+            observedElements: [],
         };
     },
     computed: {
@@ -49,7 +48,9 @@ export default {
             threshold: [0, .5],
         });
 
-        Emitter.on('docs-content-updated', this.initializeListeners);
+        window.eventBus.on('docs-content-updated', () => {
+            this.initializeListeners();
+        });
 
         this.initializeListeners();
     },
@@ -102,7 +103,9 @@ export default {
                 }
             });
 
-            this.intersectionObserver.disconnect();
+            while (this.observedElements.length) {
+                this.intersectionObserver.unobserve(this.observedElements.pop());
+            }
 
             for (let i = 0; i < this.menu.length; i++) {
                 this.menuItemsOnPage.push({
@@ -111,7 +114,11 @@ export default {
                     isSubitem: false,
                 });
 
-                this.intersectionObserver.observe(document.querySelector(`#${this.menu[i].id}`));
+                const menuItem = document.querySelector(`#${this.menu[i].id}`);
+
+                this.intersectionObserver.observe(menuItem);
+                this.observedElements.push(menuItem);
+
                 for (let ii = 0; ii < this.menu[i].subitems.length; ii++) {
                     this.menuItemsOnPage.push({
                         id: this.menu[i].subitems[ii].id,
@@ -119,7 +126,9 @@ export default {
                         isSubitem: true,
                     });
 
-                    this.intersectionObserver.observe(document.querySelector(`#${this.menu[i].subitems[ii].id}`));
+                    const submenuItem = document.querySelector(`#${this.menu[i].subitems[ii].id}`);
+                    this.intersectionObserver.observe(submenuItem);
+                    this.observedElements.push(submenuItem);
                 }
             }
         },

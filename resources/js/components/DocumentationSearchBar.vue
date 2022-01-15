@@ -1,6 +1,5 @@
 <script>
 import { getDirective as vueDebounce } from 'vue-debounce';
-import Emitter from 'tiny-emitter/instance';
 
 export default {
     directives: {
@@ -28,6 +27,14 @@ export default {
         });
     },
     methods: {
+        escapeHtml(html) {
+            return html
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        },
         searchChildNodes(nodes) {
             if (this.totalMatches === null) {
                 this.totalMatches = 0;
@@ -52,8 +59,9 @@ export default {
 
                                 while (nodeValue.toLowerCase().includes(term)) {
                                     const index = nodeValue.toLowerCase().indexOf(term);
-                                    const strBeforeIndex = nodeValue.substr(0, index);
-                                    const termWithCasing = nodeValue.substr(index, term.length);
+                                    const strBeforeIndex = this.escapeHtml(nodeValue.substr(0, index));
+                                    const termWithCasing = this.escapeHtml(nodeValue.substr(index, term.length));
+
                                     this.totalMatches++;
 
                                     let css = 'search-result';
@@ -70,6 +78,7 @@ export default {
                                 const el = document.createElement('span');
 
                                 el.innerHTML = replaceHtml + nodeValue;
+
                                 nodes[i].replaceWith(el);
 
                                 if (scrollTo) {
@@ -103,9 +112,7 @@ export default {
                 this.currentMatch = 0;
             }
 
-            Emitter.emit('docs-content-updated');
-
-            refreshFsLightbox();
+            window.eventBus.emit('docs-content-updated');
         },
         onNextMatch() {
             if (this.totalMatches) {
@@ -121,6 +128,8 @@ export default {
                 docsContent.innerHTML = this.docsHtml;
 
                 this.searchChildNodes(docsContent.childNodes);
+
+                window.eventBus.emit('docs-content-updated');
             }
         },
         onPreviousMatch() {
@@ -137,6 +146,8 @@ export default {
                 docsContent.innerHTML = this.docsHtml;
 
                 this.searchChildNodes(docsContent.childNodes);
+
+                window.eventBus.emit('docs-content-updated');
             }
         },
     },
@@ -154,10 +165,13 @@ export default {
         <div>
             <input ref="searchRef" v-debounce:200ms.fireonempty="onSearch" debounce-events="input" style="width:14.05rem;" class="border rounded py-1 px-3 bg-white text-gray-700 focus:outline-none focus:shadow-outline" id="docs-search-input" type="search" placeholder="Search Documentation" />
         </div>
-        <div v-if="totalMatches !== null" class="py-1 absolute" style="left:18rem;">
-            {{ currentMatch }} of {{ totalMatches }}
+        <div v-if="totalMatches === 0" class="py-1 absolute" style="left:18.2rem;">
+            0 results
         </div>
-        <div v-if="totalMatches !== null" class="py-1 px-3 flex items-center relative left-24">
+        <div v-if="totalMatches" class="py-1 absolute" style="left:18.2rem;">
+            {{ currentMatch }} of {{ totalMatches }} results
+        </div>
+        <div v-if="totalMatches" class="py-1 px-3 flex items-center relative" style="left:10rem;">
             <span class="filter hover:invert-50 cursor-pointer py-1" @click="onNextMatch()">
                 <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683418 14.0976 1.31658 13.7071 1.70711L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z" fill="#25282B"/>
