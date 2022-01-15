@@ -5,14 +5,20 @@
 @section('content')
     @if (empty($is_submitted))
         <div class="hidden lg:block static-menu-width">
-            <div class="fixed static-side-menu">
-                <a href="#title" class="block static-menu-width bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400">Custom Projects</a>
-                <a href="#services" class="block static-menu-width font-medium pl-12 py-2 hover:text-gray-400">Services</a>
-                <a href="#how-it-works" class="block static-menu-width font-medium pl-12 py-2 hover:text-gray-400">How it works</a>
-                <a href="#project-details" class="block static-menu-width font-medium pl-12 py-2 hover:text-gray-400">Project Details</a>
+            <div class="fixed static-side-menu flex">
+                <div class="flex-shrink pt-4 mr-3">
+                    <img src="/svg/arrow-down.svg" alt="menu" />
+                    <div class="border-l border-gray-100 relative static-side-menu-line"></div>
+                </div>
+                <div class="flex-grow">
+                    <a href="#title" class="block static-menu-width font-medium text-lg pl-6 py-2 hover:text-gray-400">Custom Projects</a>
+                    <a href="#services" class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400">Services</a>
+                    <a href="#how-it-works" class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400">How it works</a>
+                    <a href="#project-details" class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400">Project Details</a>
+                </div>
             </div>
         </div>
-        <div class="relative content w-full lg:w-auto pt-2">
+        <div class="relative content w-full lg:w-auto pt-4">
             <x-heading-1 id="title" margin-top="2">Custom Projects</x-heading-1>
             <x-heading-2 id="services">Services</x-heading-2>
             <x-paragraph>Do you need a custom built solution? We offer services ranging from custom infrastructure and CI/CD pipelines to implementing a full MVP.</x-paragraph>

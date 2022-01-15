@@ -3,6 +3,7 @@ export default {
     data() {
         return {
             menuItemsOnPage: [],
+            lastMenuItemOnPage: null,
             lastSurfIconPosition: { x: 10, y: -30 },
             enableScrollAdjustment: true,
         };
@@ -37,7 +38,32 @@ export default {
         });
 
         window.addEventListener('scroll', (e) => {
-            this.updateSurfIconPosition();
+            const itemOnPage = this.menuItemsOnPage.find((item) => item.isOnPage);
+
+            if (itemOnPage) {
+                const menuItem = document.querySelector(`#menu-${itemOnPage.id}`);
+                const scrollMenu = document.querySelector('.docs-sidebar-menu');
+
+                if (menuItem && scrollMenu) {
+                    const pos = menuItem.getBoundingClientRect();
+
+                    if (this.enableScrollAdjustment) {
+                        if (pos.y > screen.height / 2) {
+                            scrollMenu.scrollTo({
+                                top: menuItem.offsetTop - screen.height / 2 + 100,
+                                left: 0,
+                                behavior: 'smooth',
+                            });
+                        } else if (pos.y < 300) {
+                            scrollMenu.scrollTo({
+                                top: menuItem.offsetTop - 300,
+                                left: 0,
+                                behavior: 'smooth',
+                            });
+                        }
+                    }
+                }
+            }
         });
 
         window.addEventListener('hashchange', (e) => {
@@ -84,40 +110,15 @@ export default {
                     }
                 }
             });
-        },
-        updateSurfIconPosition() {
+
             const itemOnPage = this.menuItemsOnPage.find((item) => item.isOnPage);
 
             if (itemOnPage) {
-                const menuItem = document.querySelector(`#menu-${itemOnPage.id}`);
-                const scrollMenu = document.querySelector('.docs-sidebar-menu');
-                const surfIcon = document.querySelector('#menu-surf-icon');
-
-                if (menuItem && scrollMenu) {
-                    const pos = menuItem.getBoundingClientRect();
-
-                    if (this.enableScrollAdjustment) {
-                        if (pos.y > screen.height / 2) {
-                            scrollMenu.scrollTo({
-                                top: menuItem.offsetTop - screen.height / 2 + 100,
-                                left: 0,
-                                behavior: 'smooth',
-                            });
-                        } else if (surfIcon.getBoundingClientRect().y < 300) {
-                            scrollMenu.scrollTo({
-                                top: menuItem.offsetTop - 300,
-                                left: 0,
-                                behavior: 'smooth',
-                            });
-                        }
-                    }
-
-                    this.lastSurfIconPosition = {
-                        x: itemOnPage.isSubitem ? 20 : 10,
-                        y: pos.y - 186 + scrollMenu.scrollTop,
-                    };
-                }
+                this.lastMenuItemOnPage = itemOnPage;
             }
+        },
+        isMenuItemEmphasized(id) {
+            return this.lastMenuItemOnPage && this.lastMenuItemOnPage.id === id;
         },
         onHashChange() {
             window.setTimeout(() => {
@@ -133,7 +134,6 @@ export default {
 
                     window.setTimeout(() => {
                         this.enableScrollAdjustment = true;
-                        this.updateSurfIconPosition();
 
                         window.setTimeout(() => {
                             window.scrollTo(0, window.scrollY - 10);
@@ -154,18 +154,24 @@ export default {
                 <div class="text-xl font-bold text-center mt-1 ml-9">v0.1</div>
             </div>
             <div class="docs-sidebar-menu">
-                <div id="menu-surf-icon" class="twa twa-ocean relative z-10 -mb-12" :style="{
-                    top: this.lastSurfIconPosition.y + 'px',
-                    left: this.lastSurfIconPosition.x + 'px',
-                }"></div>
-                <div class="-mt-3">
-                    <div v-for="(item, i) in menu" :key="i">
-                        <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item bg-gray-100 font-bold pl-9 py-2 hover:text-gray-400 flex">
-                            {{ item.title }}
-                        </a>
-                        <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item font-medium pl-12 py-2 hover:text-gray-400">
-                            {{ subitem.title }}
-                        </a>
+                <div class="static-side-menu flex mt-6">
+                    <div class="flex-shrink pt-4 mr-3">
+                        <div class="border-l border-gray-100 relative" style="left:0.3rem;top:-0.5rem;height: calc(100% - 1rem);"></div>
+                    </div>
+                    <div class="flex-grow -mt-6">
+                        <div v-for="(item, i) in menu" :key="i">
+                            <div class="relative right-3.5 top-6">
+                                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683418 14.0976 1.31658 13.7071 1.70711L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z" fill="#25282B"/>
+                                </svg>
+                            </div>
+                            <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item text-lg pl-5 py-2 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(item.id)}">
+                                {{ item.title }}
+                            </a>
+                            <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item pl-8 py-2 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(subitem.id)}">
+                                {{ subitem.title }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,9 +180,6 @@ export default {
 </template>
 
 <style scoped>
-#menu-surf-icon {
-    transition: all 150ms;
-}
 .menu-wrapper {
     top: 100px;
 }

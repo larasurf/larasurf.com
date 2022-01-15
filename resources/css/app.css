@@ -122,6 +122,11 @@ nav,
     top: 7rem;
 }
 
+.static-side-menu-line {
+    left: 0.4rem;
+    height: calc(100% - 1rem);
+}
+
 .list-disc {
     margin-left: 1.5rem;
 }

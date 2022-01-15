@@ -198,7 +198,7 @@ export default {
                 <label for="project-starter-kit-jetstream-livewire" class="ml-2">Jetstream: Livewire (without teams)</label>
             </div>
         </div>
-        <div class="w-full lg:w-1/2 pl-0 lg:pl-12">
+        <div class="w-full lg:w-1/2 pl-0 lg:pl-12 mt-6 lg:mt-0">
             <div class="block text-xl font-bold">Miscellaneous</div>
             <div class="flex mt-3 text-lg">
                 <label class="checkbox bounce">
@@ -240,7 +240,7 @@ export default {
         </div>
         <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
         <div class="w-full lg:w-1/2">
-            <div class="text-xl font-bold">Docker-Compose Host Ports</div>
+            <div class="text-xl font-bold">Local Ports</div>
             <div class="text-sm">
                 These are the ports on your local machine that will be bound to services run by docker-compose. The specified ports must be available on your local machine. If you aren't sure, proceed with the defaults.
             </div>
