@@ -1,5 +1,4 @@
 import { createApp } from 'vue';
-import VueDebounce from 'vue-debounce';
 import JSConfetti from 'js-confetti';
 
 

@@ -43,14 +43,17 @@ export default {
                         }
                         // text
                         case 3: {
-                            if (nodes[i].nodeValue.includes(this.searchTerm)) {
+                            const term = this.searchTerm.toLowerCase();
+
+                            if (nodes[i].nodeValue.toLowerCase().includes(term)) {
                                 let replaceHtml = '';
                                 let nodeValue = nodes[i].nodeValue;
                                 let scrollTo = false;
 
-                                while (nodeValue.includes(this.searchTerm)) {
-                                    const index = nodeValue.indexOf(this.searchTerm);
+                                while (nodeValue.toLowerCase().includes(term)) {
+                                    const index = nodeValue.toLowerCase().indexOf(term);
                                     const strBeforeIndex = nodeValue.substr(0, index);
+                                    const termWithCasing = nodeValue.substr(index, term.length);
                                     this.totalMatches++;
 
                                     let css = 'search-result';
@@ -60,8 +63,8 @@ export default {
                                         scrollTo = true;
                                     }
 
-                                    replaceHtml += `${strBeforeIndex}<span id="search-result-${this.totalMatches}" class="${css}">${this.searchTerm}</span>`;
-                                    nodeValue = nodeValue.substr(index + this.searchTerm.length);
+                                    replaceHtml += `${strBeforeIndex}<span id="search-result-${this.totalMatches}" class="${css}">${termWithCasing}</span>`;
+                                    nodeValue = nodeValue.substr(index + term.length);
                                 }
 
                                 const el = document.createElement('span');
@@ -101,6 +104,8 @@ export default {
             }
 
             Emitter.emit('docs-content-updated');
+
+            refreshFsLightbox();
         },
         onNextMatch() {
             if (this.totalMatches) {
