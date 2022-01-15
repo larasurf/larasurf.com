@@ -1,16 +1,20 @@
 <script>
+import Emitter from 'tiny-emitter/instance';
+
 export default {
     data() {
         return {
             menuItemsOnPage: [],
             lastMenuItemOnPage: null,
-            lastSurfIconPosition: { x: 10, y: -30 },
             enableScrollAdjustment: true,
+            intersectionObserver: null,
+            anchorElements: [],
         };
     },
     computed: {
         menu: () => {
             const menu = [];
+
             for (let index = 0; index < window.larasurfDocs.length; index++) {
                 const item = {};
                 item.title = window.larasurfDocs[index].title;
@@ -21,23 +25,36 @@ export default {
                 }));
                 menu.push(item);
             }
+
             return menu;
+        },
+        pageUrl: () => {
+            return window.location.protocol + '//' + window.location.host + window.location.pathname;
         },
     },
     mounted() {
-        const url = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        window.addEventListener('scroll', this.onWindowScroll);
 
-        document.querySelectorAll('a').forEach((el) => {
-            if (el.href.startsWith(`${url}#`) && !el.classList.contains('menu-item')) {
-                el.addEventListener('click', (e) => {
-                    e.preventDefault();
+        window.addEventListener('hashchange', (e) => {
+            this.onHashChange();
+        }, false);
 
-                    window.location.hash = el.href.replace(url, '');
-                });
-            }
+        if (window.location.hash) {
+            this.onHashChange();
+        }
+
+        this.intersectionObserver = new IntersectionObserver(this.onMenuItemIntersect, {
+            root: null,
+            rootMargin: '0px',
+            threshold: [0, .5],
         });
 
-        window.addEventListener('scroll', (e) => {
+        Emitter.on('docs-content-updated', this.initializeListeners);
+
+        this.initializeListeners();
+    },
+    methods: {
+        onWindowScroll(event) {
             const itemOnPage = this.menuItemsOnPage.find((item) => item.isOnPage);
 
             if (itemOnPage) {
@@ -64,44 +81,48 @@ export default {
                     }
                 }
             }
-        });
+        },
+        onAnchorElementClick(event) {
+            event.preventDefault();
 
-        window.addEventListener('hashchange', (e) => {
-            this.onHashChange();
-        }, false);
+            window.location.hash = event.target.href.replace(this.pageUrl, '');
+        },
+        initializeListeners() {
+            window.removeEventListener('scroll', this.onWindowScroll);
+            window.addEventListener('scroll', this.onWindowScroll);
 
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: [0, .5],
-        }
+            while (this.anchorElements.length) {
+                this.anchorElements.pop().removeEventListener('click', this.onAnchorElementClick);
+            }
 
-        const observer = new IntersectionObserver(this.onMenuItemIntersect, options);
-
-        for (let i = 0; i < this.menu.length; i++) {
-            this.menuItemsOnPage.push({
-                id: this.menu[i].id,
-                isOnPage: false,
-                isSubitem: false,
+            document.querySelectorAll('a').forEach((el) => {
+                if (el.href.startsWith(`${this.pageUrl}#`) && !el.classList.contains('menu-item')) {
+                    el.addEventListener('click', this.onAnchorElementClick);
+                    this.anchorElements.push(el);
+                }
             });
 
-            observer.observe(document.querySelector(`#${this.menu[i].id}`));
-            for (let ii = 0; ii < this.menu[i].subitems.length; ii++) {
+            this.intersectionObserver.disconnect();
+
+            for (let i = 0; i < this.menu.length; i++) {
                 this.menuItemsOnPage.push({
-                    id: this.menu[i].subitems[ii].id,
+                    id: this.menu[i].id,
                     isOnPage: false,
-                    isSubitem: true,
+                    isSubitem: false,
                 });
 
-                observer.observe(document.querySelector(`#${this.menu[i].subitems[ii].id}`));
-            }
-        }
+                this.intersectionObserver.observe(document.querySelector(`#${this.menu[i].id}`));
+                for (let ii = 0; ii < this.menu[i].subitems.length; ii++) {
+                    this.menuItemsOnPage.push({
+                        id: this.menu[i].subitems[ii].id,
+                        isOnPage: false,
+                        isSubitem: true,
+                    });
 
-        if (window.location.hash) {
-            this.onHashChange();
-        }
-    },
-    methods: {
+                    this.intersectionObserver.observe(document.querySelector(`#${this.menu[i].subitems[ii].id}`));
+                }
+            }
+        },
         onMenuItemIntersect(entries, observer) {
             entries.forEach((entry) => {
                 for (let i = 0; i < this.menuItemsOnPage.length; i++) {
@@ -149,28 +170,30 @@ export default {
 <template>
     <div>
         <div class="menu-wrapper fixed">
-            <div class="flex mb-3">
+            <div class="flex">
                 <div class="text-2xl font-bold">Documentation</div>
                 <div class="text-xl font-bold text-center mt-1 ml-9">v0.1</div>
             </div>
-            <div class="docs-sidebar-menu">
-                <div class="static-side-menu flex mt-6">
-                    <div class="flex-shrink pt-4 mr-3">
-                        <div class="border-l border-gray-100 relative" style="left:0.3rem;top:-0.5rem;height: calc(100% - 1rem);"></div>
-                    </div>
-                    <div class="flex-grow -mt-6">
-                        <div v-for="(item, i) in menu" :key="i">
-                            <div class="relative right-3.5 top-6">
-                                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683418 14.0976 1.31658 13.7071 1.70711L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z" fill="#25282B"/>
-                                </svg>
+            <div class="docs-sidebar-menu mt-3">
+                <div class="static-side-menu flex mt-3">
+                    <div class="flex-grow -mt-4">
+                        <div v-for="(item, i) in menu" :key="i" class="flex">
+                            <div class="flex-shrink pt-4 mr-3">
+                                <div class="border-l border-gray-100 relative" style="left:0.45rem;top:0.75rem;height:calc(100% - 1rem);"></div>
                             </div>
-                            <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item text-lg pl-5 py-2 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(item.id)}">
-                                {{ item.title }}
-                            </a>
-                            <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item pl-8 py-2 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(subitem.id)}">
-                                {{ subitem.title }}
-                            </a>
+                            <div class="flex-grow">
+                                <div class="relative right-3" style="top:1.1rem;">
+                                    <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683418 14.0976 1.31658 13.7071 1.70711L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z" fill="#25282B"/>
+                                    </svg>
+                                </div>
+                                <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item text-lg pl-5 pb-1 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(item.id)}">
+                                    {{ item.title }}
+                                </a>
+                                <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item pl-8 py-1 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(subitem.id)}">
+                                    {{ subitem.title }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,7 +204,7 @@ export default {
 
 <style scoped>
 .menu-wrapper {
-    top: 100px;
+    top: 154px;
 }
 .docs-sidebar-menu {
     max-height: calc(100vh - 15rem);

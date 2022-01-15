@@ -1,9 +1,13 @@
 import { createApp } from 'vue';
+import VueDebounce from 'vue-debounce';
 import JSConfetti from 'js-confetti';
 
+
 import DocumentationSidebarMenu from './components/DocumentationSidebarMenu.vue';
+import DocumentationSearchBar from './components/DocumentationSearchBar.vue';
 
 createApp(DocumentationSidebarMenu).mount('#docs-menu');
+createApp(DocumentationSearchBar).mount('#docs-search');
 
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 const jsConfetti = new JSConfetti();

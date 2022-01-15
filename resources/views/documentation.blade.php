@@ -3,6 +3,7 @@
 @section('title', 'Documentation - LaraSurf')
 
 @section('content')
+    <div id="docs-search" class="hidden lg:block fixed w-full z-50"></div>
     <div class="relative block lg:flex">
         <div id="docs-menu" class="hidden lg:block"></div>
         <div class="documentation-menu lg:hidden">
@@ -23,7 +24,7 @@
                 @endforeach
             @endforeach
         </div>
-        <div class="w-full lg:w-auto content">
+        <div id="documentation-content" class="mt-12 w-full lg:w-auto content">
             @foreach($docs as $doc)
                 <x-heading-1 :id="$doc['id']">{{ $doc['title'] }}</x-heading-1>
                 @foreach ($doc['content'] as $content)

@@ -170,6 +170,10 @@ nav,
         max-width: 860px;
         margin-left: 292px;
     }
+
+    #docs-search {
+        max-width: 1152px;
+    }
 }
 
 .content strong {
@@ -392,3 +396,11 @@ a.app-link:hover,
 }
 
 .grecaptcha-badge { visibility: hidden; }
+
+.search-result {
+    background-color: rgba(0, 102, 255, 0.1);
+}
+
+.search-result.current {
+    background-color: rgba(0, 102, 255, 0.25);
+}
