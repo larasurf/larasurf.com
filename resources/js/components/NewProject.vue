@@ -238,8 +238,8 @@ export default {
                 </label>
             </div>
         </div>
-        <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
-        <div class="w-full lg:w-1/2">
+        <div class="w-full border-b border-gray-200 my-12"></div>
+        <div class="w-full">
             <div class="text-xl font-bold">Local Ports</div>
             <div class="text-sm">
                 These are the ports on your local machine that will be bound to services run by docker-compose. The specified ports must be available on your local machine. If you aren't sure, proceed with the defaults.
@@ -306,7 +306,8 @@ export default {
                 :disabled="isLoading"
                 @click="onProjectGenerateClick()"
                 class="transition bg-black hover:bg-white border border-black text-white hover:text-black active:bg-black active:text-white px-6 py-3"
-                >Generate
+                >
+                Generate Project
             </button>
         </div>
     </div>
