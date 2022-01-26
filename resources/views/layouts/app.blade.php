@@ -43,18 +43,18 @@
                     <div class="w-1/5 text-3xl font-extrabold text-left">
                         <a id="link-nav-logo" href="/" class="transition hover:text-gray-400">LaraSurf</a>
                     </div>
-                    <div class="w-3/5 flex mt-2 px-6 justify-end">
-                        <div class="z-10 text-center font-medium xl:px-6">
+                    <div class="w-3/5 flex mt-2 pl-7 xl:pl-10 pr-3 justify-start">
+                        <div class="z-10 text-center font-medium px-3 xl:px-6">
                             <a id="link-nav-docs" href="/docs" class="nav-link transition hover:text-gray-400 {{ Route::is('docs') ? 'underline' : '' }}">Documentation</a>
                         </div>
-                        <div class="z-10 text-center font-medium xl:px-6">
+                        <div class="z-10 text-center font-medium px-3 xl:px-6">
                             <a id="link-nav-how-it-works" href="/how-it-works" class="nav-link transition hover:text-gray-400 {{ Route::is('how-it-works') ? 'underline' : '' }}">How it works</a>
                         </div>
-                        <div class="z-10 text-center font-medium xl:pl-6 xl:pr-16">
+                        <div class="z-10 text-center font-medium pl-3 lg:pr-12 xl:pl-6 xl:pr-16">
                             <span class="nav-link line-through">Pricing</span>
                             <span id="its-free" class="text-xs absolute ml-2">It's free!</span>
                         </div>
-                        <div class="z-10 text-center font-medium xl:px-6">
+                        <div class="z-10 text-center font-medium px-3 xl:px-6">
                             <a id="link-nav-custom-projects" href="/custom-projects" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-projects') ? 'underline' : '' }}">Custom Projects</a>
                         </div>
                     </div>

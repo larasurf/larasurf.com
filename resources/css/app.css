@@ -376,7 +376,7 @@ a.app-link:hover,
 @media (min-width: 1024px) {
     #btn-back-to-top {
         right: calc((100vw - 75rem) / 2 + 0.5rem);
-        bottom: 6.75rem;
+        bottom: 2.73rem;
     }
 
     @supports (-moz-appearance:none) {
