@@ -150,7 +150,7 @@ class GenerateProjectController extends Controller
             '%PROJECT_DIR%' => $project_dir,
             '%DEV_BRANCH%' => $dev_branch ?: '',
             '%TEMPLATE_BRANCH%' => $template_branch ?: '',
-            '%SPLASH%' => 'true' === $splash ? 'true' : 'false',
+            '%SPLASH%' => 'false' === $splash ? 'false' : 'true',
         ];
 
         $script = File::get(resource_path('generate.sh'));
