@@ -55,14 +55,13 @@ class GenerateProjectController extends Controller
             $password = config("auth.basic-auth.$environment.password");
 
             $params = array_filter([
-                'project-dir' => '$LARASURF_PROJECT_NAME',
                 'environments' => $environments,
                 'dev-branch' => $dev_branch,
                 'template-branch' => $template_branch,
                 'auth' => $starter_kit !== 'none' ? $starter_kit : false,
-                'local-tls' => $local_tls === 'true',
-                'ide-helper' => $ide_helper === 'true',
-                'cs-fixer' => $cs_fixer === 'true',
+                'local-tls' => $local_tls === 'true' ? 'true' : false,
+                'ide-helper' => $ide_helper === 'true' ? 'true' : false,
+                'cs-fixer' => $cs_fixer === 'true' ? 'true' : false,
                 'aws-local-port' => $port_awslocal,
                 'mail-ui-port' => $port_mail_ui,
                 'app-port' => $port_app,
@@ -73,7 +72,7 @@ class GenerateProjectController extends Controller
 
             $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) && " .
                 'curl -s ' . ($dev_branch || $template_branch ? '-k ' : '') . ($username && $password ? "-u $username:$password " : '') .
-                secure_url('generate.sh', $params) .
+                secure_url('generate.sh') . '?project-dir=$LARASURF_PROJECT_NAME&' . http_build_query($params) .
                 ' | bash -s && cd $LARASURF_PROJECT_NAME > /dev/null 2>&1; (test -f \'./larasurf.json\' && LARASURF_END=$(date +%s) && echo "Done in $((LARASURF_END-LARASURF_START))s" && git status) || (echo -e \'\033[91mInstallation failed\033[0m\' && test -f \'docker-compose.yml\' && cd $(pwd) && docker-compose down --volumes > /dev/null 2>&1 && cd $(pwd))';
 
             return view('generate-project', [
