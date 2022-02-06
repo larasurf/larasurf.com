@@ -1543,7 +1543,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'This can be simplified by adding the following alias to your Bash profile:',
+                        'html' => 'This can be simplified with the following alias:',
                     ],
                     [
                         'type' => 'code',
