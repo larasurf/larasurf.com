@@ -3,8 +3,7 @@ FROM nginx:1.21-alpine
 ENV UPSTREAM_HOST localhost
 ENV UPSTREAM_PORT 9000
 
-#RUN apk add --update --no-cache 'libcurl>=7.79.0-r0' && \
-#    apk add --update --no-cache 'curl>=7.79.0-r0'
+RUN mkdir -p /var/run/nginx-cache
 
 ARG NGINX_CONFIG_TEMPLATE=.docker/nginx/laravel.conf.template
 

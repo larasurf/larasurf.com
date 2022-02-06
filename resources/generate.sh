@@ -23,128 +23,94 @@ function log_message_buffered() {
 }
 
 function surf_install() {
-  AUTH_JET_INERTIA=false
-  AUTH_JET_INERTIA_TEAMS=false
-  AUTH_JET_LIVEWIRE=false
-  AUTH_JET_LIVEWIRE_TEAMS=false
-  AUTH_BREEZE_BLADE=false
-  AUTH_BREEZE_VUE=false
-  AUTH_BREEZE_REACT=false
-  PACKAGE_IDE_HELPER=false
-  PACKAGE_CS_FIXER=false
-  LOCAL_TLS=false
-  ENVIRONMENTS=''
-  AWSLOCAL_PORT='4566'
-  MAIL_UI_PORT='8025'
-  APP_PORT='80'
-  APP_TLS_PORT='443'
-  DB_PORT='3306'
-  CACHE_PORT='6379'
-  PROJECT_DIR=''
-  DEV_BRANCH=''
-  TEMPLATE_BRANCH=''
-  SPLASH=true
+  AUTH_JET_INERTIA=%AUTH_JET_INERTIA%
+  AUTH_JET_INERTIA_TEAMS=%AUTH_JET_INERTIA_TEAMS%
+  AUTH_JET_LIVEWIRE=%AUTH_JET_LIVEWIRE%
+  AUTH_JET_LIVEWIRE_TEAMS=%AUTH_JET_LIVEWIRE_TEAMS%
+  AUTH_BREEZE_BLADE=%AUTH_BREEZE_BLADE%
+  AUTH_BREEZE_VUE=%AUTH_BREEZE_VUE%
+  AUTH_BREEZE_REACT=%AUTH_BREEZE_REACT%
+  PACKAGE_IDE_HELPER=%PACKAGE_IDE_HELPER%
+  PACKAGE_CS_FIXER=%PACKAGE_CS_FIXER%
+  LOCAL_TLS=%LOCAL_TLS%
+  ENVIRONMENTS='%ENVIRONMENTS%'
+  AWSLOCAL_PORT='%AWSLOCAL_PORT%'
+  MAIL_UI_PORT='%MAIL_UI_PORT%'
+  APP_PORT='%APP_PORT%'
+  APP_TLS_PORT='%APP_TLS_PORT%'
+  DB_PORT='%DB_PORT%'
+  CACHE_PORT='%CACHE_PORT%'
+  PROJECT_DIR='%PROJECT_DIR%'
+  DEV_BRANCH='%DEV_BRANCH%'
+  TEMPLATE_BRANCH='%TEMPLATE_BRANCH%'
+  SPLASH=%SPLASH%
 
-  # parse options
+  # log options
 
-  for var in "$@"
-  do
-    if [[ "$var" =~ --dev-branch=[a-zA-Z0-9/\.-_]+ ]]; then
-      DEV_BRANCH=$(echo $var | sed 's/--dev-branch=//')
+  if [[ -n "$DEV_BRANCH" ]]; then
+    log_message_buffered "Dev branch: $DEV_BRANCH"
+  fi
 
-      log_message_buffered "Dev branch: $DEV_BRANCH"
-    elif [[ "$var" =~ --template-branch=[a-zA-Z0-9/\.-_]+ ]]; then
-      TEMPLATE_BRANCH=$(echo $var | sed 's/--template-branch=//')
+  if [[ -n "$TEMPLATE_BRANCH" ]]; then
+    log_message_buffered "Template branch: $TEMPLATE_BRANCH"
+  fi
 
-      log_message_buffered "Template branch: $TEMPLATE_BRANCH"
-    elif [[ "$var" == '--auth=jet-inertia' ]]; then
-      AUTH_JET_INERTIA=true
+  if [[ "$AUTH_JET_INERTIA" == true ]]; then
+    log_message_buffered "Auth: jetstream inertia (no teams)"
+  fi
 
-      log_message_buffered "Auth: jetstream inertia (no teams)"
-    elif [[ "$var" == '--auth=jet-inertia-teams' ]]; then
-      AUTH_JET_INERTIA_TEAMS=true
+  if [[ "$AUTH_JET_INERTIA_TEAMS" == true ]]; then
+    log_message_buffered "Auth: jetstream inertia (teams)"
+  fi
 
-      log_message_buffered "Auth: jetstream inertia (teams)"
-    elif [[ "$var" == '--auth=jet-livewire' ]]; then
-      AUTH_JET_LIVEWIRE=true
+  if [[ "$AUTH_JET_LIVEWIRE" == true ]]; then
+    log_message_buffered "Auth: jetstream livewire (no teams)"
+  fi
 
-      log_message_buffered "Auth: jetstream livewire (no teams)"
-    elif [[ "$var" == '--auth=jet-livewire-teams' ]]; then
-      AUTH_JET_LIVEWIRE_TEAMS=true
+  if [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
+    log_message_buffered "Auth: jetstream livewire (teams)"
+  fi
 
-      log_message_buffered "Auth: jetstream livewire (teams)"
-    elif [[ "$var" == '--auth=breeze-blade' ]]; then
-      AUTH_BREEZE_BLADE=true
+  if [[ "$AUTH_BREEZE_BLADE" == true ]]; then
+    log_message_buffered "Auth: breeze (blade)"
+  fi
 
-      log_message_buffered "Auth: breeze (blade)"
-    elif [[ "$var" == '--auth=breeze-vue' ]]; then
-      AUTH_BREEZE_VUE=true
+  if [[ "$AUTH_BREEZE_VUE" == true ]]; then
+    log_message_buffered "Auth: breeze (vue)"
+  fi
 
-      log_message_buffered "Auth: breeze (vue)"
-    elif [[ "$var" == '--auth=breeze-react' ]]; then
-      AUTH_BREEZE_REACT=true
+  if [[ "$AUTH_BREEZE_REACT" == true ]]; then
+    log_message_buffered "Auth: breeze (react)"
+  fi
 
-      log_message_buffered "Auth: breeze (react)"
-    elif [[ "$var" == '--ide-helper' ]]; then
-      PACKAGE_IDE_HELPER=true
+  if [[ "$IDE_HELPER" == true ]]; then
+    log_message_buffered "Package: IDE helper"
+  fi
 
-      log_message_buffered "Package: IDE helper"
-    elif [[ "$var" == '--cs-fixer' ]]; then
-      PACKAGE_CS_FIXER=true
+  if [[ "$PACKAGE_CS_FIXER" == true ]]; then
+    log_message_buffered "Package: code style fixer"
+  fi
 
-      log_message_buffered "Package: code style fixer"
-    elif [[ "$var" == '--tls' ]]; then
-      LOCAL_TLS=true
+  if [[ "$LOCAL_TLS" == true ]]; then
+    log_message_buffered "Package: code style fixer"
+  fi
 
-      log_message_buffered "Use local TLS"
-    elif [[ "$var" =~ --environments=[a-z-]+ ]]; then
-      ENVIRONMENTS=$(echo $var | sed 's/--environments=//')
+  if [[ "$LOCAL_TLS" == true ]]; then
+    log_message_buffered "Package: code style fixer"
+  fi
 
-      if [[ "$ENVIRONMENTS" != "local" ]] && [[ "$ENVIRONMENTS" != "local-production" ]] && [[ "$ENVIRONMENTS" != "local-stage-production" ]]; then
-        echo -e "${ERROR}Invalid environments option specified${RESET}"
+  if [[ "$SPLASH" == false ]]; then
+   log_message_buffered "Splash: false"
+  fi
 
-        exit 1
-      fi
-
-      log_message_buffered "Environments: $ENVIRONMENTS"
-    elif [[ "$var" =~ --awslocal-port=[0-9]+ ]]; then
-      AWSLOCAL_PORT=$(echo $var | sed 's/--awslocal-port=//')
-
-      log_message_buffered "Docker-compose port - AWS local: $AWSLOCAL_PORT"
-    elif [[ "$var" =~ --mail-ui-port=[0-9]+ ]]; then
-      MAIL_UI_PORT=$(echo $var | sed 's/--mail-ui-port=//')
-
-      log_message_buffered "Docker-compose port - mail UI: $MAIL_UI_PORT"
-    elif [[ "$var" =~ --app-port=[0-9]+ ]]; then
-      APP_PORT=$(echo $var | sed 's/--app-port=//')
-
-      log_message_buffered "Docker-compose port - app: $APP_PORT"
-    elif [[ "$var" =~ --app-tls-port=[0-9]+ ]]; then
-      APP_TLS_PORT=$(echo $var | sed 's/--app-tls-port=//')
-
-      log_message_buffered "Docker-compose port - app TLS: $APP_TLS_PORT"
-    elif [[ "$var" =~ --db-port=[0-9]+ ]]; then
-      DB_PORT=$(echo $var | sed 's/--db-port=//')
-
-      log_message_buffered "Docker-compose port - database: $DB_PORT"
-    elif [[ "$var" =~ --cache-port=[0-9]+ ]]; then
-      CACHE_PORT=$(echo $var | sed 's/--cache-port=//')
-
-      log_message_buffered "Docker-compose port - cache: $CACHE_PORT"
-    elif [[ "$var" =~ --project-dir=[a-z.-]+ ]]; then
-      PROJECT_DIR=$(echo $var | sed 's/--project-dir=//')
-
-      log_message_buffered "Project directory: $PROJECT_DIR"
-    elif [[ "$var" == '--no-splash' ]]; then
-      SPLASH=false
-
-      log_message_buffered "Splash: false"
-    else
-      echo -e "${ERROR}Unknown option '$var' specified${RESET}"
-
-      exit 1
-    fi
-  done
+  log_message_buffered "Environments: $ENVIRONMENTS"
+  log_message_buffered "Docker-compose port - AWS local: $AWSLOCAL_PORT"
+  log_message_buffered "Docker-compose port - mail UI: $MAIL_UI_PORT"
+  log_message_buffered "Docker-compose port - app: $APP_PORT"
+  log_message_buffered "Docker-compose port - app TLS: $APP_TLS_PORT"
+  log_message_buffered "Docker-compose port - database: $DB_PORT"
+  log_message_buffered "Docker-compose port - cache: $CACHE_PORT"
+  log_message_buffered "Project directory: $PROJECT_DIR"
 
   # check options and software prerequisites
 
