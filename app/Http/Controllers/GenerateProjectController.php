@@ -96,7 +96,7 @@ class GenerateProjectController extends Controller
         $aws_local_port = $request->query('aws-local-port');
         $mail_ui_port = $request->query('mail-ui-port');
         $app_port = $request->query('app-port');
-        $app_port_tls = $request->query('app-port-tls');
+        $app_tls_port = $request->query('app-tls-port');
         $database_port = $request->query('database-port');
         $cache_port = $request->query('cache-port');
         $splash = $request->query('splash');
@@ -121,7 +121,7 @@ class GenerateProjectController extends Controller
                             'port-aws-local' => $aws_local_port,
                             'port-mail-ui' => $mail_ui_port,
                             'port-app' => $app_port,
-                            'port-app-tls' => $app_port_tls,
+                            'port-app-tls' => $app_tls_port,
                             'port-database' => $database_port,
                             'port-cache' => $cache_port,
                         ]),
@@ -144,7 +144,7 @@ class GenerateProjectController extends Controller
             '%AWSLOCAL_PORT%' => $aws_local_port,
             '%MAIL_UI_PORT%' => $mail_ui_port,
             '%APP_PORT%' => $app_port,
-            '%APP_TLS_PORT%' => $app_port_tls,
+            '%APP_TLS_PORT%' => $app_tls_port,
             '%DB_PORT%' => $database_port,
             '%CACHE_PORT%' => $cache_port,
             '%PROJECT_DIR%' => $project_dir,

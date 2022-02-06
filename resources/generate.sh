@@ -214,33 +214,33 @@ function surf_install() {
   # check required ports are open
 
   nc -vz localhost "$AWSLOCAL_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified awslocal port $AWSLOCAL_PORT is not open${RESET}" && exit 1
-  echo "Port $AWSLOCAL_PORT is open"
+  echo "awslocal port $AWSLOCAL_PORT is open"
 
   log_message_buffered "Port open: $AWSLOCAL_PORT"
 
   nc -vz localhost "$MAIL_UI_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified mail UI port $MAIL_UI_PORT is not open${RESET}" && exit 1
-  echo "Port $MAIL_UI_PORT is open"
+  echo "mail UI port $MAIL_UI_PORT is open"
 
   log_message_buffered "Port open: $MAIL_UI_PORT"
 
   nc -vz localhost "$APP_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app port $APP_PORT is not open${RESET}" && exit 1
-  echo "Port $APP_PORT is open"
+  echo "app port $APP_PORT is open"
 
   log_message_buffered "Port open: $APP_PORT"
 
   nc -vz localhost "$DB_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified db port $DB_PORT is not open${RESET}" && exit 1
-  echo "Port $DB_PORT is open"
+  echo "database port $DB_PORT is open"
 
   log_message_buffered "Port open: $DB_PORT"
 
   nc -vz localhost "$CACHE_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified cache port $CACHE_PORT is not open${RESET}" && exit 1
-  echo "Port $CACHE_PORT is open"
+  echo "cache port $CACHE_PORT is open"
 
   log_message_buffered "Port open: $CACHE_PORT"
 
   if [[ "$LOCAL_TLS" == true ]]; then
     nc -vz localhost "$APP_TLS_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app TLS port $APP_TLS_PORT is not open${RESET}" && exit 1
-    echo "Port $APP_TLS_PORT is open"
+    echo "app tls port $APP_TLS_PORT is open"
 
     log_message_buffered "Port open: $APP_TLS_PORT"
   fi
