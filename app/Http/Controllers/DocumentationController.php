@@ -639,7 +639,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'list',
                         'items' => [
-                            'cURLs a bash script with specific project generation options',
+                            'cURLs a shell script with specific project generation options',
                             'changes directories into the new project directory',
                             'displays the time elapsed',
                             'runs <span class="inline-code">git status</span>',
@@ -647,7 +647,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Within the cURLed bash script, there are three main steps to the process:',
+                        'html' => 'Within the cURLed shell script, there are three main steps to the process:',
                     ],
                     [
                         'type' => 'list',
@@ -733,8 +733,8 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'heading-1',
-                        'text' => 'Bash Alias',
-                        'id' => 'project-generation-bash-alias',
+                        'text' => 'Shell Alias',
+                        'id' => 'project-generation-shell-alias',
                     ],
                     [
                         'type' => 'paragraph',
@@ -782,7 +782,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Once you have the access keys needed you can configure the AWS CLI by running the following command (requires a bash alias, see the Project Generation documentation for more details):',
+                        'html' => 'Once you have the access keys needed you can configure the AWS CLI by running the following command (requires a shell alias, see the Project Generation documentation for more details):',
                     ],
                     [
                         'type' => 'code',
@@ -1083,7 +1083,7 @@ class DocumentationController extends Controller
                 'content' => [
                     [
                         'type' => 'callout',
-                        'html' => 'Before attempting to run any commands that use the LaraSurf CLI, ensure you have created a bash alias for <span class="inline-code">surf</span> as <a href="#project-generation-bash-alias">described here</a>.',
+                        'html' => 'Before attempting to run any commands that use the LaraSurf CLI, ensure you have created a shell alias for <span class="inline-code">surf</span> as <a href="#project-generation-shell-alias">described here</a>.',
                     ],
                     [
                         'type' => 'paragraph',
@@ -1543,7 +1543,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'This can be simplified with the following alias:',
+                        'html' => 'This can be simplified with the following shell alias:',
                     ],
                     [
                         'type' => 'code',
