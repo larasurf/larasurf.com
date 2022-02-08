@@ -276,8 +276,7 @@ function surf_install() {
 
   # build installation command
 
-  # todo: update to Laravel 9
-  INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "8.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
+  INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "9.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
 
   if [[ "$AUTH_JET_INERTIA" == true ]] || [[ "$AUTH_JET_INERTIA_TEAMS" == true ]] || [[ "$AUTH_JET_LIVEWIRE" == true ]] || [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
     INSTALL_CMD="$INSTALL_CMD && composer require laravel/jetstream"
@@ -301,10 +300,10 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install react"
   fi
 
-  INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"~1.0\""
+  INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"^3.0\""
 
   if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev barryvdh/laravel-ide-helper \"^2.0\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev barryvdh/laravel-ide-helper \"^2.12\""
   fi
 
   if [[ "$PACKAGE_CS_FIXER" == true ]]; then
