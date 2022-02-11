@@ -329,7 +329,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'list',
                         'items' => [
-                            'Laravel',
+                            'Laravel 9',
                             'MailHog',
                             'NGINX',
                             'PHP-FPM',
@@ -676,7 +676,7 @@ class DocumentationController extends Controller
                     [
                         'type' => 'list',
                         'items' => [
-                            'Installation begins with the creation of a new Laravel project using Composer',
+                            'Installation begins with the creation of a new Laravel 9 project using Composer',
                             'After the project is created, Composer dependencies are installed',
                             'If specified, the selected front end stack are installed',
                             'AWS dependencies are installed',
