@@ -7,10 +7,10 @@
     <script src="{{ mix('js/fonts.js') }}"></script>
 
     <title>@yield('title', 'LaraSurf')</title>
-    <meta name="description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications."/>
+    <meta name="description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end-to-end solution for generating, implementing, and deploying Laravel applications."/>
 
     <meta property="og:title" content="@yield('title', 'LaraSurf')" />
-    <meta property="og:description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications." />
+    <meta property="og:description" content="LaraSurf combines Docker, CircleCI, and AWS to create an end-to-end solution for generating, implementing, and deploying Laravel applications." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:image" content="{{ url('/img/larasurf.png') }}" />

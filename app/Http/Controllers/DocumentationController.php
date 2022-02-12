@@ -74,7 +74,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'quote',
-                        'html' => 'To provide an end to end solution for new small to medium sized Laravel projects, lowering the barrier of entry for making it to the production and iteration phases of a project, as well as providing tools to enable rapid prototyping and implementation.',
+                        'html' => 'To provide an end-to-end solution for new small to medium sized Laravel projects, lowering the barrier of entry for making it to the production and iteration phases of a project, as well as providing tools to enable rapid prototyping and implementation.',
                     ],
                     [
                         'type' => 'heading-2',
