@@ -967,31 +967,6 @@ class DocumentationController extends Controller
                         'type' => 'paragraph',
                         'html' => 'Click <span class="inline-code">Let\'s Go</span> to enable the CircleCI pipeline for your project. This will trigger running through the pipeline for the first time.',
                     ],
-                    [
-                        'type' => 'heading-2',
-                        'text' => 'User Key',
-                        'id' => 'circleci-configuration-project-setup-user-key',
-                    ],
-                    [
-                        'type' => 'paragraph',
-                        'html' => 'A User Key must be added before the pipeline will succeed; feel free to either cancel the original workflow or wait for it to fail.',
-                    ],
-                    [
-                        'type' => 'paragraph',
-                        'html' => 'To add a User Key, navigate to <span class="inline-code">Project Settings</span> for your project and click the <span class="inline-code">SSH Keys</span> menu option.',
-                    ],
-                    [
-                        'type' => 'paragraph',
-                        'html' => 'Under <span class="inline-code">User Key</span>, authorize with GitHub if needed then add a new User Key.',
-                    ],
-                    [
-                        'type' => 'callout',
-                        'html' => 'The CircleCI pipeline <strong>will fail</strong> until a User Key is added.',
-                    ],
-                    [
-                        'type' => 'paragraph',
-                        'html' => 'After a User Key has been added, you are free to restart the original workflow as a sanity check (but this is not required).',
-                    ],
                 ],
             ],
             [
@@ -3139,10 +3114,6 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'checkbox',
                         'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
-                    ],
-                    [
-                        'type' => 'checkbox',
-                        'html' => 'Add a new User Key for the project within the Project Settings on CircleCI',
                     ],
                     [
                         'type' => 'checkbox',
