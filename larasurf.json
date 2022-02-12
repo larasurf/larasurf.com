@@ -6,6 +6,8 @@
         "stage": {
             "aws-region": "us-east-1"
         },
-        "production": null
+        "production": {
+            "aws-region": "us-east-1"
+        }
     }
 }
