@@ -3132,13 +3132,13 @@ FileNotFoundError: [Errno 2] No such file or directory
                         'html' => 'Configure LaraSurf with the CircleCI personal API token',
                     ],
                     [
-                        'type' => 'checkbox',
-                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
-                    ],
-                    [
                         'type' => 'code',
                         'class' => 'code-checklist',
                         'text' => 'surf circleci set-api-key',
+                    ],
+                    [
+                        'type' => 'checkbox',
+                        'html' => 'Setup the <a href="https://app.circleci.com/projects" target="_blank">new project on CircleCI</a>',
                     ],
                     [
                         'type' => 'checkbox',
