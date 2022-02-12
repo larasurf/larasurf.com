@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class DocumentationController extends Controller
 {
-    protected $default_version = '0.1';
+    protected $default_version = '1.0';
 
     protected $documentation = [
-        '0.1' => [
+        '1.0' => [
             [
                 'title' => 'Overview',
                 'id' => 'overview',

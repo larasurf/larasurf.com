@@ -181,7 +181,7 @@ export default {
         <div class="menu-wrapper fixed">
             <div class="flex">
                 <div class="text-2xl font-bold">Documentation</div>
-                <div class="text-xl font-bold text-center mt-1 ml-9">v0.1</div>
+                <div class="text-xl font-bold text-center mt-1 ml-9">v1.0</div>
             </div>
             <div class="docs-sidebar-menu mt-3">
                 <div class="static-side-menu flex mt-3">
