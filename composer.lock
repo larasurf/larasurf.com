@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29ced94802b75f55ac07921d7d8c9e30",
+    "content-hash": "5db4bd878a1a83fe3ba60587d0e6fb7d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.22",
+            "version": "3.209.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2f8a8c885daf45fe9f919312a66a68115d6733b5"
+                "reference": "6082f5df05e5c725a44a310649a922b32bbeec54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2f8a8c885daf45fe9f919312a66a68115d6733b5",
-                "reference": "2f8a8c885daf45fe9f919312a66a68115d6733b5",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6082f5df05e5c725a44a310649a922b32bbeec54",
+                "reference": "6082f5df05e5c725a44a310649a922b32bbeec54",
                 "shasum": ""
             },
             "require": {
@@ -199,9 +199,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.22"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.23"
             },
-            "time": "2022-02-10T19:14:07+00:00"
+            "time": "2022-02-11T19:13:32+00:00"
         },
         {
             "name": "biscolab/laravel-recaptcha",
@@ -6720,16 +6720,16 @@
         },
         {
             "name": "larasurf/larasurf",
-            "version": "dev-main",
+            "version": "1.0.0-alpha",
             "source": {
                 "type": "git",
                 "url": "git@github.com:larasurf/larasurf.git",
-                "reference": "7d9269722a352749a5f9a61bda1b518c35cdb685"
+                "reference": "98c95003147055f5d0c1666ca4bfa5cd478273af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/7d9269722a352749a5f9a61bda1b518c35cdb685",
-                "reference": "7d9269722a352749a5f9a61bda1b518c35cdb685",
+                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/98c95003147055f5d0c1666ca4bfa5cd478273af",
+                "reference": "98c95003147055f5d0c1666ca4bfa5cd478273af",
                 "shasum": ""
             },
             "require": {
@@ -6742,7 +6742,6 @@
             "require-dev": {
                 "orchestra/testbench": "^7.0"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -6768,7 +6767,14 @@
                 {
                     "name": "Brice Hartmann",
                     "email": "brice@bricehartmann.com",
+                    "homepage": "bricehartmann.com",
                     "role": "Developer"
+                },
+                {
+                    "name": "Alexa Seol",
+                    "email": "alexaseol@gmail.com",
+                    "homepage": "alexaseol.com",
+                    "role": "BIGBRAIN INDIVIDUAL"
                 }
             ],
             "description": "LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications.",
@@ -6780,10 +6786,10 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/larasurf/larasurf/tree/main",
+                "source": "https://github.com/larasurf/larasurf/tree/1.0.0-alpha",
                 "issues": "https://github.com/larasurf/larasurf/issues"
             },
-            "time": "2022-02-10T23:16:34+00:00"
+            "time": "2022-02-12T01:50:57+00:00"
         },
         {
             "name": "laravel/sail",
@@ -9414,9 +9420,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
-        "larasurf/larasurf": 20
+        "larasurf/larasurf": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,

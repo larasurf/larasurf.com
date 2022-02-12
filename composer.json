@@ -20,7 +20,7 @@
         "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "larasurf/larasurf": "dev-main",
+        "larasurf/larasurf": "1.0.0-alpha@alpha",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^6.1",
@@ -63,7 +63,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [{
             "type": "vcs",
