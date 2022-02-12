@@ -402,7 +402,7 @@ EOF
 
   # generate a project ID based upon the current date (to the minute)
 
-  PROJECT_ID=$(date +"%Y%m%d%H%M")
+  PROJECT_ID="$(date +"%Y%m%d%H%M")"
 
   # write the default larasurf.json configuration file
 

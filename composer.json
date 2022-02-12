@@ -63,9 +63,5 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "prefer-stable": true,
-    "repositories": [{
-            "type": "vcs",
-            "url": "https://github.com/larasurf/larasurf"
-        }]
+    "prefer-stable": true
 }
