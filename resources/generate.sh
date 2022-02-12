@@ -400,9 +400,9 @@ EOF
 
   log_message "Created .env file"
 
-  # generate a random ID for the project
+  # generate a project ID based upon the current date (to the minute)
 
-  PROJECT_ID=$(awk 'BEGIN{srand(); print int(100000+rand()*(999999-100001))}')
+  PROJECT_ID=$(date +"%Y%m%d%H%M")
 
   # write the default larasurf.json configuration file
 
