@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="relative mb-12 lg:mb-36">
+    <div class="relative mb-12 lg:mb-18">
         <div class="flex justify-center mt-16 lg:mt-48 mb-32 lg:mb-48">
             <div class="text-center absolute">
                 <h1 class="text-3xl lg:text-5xl font-medium">Build with LaraSurf</h1>
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="mx-auto text-center mt-12">
+        <div class="mx-auto text-center mt-6">
             Free and open source. No restrictions.
         </div>
     </div>
