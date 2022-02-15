@@ -27,3 +27,7 @@
 @section('scripts')
     <script src="{{ mix('js/new.js') }}"></script>
 @endsection
+
+@section('head')
+    <link rel="canonical" href="{{ url()->to('/new') }}" />
+@endsection

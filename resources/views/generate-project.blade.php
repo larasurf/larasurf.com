@@ -36,3 +36,7 @@
         </div>
     </div>
 @endsection
+
+@section('head')
+    <meta name="robots" content="noindex">
+@endsection

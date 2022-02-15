@@ -63,3 +63,7 @@
     </div>
     <x-back-to-top-button css-class="lg:hidden"></x-back-to-top-button>
 @endsection
+
+@section('head')
+    <link rel="canonical" href="{{ url()->to('/how-it-works') }}" />
+@endsection

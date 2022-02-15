@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ url()->to('/sitemap.xml') }}">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <script src="{{ mix('js/fonts.js') }}"></script>
 

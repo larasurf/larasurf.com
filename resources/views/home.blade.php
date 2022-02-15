@@ -69,3 +69,7 @@
 @section('scripts')
     <script src="{{ mix('js/home.js') }}"></script>
 @endsection
+
+@section('head')
+    <link rel="canonical" href="{{ url()->to('/') }}" />
+@endsection

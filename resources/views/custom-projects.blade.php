@@ -107,3 +107,7 @@
             'form_id' => 'form-custom-project'
         ]) !!}
 @endsection
+
+@section('head')
+    <link rel="canonical" href="{{ url()->to('/custom-projects') }}" />
+@endsection
