@@ -91,7 +91,7 @@ class GenerateProjectController extends Controller
         $template_branch = $request->query('template-branch');
         $auth = $request->query('auth');
         $local_tls = $request->query('local-tls');
-        $ide_helper = $request->query('ide_helper');
+        $ide_helper = $request->query('ide-helper');
         $cs_fixer = $request->query('cs-fixer');
         $aws_local_port = $request->query('aws-local-port');
         $mail_ui_port = $request->query('mail-ui-port');
