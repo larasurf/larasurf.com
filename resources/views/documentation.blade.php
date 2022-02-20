@@ -9,7 +9,7 @@
         <div class="documentation-menu lg:hidden">
             <div class="flex mb-3">
                 <div class="text-2xl font-bold flex-grow">Documentation</div>
-                <div class="text-xl font-bold text-center mt-1 ml-9 lg:mr-9">v1.x</div>
+                <div class="text-xl font-bold text-center mt-1 ml-9 lg:mr-9">v1.0</div>
             </div>
             @foreach($docs as $doc)
                 <a href="#{{ $doc['id'] }}" class="block menu-item bg-gray-100 font-bold pl-6 py-2 hover:text-gray-400 flex">
