@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class DocumentationController extends Controller
 {
-    protected $default_version = '1.0';
+    protected $default_version = '1.x';
 
     protected $documentation = [
-        '1.0' => [
+        '1.x' => [
             [
                 'title' => 'Overview',
                 'id' => 'overview',
@@ -1884,9 +1884,12 @@ FileNotFoundError: [Errno 2] No such file or directory
                             'The cache node type',
                             'The CPU for the task definition',
                             'The memory for the task definition',
+                            'The minimum number of task containers for autoscaling',
+                            'The maximum number of task containers for autoscaling',
                             'The target CPU value for autoscaling',
                             'The scale-out cooldown period (seconds)',
                             'The scale-in cooldown period (seconds)',
+                            'The number of queue worker task containers',
                             'The fully qualified domain name for the environment',
                             'The ACM certificate ARN to use, if it already exists',
                             [
