@@ -965,7 +965,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'Click <span class="inline-code">Let\'s Go</span> to enable the CircleCI pipeline for your project. This will trigger running through the pipeline for the first time.',
+                        'html' => 'Click <span class="inline-code">Set Up Project</span> to enable the CircleCI pipeline for your project. This will trigger running through the pipeline for the first time.',
                     ],
                 ],
             ],
