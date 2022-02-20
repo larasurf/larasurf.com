@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aaad9f8cac390558a309267c66a9d6c2",
+    "content-hash": "b1178e5ba267ebeec5f1e6a1cd30b6bb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6720,16 +6720,16 @@
         },
         {
             "name": "larasurf/larasurf",
-            "version": "1.0.0-alpha",
+            "version": "1.0.0-alpha.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larasurf/larasurf.git",
-                "reference": "0a0e791b5fcaf2db3ff04e367b399fcf8be370e6"
+                "reference": "350f4a64e26ab35af3003b0a8c6244d71fa324f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/0a0e791b5fcaf2db3ff04e367b399fcf8be370e6",
-                "reference": "0a0e791b5fcaf2db3ff04e367b399fcf8be370e6",
+                "url": "https://api.github.com/repos/larasurf/larasurf/zipball/350f4a64e26ab35af3003b0a8c6244d71fa324f7",
+                "reference": "350f4a64e26ab35af3003b0a8c6244d71fa324f7",
                 "shasum": ""
             },
             "require": {
@@ -6773,7 +6773,7 @@
                     "role": "BIGBRAIN INDIVIDUAL"
                 }
             ],
-            "description": "LaraSurf combines Docker, CircleCI, and AWS to create an end to end solution for generating, implementing, and deploying Laravel applications.",
+            "description": "LaraSurf combines Docker, CircleCI, and AWS to create an end-to-end solution for generating, implementing, and deploying Laravel applications.",
             "homepage": "https://larasurf.com",
             "keywords": [
                 "CircleCI",
@@ -6783,9 +6783,9 @@
             ],
             "support": {
                 "issues": "https://github.com/larasurf/larasurf/issues",
-                "source": "https://github.com/larasurf/larasurf/tree/1.0.0-alpha"
+                "source": "https://github.com/larasurf/larasurf/tree/1.0.0-alpha.1"
             },
-            "time": "2022-02-12T04:55:02+00:00"
+            "time": "2022-02-20T04:20:16+00:00"
         },
         {
             "name": "laravel/sail",

@@ -10,7 +10,7 @@ LOG_FILE_NAME="larasurf.generate.log"
 BUFFERED_LOG="$(date +"%s"): Start"
 
 TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-alpha"
-TAG_LARASURF="1.0.0-alpha.1@alpha"
+TAG_LARASURF="^1.0@alpha"
 
 export SURF_USER_ID=${SURF_USER_ID:-$UID}
 
@@ -324,7 +324,7 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf dev-$DEV_BRANCH"
   else
     INSTALL_CMD="$INSTALL_CMD && composer config prefer-stable true"
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf \"^$TAG_LARASURF\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf \"$TAG_LARASURF\""
   fi
 
   # build images
