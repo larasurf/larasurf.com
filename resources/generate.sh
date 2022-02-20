@@ -92,11 +92,7 @@ function surf_install() {
   fi
 
   if [[ "$LOCAL_TLS" == true ]]; then
-    log_message_buffered "Package: code style fixer"
-  fi
-
-  if [[ "$LOCAL_TLS" == true ]]; then
-    log_message_buffered "Package: code style fixer"
+    log_message_buffered "Local TLS enabled"
   fi
 
   if [[ "$SPLASH" == false ]]; then
