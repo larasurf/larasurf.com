@@ -23,6 +23,7 @@ class GenerateProjectController extends Controller
         $port_cache = $request->query('port-cache');
         $ide_helper = $request->query('ide-helper');
         $cs_fixer = $request->query('cs-fixer');
+        $dusk = $request->query('dusk');
         $local_tls = $request->query('local-tls');
 
         if ($name &&
@@ -36,6 +37,7 @@ class GenerateProjectController extends Controller
             $port_cache &&
             $ide_helper &&
             $cs_fixer &&
+            $dusk &&
             $local_tls
         ) {
             $environment = config('app.env');
@@ -62,6 +64,7 @@ class GenerateProjectController extends Controller
                 'local-tls' => 'true' === $local_tls ? 'true' : false,
                 'ide-helper' => 'true' === $ide_helper ? 'true' : false,
                 'cs-fixer' => 'true' === $cs_fixer ? 'true' : false,
+                'dusk' => 'true' === $dusk ? 'true' : false,
                 'aws-local-port' => $port_awslocal,
                 'mail-ui-port' => $port_mail_ui,
                 'app-port' => $port_app,
@@ -93,6 +96,7 @@ class GenerateProjectController extends Controller
         $local_tls = $request->query('local-tls');
         $ide_helper = $request->query('ide-helper');
         $cs_fixer = $request->query('cs-fixer');
+        $dusk = $request->query('dusk');
         $aws_local_port = $request->query('aws-local-port');
         $mail_ui_port = $request->query('mail-ui-port');
         $app_port = $request->query('app-port');
@@ -118,6 +122,7 @@ class GenerateProjectController extends Controller
                             'local-tls' => 'true' === $local_tls,
                             'ide-helper' => 'true' === $ide_helper,
                             'cs-fixer' => 'true' === $cs_fixer,
+                            'dusk' => 'true' === $dusk,
                             'port-aws-local' => $aws_local_port,
                             'port-mail-ui' => $mail_ui_port,
                             'port-app' => $app_port,
@@ -139,6 +144,7 @@ class GenerateProjectController extends Controller
             '%AUTH_BREEZE_REACT%' => 'breeze-react' === $auth ? 'true' : 'false',
             '%PACKAGE_IDE_HELPER%' => 'true' === $ide_helper ? 'true' : 'false',
             '%PACKAGE_CS_FIXER%' => 'true' === $cs_fixer ? 'true' : 'false',
+            '%PACKAGE_DUSK%' => 'true' === $dusk ? 'true' : 'false',
             '%LOCAL_TLS%' => 'true' === $local_tls ? 'true' : 'false',
             '%ENVIRONMENTS%' => $environments,
             '%AWSLOCAL_PORT%' => $aws_local_port,

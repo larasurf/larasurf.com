@@ -26,6 +26,7 @@ export default {
             projectIdeHelper: true,
             projectCodeStyleFixer: true,
             projectUseTlsLocally: false,
+            projectDusk: false,
             isLoading: false,
         };
     },
@@ -100,6 +101,7 @@ export default {
                     'ide-helper': this.projectIdeHelper ? 'true' : 'false',
                     'cs-fixer': this.projectCodeStyleFixer ? 'true' : 'false',
                     'local-tls': this.projectUseTlsLocally ? 'true' : 'false',
+                    'dusk': this.projectDusk ? 'true' : 'false',
                 };
 
                 if (this.devMode) {
@@ -221,6 +223,18 @@ export default {
                             </svg>
                         </span>
                         <span class="checkbox-content">PHP Code Style Fixer</span>
+                    </span>
+                </label>
+            </div>
+            <div class="flex mt-3 text-lg">
+                <label class="checkbox bounce">
+                    <span class="flex">
+                        <span><input v-model="projectDusk" type="checkbox">
+                            <svg viewBox="0 0 21 21">
+                                <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                            </svg>
+                        </span>
+                        <span class="checkbox-content">Laravel Dusk</span>
                     </span>
                 </label>
             </div>

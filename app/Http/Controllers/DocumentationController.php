@@ -140,6 +140,7 @@ class DocumentationController extends Controller
                             'Ready-to-go dockerized local development environment',
                             'Update .gitignore',
                             'Optionally specify an authentication starter kit',
+                            'Optionally install Laravel Dusk',
                             'Optionally install (and run) Laravel IDE Helper',
                             'Optionally install (and run) a Code Style Fixer',
                             'Optionally generate and install a local TLS certificate',
@@ -177,6 +178,7 @@ class DocumentationController extends Controller
                                 'Run AWS CLI commands against LocalStack',
                                 'Refresh the database and local S3 bucket',
                                 'Run PHPUnit',
+                                'Run Laravel Dusk',
                             ],
                         ],
                     ],
@@ -208,6 +210,7 @@ class DocumentationController extends Controller
                         'items' => [
                             'Build and publish container images for the application and webserver',
                             'Run feature and unit tests',
+                            'Run browser tests (if applicable)',
                             'Scan for known vulnerabilities in container images and dependencies',
                             'Deploy application changes upon merging into an environment branch',
                         ],
@@ -339,6 +342,7 @@ class DocumentationController extends Controller
                             'MySQL 8',
                             'Redis',
                             'LocalStack',
+                            'Selenium',
                             'Docker and Docker-Compose',
                             'CircleCI',
                             'AWS CLI v2',
@@ -544,7 +548,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'By default, Unit and Feature tests are run on every branch that is pushed up to GitHub. In addition, for the <span class="inline-code">stage</span> and <span class="inline-code">main</span> branches, container images are built, scanned for known vulnerabilities, published to AWS Elastic Container Registry, and deployed to the appropriate environment.',
+                        'html' => 'By default, Unit and Feature tests (and Dusk tests if applicable) are run on every branch that is pushed up to GitHub. In addition, for the <span class="inline-code">stage</span> and <span class="inline-code">main</span> branches, container images are built, scanned for known vulnerabilities, published to AWS Elastic Container Registry, and deployed to the appropriate environment.',
                     ],
                     [
                         'type' => 'paragraph',
@@ -982,8 +986,9 @@ class DocumentationController extends Controller
                         'items' => [
                             'Building a container image for your application',
                             'Building a container image for your webserver (on applicable branches)',
-                            'Checking PHP code style (if enabled)',
+                            'Checking PHP code style (if applicable)',
                             'Running unit and feature tests',
+                            'Running browser tests (if applicable)',
                             'Publishing container images to AWS ECR (on applicable branches)',
                             'Scanning container images for known vulnerabilities (on applicable branches)',
                             'Deploying container images to your AWS infrastructure (on applicable branches)',
@@ -1018,9 +1023,18 @@ class DocumentationController extends Controller
                             'Start containers for the application and a MySQL database',
                             'Copy the <span class="inline-code">.env.example</span> file to <span class="inline-code">.env</span> within the application container',
                             'Generate an application key within the application container',
-                            'Run code style checks within the application container (if enabled)',
+                            'Run code style checks within the application container (if applicable)',
                             'Migrate the test database local to CircleCI',
                             'Run PHPUnit',
+                            'If Laravel Dusk is installed:',
+                            [
+                                'Start local application docker-compose services',
+                                'Create a local S3 bucket and SQS queue via CloudFormation',
+                                'Run Laravel Dusk tests',
+                                'Copy screenshots out of the testing container, if any',
+                                'Copy log files out of the application container, if any',
+                                'Persist any screenshots and/or log files as artifacts',
+                            ]
                         ],
                     ],
                     [
@@ -1073,6 +1087,7 @@ class DocumentationController extends Controller
                                 'An S3 bucket',
                                 'An SQS queue',
                             ],
+                            'Selenium (Chrome) for browser testing (if applicable)',
                             'MailHog for a fake SMTP server',
                             'NGINX for the webserver',
                             'PHP-FPM for the Laravel application',
@@ -1385,6 +1400,31 @@ class DocumentationController extends Controller
                     [
                         'type' => 'code',
                         'text' => 'surf test --filter MyTest',
+                    ],
+                    [
+                        'type' => 'heading-1',
+                        'text' => 'Laravel Dusk',
+                        'id' => 'local-development-laravel-dusk',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'You may run Laravel Dusk tests, with or without any additional options, using the following syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf dusk <options>',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'For example:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf dusk',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf dusk --group MyGroup',
                     ],
                     [
                         'type' => 'heading-1',
