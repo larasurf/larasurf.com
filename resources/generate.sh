@@ -516,6 +516,14 @@ EOF
 
   docker-compose exec -T laravel bash -c "$POST_INSTALL_CMD" && cd $(pwd)
 
+  if grep -q '"laravel/dusk"' 'composer.json'; then
+    cd $(pwd)
+
+    log_message "Start chrome for dusk"
+
+    docker-compose up -d
+  fi
+
   # ensure surf CLI script is executable
 
   log_message "Post generation command run"
