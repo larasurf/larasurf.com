@@ -1034,7 +1034,7 @@ class DocumentationController extends Controller
                                 'Copy screenshots out of the testing container, if any',
                                 'Copy log files out of the application container, if any',
                                 'Persist any screenshots and/or log files as artifacts',
-                            ]
+                            ],
                         ],
                     ],
                     [
