@@ -23,13 +23,7 @@ function log_message_buffered() {
 }
 
 function surf_install() {
-  AUTH_JET_INERTIA=%AUTH_JET_INERTIA%
-  AUTH_JET_INERTIA_TEAMS=%AUTH_JET_INERTIA_TEAMS%
-  AUTH_JET_LIVEWIRE=%AUTH_JET_LIVEWIRE%
-  AUTH_JET_LIVEWIRE_TEAMS=%AUTH_JET_LIVEWIRE_TEAMS%
-  AUTH_BREEZE_BLADE=%AUTH_BREEZE_BLADE%
-  AUTH_BREEZE_VUE=%AUTH_BREEZE_VUE%
-  AUTH_BREEZE_REACT=%AUTH_BREEZE_REACT%
+  PACKAGE_AUTH=%PACKAGE_AUTH%
   PACKAGE_IDE_HELPER=%PACKAGE_IDE_HELPER%
   PACKAGE_CS_FIXER=%PACKAGE_CS_FIXER%
   PACKAGE_DUSK=%PACKAGE_DUSK%
@@ -56,33 +50,35 @@ function surf_install() {
     log_message_buffered "Template branch: $TEMPLATE_BRANCH"
   fi
 
-  if [[ "$AUTH_JET_INERTIA" == true ]]; then
-    log_message_buffered "Auth: jetstream inertia (no teams)"
-  fi
-
-  if [[ "$AUTH_JET_INERTIA_TEAMS" == true ]]; then
-    log_message_buffered "Auth: jetstream inertia (teams)"
-  fi
-
-  if [[ "$AUTH_JET_LIVEWIRE" == true ]]; then
-    log_message_buffered "Auth: jetstream livewire (no teams)"
-  fi
-
-  if [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
-    log_message_buffered "Auth: jetstream livewire (teams)"
-  fi
-
-  if [[ "$AUTH_BREEZE_BLADE" == true ]]; then
-    log_message_buffered "Auth: breeze (blade)"
-  fi
-
-  if [[ "$AUTH_BREEZE_VUE" == true ]]; then
-    log_message_buffered "Auth: breeze (vue)"
-  fi
-
-  if [[ "$AUTH_BREEZE_REACT" == true ]]; then
-    log_message_buffered "Auth: breeze (react)"
-  fi
+  case "$PACKAGE_AUTH" in
+    "jet-inertia")
+      log_message_buffered "Auth: jetstream inertia (no teams)"
+      ;;
+    "jet-inertia-teams")
+      log_message_buffered "Auth: jetstream inertia (teams)"
+      ;;
+    "jet-livewire")
+      log_message_buffered "Auth: jetstream livewire (no teams)"
+      ;;
+    "jet-livewire-teams")
+      log_message_buffered "Auth: jetstream livewire (teams)"
+      ;;
+    "breeze-blade")
+      log_message_buffered "Auth: breeze (blade)"
+      ;;
+    "breeze-react")
+      log_message_buffered "Auth: breeze (react)"
+      ;;
+    "breeze-vue")
+      log_message_buffered "Auth: breeze (vue)"
+      ;;
+    "breeze-api")
+      log_message_buffered "Auth: breeze (api)"
+      ;;
+    *)
+      log_message_buffered "Auth: none"
+      ;;
+  esac
 
   if [[ "$IDE_HELPER" == true ]]; then
     log_message_buffered "Package: IDE helper"
@@ -169,43 +165,6 @@ function surf_install() {
       log_message_buffered "TLS command: $TLS_COMMAND"
   fi
 
-  # check starter pack options
-
-  AUTH_COUNT=0
-
-  if [[ "$AUTH_JET_INERTIA" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ "$AUTH_JET_INERTIA_TEAMS" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ "$AUTH_JET_LIVEWIRE" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ "$AUTH_BREEZE_BLADE" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ "$AUTH_BREEZE_VUE" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ "$AUTH_BREEZE_REACT" == true ]]; then
-    ((AUTH_COUNT=AUTH_COUNT+1))
-  fi
-
-  if [[ $AUTH_COUNT -gt 1 ]]; then
-    echo -e "${ERROR}Auth options are mutually exclusive; you cannot specify more than one${RESET}"
-    exit 1
-  fi
-
   echo -e "${SUCCESS}Generating new LaraSurf project '$PROJECT_DIR'...${RESET}"
 
   # check required ports are open
@@ -275,26 +234,28 @@ function surf_install() {
 
   INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "9.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
 
-  if [[ "$AUTH_JET_INERTIA" == true ]] || [[ "$AUTH_JET_INERTIA_TEAMS" == true ]] || [[ "$AUTH_JET_LIVEWIRE" == true ]] || [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
+  if [[ "$PACKAGE_AUTH" == "jet-inertia" ]] || [[ "$PACKAGE_AUTH" == "jet-inertia-teams" ]] || [[ "$PACKAGE_AUTH" == "jet-livewire" ]] || [[ "$PACKAGE_AUTH" == "jet-livewire-teams" ]]; then
     INSTALL_CMD="$INSTALL_CMD && composer require laravel/jetstream"
-  elif [[ "$AUTH_BREEZE_BLADE" == true ]] || [[ "$AUTH_BREEZE_VUE" == true ]] || [[ "$AUTH_BREEZE_REACT" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "breeze-blade" ]] || [[ "$PACKAGE_AUTH" == "breeze-react" ]] || [[ "$PACKAGE_AUTH" == "breeze-vue" ]] || [[ "$PACKAGE_AUTH" == "breeze-api" ]]; then
     INSTALL_CMD="$INSTALL_CMD && composer require laravel/breeze"
   fi
 
-  if [[ "$AUTH_JET_INERTIA" == true ]]; then
+  if [[ "$PACKAGE_AUTH" == "jet-inertia" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install inertia"
-  elif [[ "$AUTH_JET_INERTIA_TEAMS" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "jet-inertia-team" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install inertia --teams"
-  elif [[ "$AUTH_JET_LIVEWIRE" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "jet-livewire" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install livewire && php artisan vendor:publish --tag=jetstream-views"
-  elif [[ "$AUTH_JET_LIVEWIRE_TEAMS" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "jet-livewire-teams" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install livewire --teams && php artisan vendor:publish --tag=jetstream-views"
-  elif [[ "$AUTH_BREEZE_BLADE" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "breeze-blade" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install"
-  elif [[ "$AUTH_BREEZE_VUE" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "breeze-vue" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install vue"
-  elif [[ "$AUTH_BREEZE_REACT" == true ]]; then
+  elif [[ "$PACKAGE_AUTH" == "breeze-react" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install react"
+  elif [[ "$PACKAGE_AUTH" == "breeze-api" ]]; then
+    INSTALL_CMD="$INSTALL_CMD && php artisan breeze:install api"
   fi
 
   INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"^3.0\""
@@ -311,7 +272,9 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && composer require --dev laravel/dusk"
   fi
 
-  INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run dev"
+  if [[ "$PACKAGE_AUTH" != "breeze-api" ]]; then
+    INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run dev"
+  fi
 
   INSTALL_CMD="$INSTALL_CMD && echo 'Installing LaraSurf...'"
 

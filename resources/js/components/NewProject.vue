@@ -172,16 +172,20 @@ export default {
                 <label for="project-starter-kit-none" class="ml-2">None</label>
             </div>
             <div class="mt-3">
+                <input id="project-starter-kit-breeze-api" name="project-starter-kit" value="breeze-api" v-model="projectStarterKit" type="radio"/>
+                <label for="project-starter-kit-breeze-api" class="ml-2">Breeze (API)</label>
+            </div>
+            <div class="mt-3">
                 <input id="project-starter-kit-breeze-blade" name="project-starter-kit" value="breeze-blade" v-model="projectStarterKit" type="radio"/>
                 <label for="project-starter-kit-breeze-blade" class="ml-2">Breeze (Blade)</label>
             </div>
             <div class="mt-3">
-                <input id="project-starter-kit-breeze-vue" name="project-starter-kit" value="breeze-vue" v-model="projectStarterKit" type="radio"/>
-                <label for="project-starter-kit-breeze-vue" class="ml-2">Breeze (Vue)</label>
-            </div>
-            <div class="mt-3">
                 <input id="project-starter-kit-breeze-react" name="project-starter-kit" value="breeze-react" v-model="projectStarterKit" type="radio"/>
                 <label for="project-starter-kit-breeze-react" class="ml-2">Breeze (React)</label>
+            </div>
+            <div class="mt-3">
+                <input id="project-starter-kit-breeze-vue" name="project-starter-kit" value="breeze-vue" v-model="projectStarterKit" type="radio"/>
+                <label for="project-starter-kit-breeze-vue" class="ml-2">Breeze (Vue)</label>
             </div>
             <div class="mt-3">
                 <input id="project-starter-kit-jetstream-inertia-teams" name="project-starter-kit" value="jet-inertia-teams" v-model="projectStarterKit" type="radio"/>

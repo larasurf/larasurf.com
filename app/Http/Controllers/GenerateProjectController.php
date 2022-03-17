@@ -135,13 +135,7 @@ class GenerateProjectController extends Controller
         }
 
         $replacements = [
-            '%AUTH_JET_INERTIA%' => 'jet-inertia' === $auth ? 'true' : 'false',
-            '%AUTH_JET_INERTIA_TEAMS%' => 'jet-inertia-teams' === $auth ? 'true' : 'false',
-            '%AUTH_JET_LIVEWIRE%' => 'jet-livewire' === $auth ? 'true' : 'false',
-            '%AUTH_JET_LIVEWIRE_TEAMS%' => 'jet-livewire-teams' === $auth ? 'true' : 'false',
-            '%AUTH_BREEZE_BLADE%' => 'breeze-blade' === $auth ? 'true' : 'false',
-            '%AUTH_BREEZE_VUE%' => 'breeze-vue' === $auth ? 'true' : 'false',
-            '%AUTH_BREEZE_REACT%' => 'breeze-react' === $auth ? 'true' : 'false',
+            '%PACKAGE_AUTH%' => $auth ?: 'none',
             '%PACKAGE_IDE_HELPER%' => 'true' === $ide_helper ? 'true' : 'false',
             '%PACKAGE_CS_FIXER%' => 'true' === $cs_fixer ? 'true' : 'false',
             '%PACKAGE_DUSK%' => 'true' === $dusk ? 'true' : 'false',
