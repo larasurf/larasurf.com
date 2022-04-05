@@ -4,6 +4,7 @@ set -e
 
 ERROR='\033[91m'
 SUCCESS='\033[92m'
+INFO='\033[94m'
 RESET='\033[0m'
 
 LOG_FILE_NAME="larasurf.generate.log"
@@ -165,41 +166,47 @@ function surf_install() {
       log_message_buffered "TLS command: $TLS_COMMAND"
   fi
 
-  echo -e "${SUCCESS}Generating new LaraSurf project '$PROJECT_DIR'...${RESET}"
-
   # check required ports are open
 
   nc -vz localhost "$AWSLOCAL_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified awslocal port $AWSLOCAL_PORT is not open${RESET}" && exit 1
-  echo "awslocal port $AWSLOCAL_PORT is open"
 
   log_message_buffered "Port open: $AWSLOCAL_PORT"
 
   nc -vz localhost "$MAIL_UI_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified mail UI port $MAIL_UI_PORT is not open${RESET}" && exit 1
-  echo "mail UI port $MAIL_UI_PORT is open"
 
   log_message_buffered "Port open: $MAIL_UI_PORT"
 
   nc -vz localhost "$APP_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app port $APP_PORT is not open${RESET}" && exit 1
-  echo "app port $APP_PORT is open"
 
   log_message_buffered "Port open: $APP_PORT"
 
   nc -vz localhost "$DB_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified db port $DB_PORT is not open${RESET}" && exit 1
-  echo "database port $DB_PORT is open"
 
   log_message_buffered "Port open: $DB_PORT"
 
   nc -vz localhost "$CACHE_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified cache port $CACHE_PORT is not open${RESET}" && exit 1
-  echo "cache port $CACHE_PORT is open"
 
   log_message_buffered "Port open: $CACHE_PORT"
 
   if [[ "$LOCAL_TLS" == true ]]; then
     nc -vz localhost "$APP_TLS_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app TLS port $APP_TLS_PORT is not open${RESET}" && exit 1
-    echo "app tls port $APP_TLS_PORT is open"
 
     log_message_buffered "Port open: $APP_TLS_PORT"
   fi
+
+  echo -e "Generating new LaraSurf project: ${INFO}${PROJECT_DIR}${RESET}..."
+
+  echo -e "Environments: ${INFO}${ENVIRONMENTS}${RESET}"
+  echo -e "Local AWS port: ${INFO}${AWSLOCAL_PORT}${RESET}"
+  echo -e "Local mail UI port: ${INFO}${MAIL_UI_PORT}${RESET}"
+  echo -e "Local app port: ${INFO}${APP_PORT}${RESET}"
+
+  if [[ "$LOCAL_TLS" == true ]]; then
+    echo -e "Local app TLS port: ${INFO}${APP_TLS_PORT}${RESET}"
+  fi
+
+  echo -e "Local database port: ${INFO}${DB_PORT}${RESET}"
+  echo -e "Local cache port: ${INFO}${CACHE_PORT}${RESET}"
 
   # clone template project
 
@@ -291,13 +298,41 @@ function surf_install() {
     INSTALL_CMD="$INSTALL_CMD && composer require --dev larasurf/larasurf \"$CONSTRAINT_LARASURF\""
   fi
 
+  # pull images
+
+  log_message "Pulling images"
+
+  echo "Pulling images..."
+
+  cd $(pwd)
+  docker pull amazon/aws-cli:2.2.37 >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker pull localstack/localstack >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker pull mailhog/mailhog >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker pull nginx:1.21.4-alpine >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker pull php:8.0-fpm-alpine >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker pull mysql:8.0 >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker pull redis:alpine >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+
+  if [[ "$PACKAGE_DUSK" == true ]]; then
+    docker pull selenium/standalone-chrome >> $LOG_FILE_NAME 2>&1
+  fi
+
+  log_message "Pulled images"
+
   # build images
 
   log_message "Building laravel image"
 
   echo "Building images..."
   cd $(pwd)
-  docker-compose build --no-cache laravel
+  docker-compose build --no-cache --progress=plain laravel >> $LOG_FILE_NAME 2>&1
 
   log_message "Built laravel image"
 
@@ -307,7 +342,7 @@ function surf_install() {
 
   cd $(pwd)
   echo "Generating project..."
-  docker-compose run --rm --no-deps laravel bash -c "$INSTALL_CMD"
+  docker-compose run --rm --no-deps laravel bash -c "$INSTALL_CMD" >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
 
   log_message "Generated project"
@@ -315,26 +350,42 @@ function surf_install() {
   # install TLS certificate if applicable
 
   if [[ "$TLS_COMMAND" == 'mkcert.exe' ]]; then
-    mkcert.exe -install
+    echo "Configuring TLS..."
 
-    log_message "Trusted mkcert certificates"
+    log_message "Trusting mkcert authority"
+
+    mkcert.exe -install >> $LOG_FILE_NAME 2>&1
+
+    log_message "Trusted mkcert authority"
 
     cd $(pwd)
+
+    log_message "Generating mkcert certificates"
+
     mkcert.exe -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost
 
     log_message "Generated mkcert certificate"
   elif [[ "$TLS_COMMAND" == 'mkcert' ]]; then
-    mkcert -install
+    echo "Configuring TLS..."
 
-    log_message "Trusted mkcert certificates"
+    log_message "Trusting mkcert authority"
+
+    mkcert -install >> $LOG_FILE_NAME 2>&1
+
+    log_message "Trusted mkcert authority"
 
     cd $(pwd)
-    mkcert -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost
+
+    log_message "Generating mkcert certificates"
+
+    mkcert -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost >> $LOG_FILE_NAME 2>&1
 
     log_message "Generated mkcert certificate"
   fi
 
   # write ports to environment files for docker-compose to pick up
+
+  echo "Updating environment files..."
 
   cat << EOF >> '.env.example'
 
@@ -369,6 +420,8 @@ EOF
   PROJECT_ID="$(date +"%Y%m%d%H%M")"
 
   # write the default larasurf.json configuration file
+
+  echo "Creating configuration file..."
 
   if [[ "$ENVIRONMENTS" == 'local-stage-production' ]]; then
     cat << EOF > 'larasurf.json'
@@ -442,14 +495,16 @@ EOF
 
   # start the services
 
-  docker-compose down --volumes
+  docker-compose down --volumes >> $LOG_FILE_NAME 2>&1
 
   log_message "Services stopped"
   log_message "Starting services"
 
+  echo "Starting services..."
+
   cd $(pwd)
 
-  docker-compose up -d
+  docker-compose up -d >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
 
   log_message "Starting started"
@@ -458,33 +513,39 @@ EOF
 
   # wait for the database to respond
 
-  until curl localhost:$DB_PORT --http0.9 --output /dev/null --silent
+  echo ""
+
+  COUNT=1
+
+  until curl --verbose --fail --http0.9 "localhost:$DB_PORT" >> "$LOG_FILE_NAME" 2>&1
   do
       {
-        echo 'Waiting for database to be ready...'
-        ((COUNT++)) && ((COUNT==20)) && echo -e "${ERROR}Could not connect to database after 20 tries!${RESET}" && log_message "Database never responded" && exit 1
+        echo -e "\e[1A\e[KWaiting for database to be ready... ($COUNT/60)"
+        ((COUNT++)) && ((COUNT==61)) && echo -e "${ERROR}Could not connect to database after 60 tries!${RESET}" && echo "" >> $LOG_FILE_NAME && log_message "Database never responded" && log_message "Database container logs:" && docker-compose logs database >> $LOG_FILE_NAME 2>&1 && exit 1
         sleep 3
       } 1>&2
   done
 
-  log_message "Database responded"
+  echo "" >> $LOG_FILE_NAME
 
-  echo 'Database is ready!'
+  log_message "Database responded"
 
   # execute the post installation command
 
   log_message "Post generation command: $POST_INSTALL_CMD"
 
+  echo 'Running post-generation commands...'
+
   cd $(pwd)
 
-  docker-compose exec -T laravel bash -c "$POST_INSTALL_CMD" && cd $(pwd)
+  docker-compose exec -T laravel bash -c "$POST_INSTALL_CMD" >> $LOG_FILE_NAME 2>&1 && cd $(pwd)
 
   if grep -q '"laravel/dusk"' 'composer.json'; then
     cd $(pwd)
 
     log_message "Start chrome for dusk"
 
-    docker-compose up -d
+    docker-compose up -d >> LOG_FILE_NAME 2>&1
   fi
 
   # ensure surf CLI script is executable
@@ -497,35 +558,39 @@ EOF
 
   log_message "surf.sh chmod"
 
+  echo 'Initializing git repository...'
+
   # make initial commit
 
   if [[ ! -d '.git' ]]; then
-    git init
+    git init >> $LOG_FILE_NAME 2>&1
 
     log_message "Initialized git repository"
 
+    echo 'Making first commit...'
+
     cd $(pwd)
-    git add .
+    git add . >> $LOG_FILE_NAME 2>&1
 
     log_message "Staged files for commit"
 
     cd $(pwd)
 
-    git commit -q -m 'larasurf project generation'
+    git commit -m 'larasurf project generation' >> $LOG_FILE_NAME
 
     log_message "Made initial commit"
 
     cd $(pwd)
-    git branch -M main
+    git branch -M main >> $LOG_FILE_NAME 2>&1
 
     log_message "Renamed master to main"
   else
-    git add .
+    git add . >> $LOG_FILE_NAME 2>&1
 
     log_message "Staged files for commit"
 
     cd $(pwd)
-    git commit -q -m 'larasurf installation'
+    git commit -m 'larasurf installation' >> $LOG_FILE_NAME 2>&1
 
     log_message "Made initial commit"
   fi
@@ -535,16 +600,20 @@ EOF
   # make initial branches if applicable
 
   if [[ "$ENVIRONMENTS" == 'local-stage-production' ]] && [[ -z "$(git branch -l stage)" ]] && [[ -z "$(git branch -l develop)" ]]; then
-    git checkout -b stage
+    echo 'Creating stage and develop branches...'
+
+    git checkout -b stage >> $LOG_FILE_NAME 2>&1
 
     log_message "Checked out stage branch"
 
     cd $(pwd)
-    git checkout -b develop
+    git checkout -b develop >> $LOG_FILE_NAME 2>&1
 
     log_message "Checked out develop branch"
   elif [[ "$ENVIRONMENTS" == 'local-production' ]] && [[ -z "$(git branch -l develop)" ]]; then
-    git checkout -b develop
+    echo 'Creating develop branch...'
+
+    git checkout -b develop >> $LOG_FILE_NAME 2>&1
 
     log_message "Checked out develop branch"
   fi
@@ -555,14 +624,14 @@ EOF
     cd $(pwd)
     log_message "Rebuilding webserver image"
 
-    docker-compose build --no-cache webserver
+    docker-compose build --no-cache webserver --progress=plain >> $LOG_FILE_NAME 2>&1
 
     log_message "Webserver image rebuilt"
 
     log_message "Recreating services"
 
     cd $(pwd)
-    docker-compose up --force-recreate -d
+    docker-compose up --force-recreate -d >> $LOG_FILE_NAME 2>&1
 
     log_message "Services recreated"
   fi

@@ -73,10 +73,10 @@ class GenerateProjectController extends Controller
                 'cache-port' => $port_cache,
             ]);
 
-            $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) && " .
+            $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) LARASURF_SUCCESS=0 && " .
                 'curl -s ' . ($dev_branch || $template_branch ? '-k ' : '') . ($username && $password ? "-u $username:$password " : '') .
                 '"' . secure_url('generate.sh') . '?project-dir=$LARASURF_PROJECT_NAME&' . http_build_query($params) . '"' .
-                ' | bash -s && cd $LARASURF_PROJECT_NAME > /dev/null 2>&1; (test -f \'./larasurf.json\' && LARASURF_END=$(date +%s) && echo "Done in $((LARASURF_END-LARASURF_START))s" && git status) || (echo -e \'\033[91mInstallation failed\033[0m\' && test -f \'docker-compose.yml\' && cd $(pwd) && docker-compose down --volumes > /dev/null 2>&1 && cd $(pwd))';
+                ' | bash -s && LARASURF_SUCCESS=1; if [[ -d $LARASURF_PROJECT_NAME ]]; then cd $LARASURF_PROJECT_NAME; fi; if [[ "$LARASURF_SUCCESS" == "1" ]]; then LARASURF_END=$(date +%s) && echo "Done in $((LARASURF_END-LARASURF_START))s" && git status; else echo -e \'\033[91mInstallation failed\033[0m\' && docker-compose down --volumes > /dev/null 2>&1; fi';
 
             return view('generate-project', [
                 'command' => $command,
