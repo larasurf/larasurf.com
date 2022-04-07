@@ -624,7 +624,7 @@ EOF
     cd $(pwd)
     log_message "Rebuilding webserver image"
 
-    docker-compose build --no-cache --progress=plain webserver>> $LOG_FILE_NAME 2>&1
+    docker-compose build --no-cache --progress=plain webserver >> $LOG_FILE_NAME 2>&1
 
     log_message "Webserver image rebuilt"
 
