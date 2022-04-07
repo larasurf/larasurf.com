@@ -362,7 +362,7 @@ function surf_install() {
 
     log_message "Generating mkcert certificates"
 
-    mkcert.exe -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost
+    mkcert.exe -key-file .docker/tls/local.pem -cert-file .docker/tls/local.crt localhost >> $LOG_FILE_NAME 2>&1
 
     log_message "Generated mkcert certificate"
   elif [[ "$TLS_COMMAND" == 'mkcert' ]]; then
