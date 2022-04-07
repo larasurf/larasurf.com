@@ -194,7 +194,7 @@ function surf_install() {
     log_message_buffered "Port open: $APP_TLS_PORT"
   fi
 
-  echo -e "Generating new LaraSurf project: ${INFO}${PROJECT_DIR}${RESET}..."
+  echo -e "${SUCCESS}Generating new LaraSurf project: ${INFO}${PROJECT_DIR}${RESET}"
 
   echo -e "Environments: ${INFO}${ENVIRONMENTS}${RESET}"
   echo -e "Local AWS port: ${INFO}${AWSLOCAL_PORT}${RESET}"
