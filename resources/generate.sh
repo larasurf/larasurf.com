@@ -545,7 +545,7 @@ EOF
 
     log_message "Start chrome for dusk"
 
-    docker-compose up -d >> LOG_FILE_NAME 2>&1
+    docker-compose up -d >> $LOG_FILE_NAME 2>&1
   fi
 
   # ensure surf CLI script is executable
