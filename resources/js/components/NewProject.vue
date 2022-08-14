@@ -23,6 +23,8 @@ export default {
             projectPortDatabaseValidationError: false,
             projectPortCache: '6379',
             projectPortCacheValidationError: false,
+            projectPortViteHmr: '5173',
+            projectPortViteHmrValidationError: false,
             projectIdeHelper: true,
             projectCodeStyleFixer: true,
             projectUseTlsLocally: false,
@@ -39,6 +41,7 @@ export default {
                 this.projectPortAppTls &&
                 this.projectPortDatabase &&
                 this.projectPortCache &&
+                this.projectPortViteHmr &&
                 (!this.devMode || (this.devBranch && this.templateBranch));
         }
     },
@@ -72,6 +75,7 @@ export default {
             this.projectPortAppTlsValidationError = !this.projectPortAppTls;
             this.projectPortDatabaseValidationError = !this.projectPortDatabase;
             this.projectPortCacheValidationError = !this.projectPortCache;
+            this.projectPortViteHmrValidationError = !this.projectPortViteHmr;
 
             const invalid = this.devBranchValidationError ||
                 this.templateBranchValidationError ||
@@ -81,7 +85,8 @@ export default {
                 this.projectPortAppValidationError ||
                 this.projectPortAppTlsValidationError ||
                 this.projectPortDatabaseValidationError ||
-                this.projectPortCacheValidationError;
+                this.projectPortCacheValidationError ||
+                this.projectPortViteHmrValidationError;
 
             if (invalid) {
                 if (this.projectNameValidationError || this.devBranchValidationError || this.templateBranchValidationError) {
@@ -98,6 +103,7 @@ export default {
                     'port-app-tls': this.projectPortAppTls,
                     'port-database': this.projectPortDatabase,
                     'port-cache': this.projectPortCache,
+                    'port-vite-hmr': this.projectPortViteHmr,
                     'ide-helper': this.projectIdeHelper ? 'true' : 'false',
                     'cs-fixer': this.projectCodeStyleFixer ? 'true' : 'false',
                     'local-tls': this.projectUseTlsLocally ? 'true' : 'false',
@@ -314,6 +320,16 @@ export default {
                         'border-red-400': projectPortCacheValidationError,
                     }"/>
                     <img v-if="projectPortCacheValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
+                </div>
+            </div>
+            <div class="mt-3 flex">
+                <div class="w-1/2 pr-2">
+                    <label for="project-port-vite-hmr" class="block">Vite HMR</label>
+                    <input id="project-port-vite-hmr" v-model="projectPortViteHmr" class="appearance-none border rounded-lg w-full mt-3 mb-1 py-2 px-3 text-gray-700 focus:outline-none" type="number" min="1" :class="{
+                        'border-black': !projectPortViteHmrValidationError,
+                        'border-red-400': projectPortViteHmrValidationError,
+                    }"/>
+                    <img v-if="projectPortViteHmrValidationError" alt="Error" class="inline w-6 h-6 absolute error-alert" src="/svg/error.svg" />
                 </div>
             </div>
         </div>

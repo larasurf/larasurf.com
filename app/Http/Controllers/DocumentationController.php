@@ -1256,7 +1256,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'To watch front end assets for changes during local development, use the command: <br/><span class="inline-code">surf yarn watch-poll</span>',
+                        'html' => 'To watch front end assets for changes during local development, use the command: <br/><span class="inline-code">surf yarn run dev</span><br/><br/>To build front end assets once, use the command: <br/><span class="inline-code">surf yarn run build</span>',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1378,7 +1378,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'By default this is <a href="http://localhost:8025" target="_blank">http://localhost:8025</a>.',
+                        'html' => 'By default, this is <a href="http://localhost:8025" target="_blank">http://localhost:8025</a>.',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1519,6 +1519,24 @@ class DocumentationController extends Controller
                         'type' => 'heading-1',
                         'text' => 'WSL2 Users',
                         'id' => 'local-development-wsl2-users',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Using Windows Subsystem Linux 2 (WSL2) with LaraSurf is supported but there are a couple of things to watch out for.',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Vite Development Server',
+                        'id' => 'local-development-wsl2-users-vite-development-server',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'The Vite Development Server may be very slow to respond to requests if your project resides in a Windows filesystem which is mounted within WSL2. Instead, it is recommended to generate (or move) your project within WLS2\'s filesystem (such as your WSL2 user\'s home directory).',
+                    ],
+                    [
+                        'type' => 'heading-2',
+                        'text' => 'Working Directory Bug',
+                        'id' => 'local-development-wsl2-users-working-dir-bug',
                     ],
                     [
                         'type' => 'paragraph',

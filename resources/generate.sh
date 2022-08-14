@@ -10,10 +10,11 @@ RESET='\033[0m'
 LOG_FILE_NAME="larasurf.generate.log"
 BUFFERED_LOG="$(date +"%s"): Start"
 
-TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-alpha.2"
+TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-alpha.3"
 CONSTRAINT_LARASURF="^1.0@alpha"
 
 export SURF_USER_ID=${SURF_USER_ID:-$UID}
+export SURF_GROUP_ID=${SURF_GROUP_ID:-$(id -g)}
 
 function log_message() {
     echo -e "$(date +"%s"): $1" >> $LOG_FILE_NAME
@@ -36,6 +37,7 @@ function surf_install() {
   APP_TLS_PORT='%APP_TLS_PORT%'
   DB_PORT='%DB_PORT%'
   CACHE_PORT='%CACHE_PORT%'
+  VITE_HMR_PORT='%VITE_HMR_PORT%'
   PROJECT_DIR='%PROJECT_DIR%'
   DEV_BRANCH='%DEV_BRANCH%'
   TEMPLATE_BRANCH='%TEMPLATE_BRANCH%'
@@ -249,7 +251,7 @@ function surf_install() {
 
   if [[ "$PACKAGE_AUTH" == "jet-inertia" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install inertia"
-  elif [[ "$PACKAGE_AUTH" == "jet-inertia-team" ]]; then
+  elif [[ "$PACKAGE_AUTH" == "jet-inertia-teams" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install inertia --teams"
   elif [[ "$PACKAGE_AUTH" == "jet-livewire" ]]; then
     INSTALL_CMD="$INSTALL_CMD && php artisan jetstream:install livewire && php artisan vendor:publish --tag=jetstream-views"
@@ -280,7 +282,7 @@ function surf_install() {
   fi
 
   if [[ "$PACKAGE_AUTH" != "breeze-api" ]]; then
-    INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run dev"
+    INSTALL_CMD="$INSTALL_CMD && yarn && yarn upgrade && yarn run build"
   fi
 
   INSTALL_CMD="$INSTALL_CMD && echo 'Installing LaraSurf...'"
@@ -394,9 +396,13 @@ SURF_AWSLOCAL_PORT=4566
 SURF_MAIL_UI_PORT=8025
 SURF_APP_PORT=80
 SURF_APP_TLS_PORT=443
+SURF_USE_TLS=$LOCAL_TLS
 SURF_DB_PORT=3306
 SURF_CACHE_PORT=6379
+SURF_VITE_HMR_PORT=5173
 SURF_USER_ID=1000
+SURF_GROUP_ID=1000
+
 EOF
 
   log_message "Created .env.example file"
@@ -408,9 +414,13 @@ SURF_AWSLOCAL_PORT=$AWSLOCAL_PORT
 SURF_MAIL_UI_PORT=$MAIL_UI_PORT
 SURF_APP_PORT=$APP_PORT
 SURF_APP_TLS_PORT=$APP_TLS_PORT
+SURF_USE_TLS=$LOCAL_TLS
 SURF_DB_PORT=$DB_PORT
 SURF_CACHE_PORT=$CACHE_PORT
+SURF_VITE_HMR_PORT=$VITE_HMR_PORT
 SURF_USER_ID=$SURF_USER_ID
+SURF_GROUP_ID=$SURF_GROUP_ID
+
 EOF
 
   log_message "Created .env file"
@@ -461,7 +471,7 @@ EOF
 
   # build the post installation command
 
-  POST_INSTALL_CMD='php artisan larasurf:publish --awslocal --env-changes --circleci --gitignore --healthcheck'
+  POST_INSTALL_CMD='php artisan larasurf:publish --vite-config --awslocal --env-changes --circleci --gitignore --healthcheck'
 
   if [[ "$ENVIRONMENTS" == 'local-stage-production' ]] || [[ "$ENVIRONMENTS" == 'local-production' ]] ; then
     POST_INSTALL_CMD="$POST_INSTALL_CMD --cloudformation --proxies"
@@ -469,6 +479,8 @@ EOF
 
   if [[ "$LOCAL_TLS" == true ]]; then
     POST_INSTALL_CMD="$POST_INSTALL_CMD --nginx-local-tls"
+  else
+    POST_INSTALL_CMD="$POST_INSTALL_CMD --nginx-local-insecure"
   fi
 
   if grep -q '"friendsofphp/php-cs-fixer"' 'composer.json'; then
@@ -520,7 +532,7 @@ EOF
   until curl --verbose --fail --http0.9 "localhost:$DB_PORT" >> "$LOG_FILE_NAME" 2>&1
   do
       {
-        echo -e "\e[1A\e[KWaiting for database to be ready... ($COUNT/60)"
+        echo -e "\e[1A\e[KWaiting for database to be ready... (try $COUNT of 60)"
         ((COUNT++)) && ((COUNT==61)) && echo -e "${ERROR}Could not connect to database after 60 tries!${RESET}" && echo "" >> $LOG_FILE_NAME && log_message "Database never responded" && log_message "Database container logs:" && docker-compose logs database >> $LOG_FILE_NAME 2>&1 && exit 1
         sleep 3
       } 1>&2
@@ -618,33 +630,44 @@ EOF
     log_message "Checked out develop branch"
   fi
 
-  # rebuild webserver image if applicable
+  # rebuild webserver image after nginx configuration changes
 
-  if [[ "$LOCAL_TLS" == true ]]; then
-    cd $(pwd)
-    log_message "Rebuilding webserver image"
+  cd $(pwd)
+  log_message "Rebuilding webserver image"
 
-    docker-compose build --no-cache --progress=plain webserver >> $LOG_FILE_NAME 2>&1
+  docker-compose build --no-cache --progress=plain webserver >> $LOG_FILE_NAME 2>&1
 
-    log_message "Webserver image rebuilt"
+  log_message "Webserver image rebuilt"
 
-    log_message "Recreating services"
+  log_message "Recreating services"
 
-    cd $(pwd)
-    docker-compose up --force-recreate -d >> $LOG_FILE_NAME 2>&1
+  cd $(pwd)
+  docker-compose up --force-recreate -d >> $LOG_FILE_NAME 2>&1
 
-    log_message "Services recreated"
-  fi
+  log_message "Services recreated"
 
   echo -e "${SUCCESS}Project generation complete${RESET}"
 
   log_message "Project generation complete"
 
-  # display the splash screen
+  # check for sudo permission
+  if sudo -n true 2>/dev/null; then
+      sudo chown -R $SURF_USER_ID:$SURF_GROUP_ID .
 
-  if [[ "$SPLASH" == true ]]; then
-    cd $(pwd)
-    docker-compose exec -T laravel php artisan larasurf:splash
+      # display the splash screen
+      if [[ "$SPLASH" == true ]]; then
+        cd $(pwd)
+        docker-compose exec -T -u $SURF_USER_ID laravel php artisan larasurf:splash
+      fi
+  else
+      echo -e "${INFO}Your password is required in order to change ownership of the generated files.${RESET}"
+      sudo chown -R $SURF_USER_ID:$SURF_GROUP_ID .
+
+      # display the splash screen
+      if [[ "$SPLASH" == true ]]; then
+        cd $(pwd)
+        docker-compose exec -T -u $SURF_USER_ID laravel php artisan larasurf:splash
+      fi
   fi
 }
 

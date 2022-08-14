@@ -21,6 +21,7 @@ class GenerateProjectController extends Controller
         $port_app_tls = $request->query('port-app-tls');
         $port_database = $request->query('port-database');
         $port_cache = $request->query('port-cache');
+        $port_vite_hmr = $request->query('port-vite-hmr');
         $ide_helper = $request->query('ide-helper');
         $cs_fixer = $request->query('cs-fixer');
         $dusk = $request->query('dusk');
@@ -71,6 +72,7 @@ class GenerateProjectController extends Controller
                 'app-tls-port' => $port_app_tls,
                 'database-port' => $port_database,
                 'cache-port' => $port_cache,
+                'vite-hmr-port' => $port_vite_hmr,
             ]);
 
             $command = "LARASURF_PROJECT_NAME=$name LARASURF_START=$(date +%s) LARASURF_SUCCESS=0 && " .
@@ -103,6 +105,7 @@ class GenerateProjectController extends Controller
         $app_tls_port = $request->query('app-tls-port');
         $database_port = $request->query('database-port');
         $cache_port = $request->query('cache-port');
+        $vite_hmr_port = $request->query('vite-hmr-port');
         $splash = $request->query('splash');
 
         if (!$dev_branch && !$template_branch && app()->isProduction()) {
@@ -129,6 +132,7 @@ class GenerateProjectController extends Controller
                             'port-app-tls' => $app_tls_port,
                             'port-database' => $database_port,
                             'port-cache' => $cache_port,
+                            'port-vite-hmr' => $vite_hmr_port,
                         ]),
                     ]
                 );
@@ -147,6 +151,7 @@ class GenerateProjectController extends Controller
             '%APP_TLS_PORT%' => $app_tls_port,
             '%DB_PORT%' => $database_port,
             '%CACHE_PORT%' => $cache_port,
+            '%VITE_HMR_PORT%' => $vite_hmr_port,
             '%PROJECT_DIR%' => $project_dir,
             '%DEV_BRANCH%' => $dev_branch ?: '',
             '%TEMPLATE_BRANCH%' => $template_branch ?: '',

@@ -18,7 +18,7 @@
             <x-code-block>{{ $command }}</x-code-block>
         </div>
         <div class="mt-6 w-full">
-            It will take ~15 minutes to generate your project once you have pasted the command into your terminal.
+            It will take ~7 minutes to generate your project once you have pasted the command into your terminal.
         </div>
         <div class="flex flex-wrap">
             <div class="mt-6 bg-gray-100 px-6 py-4 w-full lg:w-5/6">
