@@ -13,7 +13,7 @@
                 <span class="block static-menu-width font-medium text-lg pl-6 py-2 hover:text-gray-400 cursor-pointer">Generate Project</span>
                 <span class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400 cursor-pointer">Project Name</span>
                 <span class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400 cursor-pointer">Environments</span>
-                <span class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400 cursor-pointer">Starter Kit</span>
+                <span class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400 cursor-pointer">Preset</span>
                 <span class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400 cursor-pointer">Miscellaneous</span>
                 <span class="block static-menu-width font-medium pl-9 py-2 hover:text-gray-400 cursor-pointer">Local Ports</span>
             </div>

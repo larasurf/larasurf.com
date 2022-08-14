@@ -111,7 +111,7 @@ class DocumentationController extends Controller
                         'type' => 'list',
                         'items' => [
                             'Customizing the infrastructure and CI/CD pipelines for LaraSurf projects should be supported',
-                            'Laravel-provided authentication starter kits should be supported',
+                            'Laravel-provided authentication presets should be supported',
                             'Natively installed software for a local development environment should be limited as much as possible',
                             'AWS and CircleCI web console interaction should be limited as much as possible',
                             'Automation should be heavily preferred when possible',
@@ -139,7 +139,7 @@ class DocumentationController extends Controller
                             ],
                             'Ready-to-go dockerized local development environment',
                             'Update .gitignore',
-                            'Optionally specify an authentication starter kit',
+                            'Optionally specify an authentication preset',
                             'Optionally install Laravel Dusk',
                             'Optionally install (and run) Laravel IDE Helper',
                             'Optionally install (and run) a Code Style Fixer',

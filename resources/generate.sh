@@ -25,7 +25,7 @@ function log_message_buffered() {
 }
 
 function surf_install() {
-  PACKAGE_AUTH=%PACKAGE_AUTH%
+  PACKAGE_AUTH='%PACKAGE_AUTH%'
   PACKAGE_IDE_HELPER=%PACKAGE_IDE_HELPER%
   PACKAGE_CS_FIXER=%PACKAGE_CS_FIXER%
   PACKAGE_DUSK=%PACKAGE_DUSK%
@@ -47,10 +47,14 @@ function surf_install() {
 
   if [[ -n "$DEV_BRANCH" ]]; then
     log_message_buffered "Dev branch: $DEV_BRANCH"
+  else
+    log_message_buffered "LaraSurf constraint: $CONSTRAINT_LARASURF"
   fi
 
   if [[ -n "$TEMPLATE_BRANCH" ]]; then
     log_message_buffered "Template branch: $TEMPLATE_BRANCH"
+  else
+    log_message_buffered "Template tag: $TAG_LARAVEL_DOCKER_TEMPLATE"
   fi
 
   case "$PACKAGE_AUTH" in
@@ -83,12 +87,16 @@ function surf_install() {
       ;;
   esac
 
-  if [[ "$IDE_HELPER" == true ]]; then
+  if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
     log_message_buffered "Package: IDE helper"
   fi
 
   if [[ "$PACKAGE_CS_FIXER" == true ]]; then
     log_message_buffered "Package: code style fixer"
+  fi
+
+  if [[ "$PACKAGE_DUSK" == true ]]; then
+    log_message_buffered "Package: laravel dusk"
   fi
 
   if [[ "$LOCAL_TLS" == true ]]; then
@@ -106,6 +114,7 @@ function surf_install() {
   log_message_buffered "Docker-compose port - app TLS: $APP_TLS_PORT"
   log_message_buffered "Docker-compose port - database: $DB_PORT"
   log_message_buffered "Docker-compose port - cache: $CACHE_PORT"
+  log_message_buffered "Docker-compose port - vite hmr: $VITE_HMR_PORT"
   log_message_buffered "Project directory: $PROJECT_DIR"
 
   # check options and software prerequisites
@@ -190,6 +199,10 @@ function surf_install() {
 
   log_message_buffered "Port open: $CACHE_PORT"
 
+  nc -vz localhost "$VITE_HMR_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified vite hmr port $VITE_HMR_PORT is not open${RESET}" && exit 1
+
+  log_message_buffered "Port open: $VITE_HMR_PORT"
+
   if [[ "$LOCAL_TLS" == true ]]; then
     nc -vz localhost "$APP_TLS_PORT" > /dev/null 2>&1 && echo -e "${ERROR}Specified app TLS port $APP_TLS_PORT is not open${RESET}" && exit 1
 
@@ -199,6 +212,32 @@ function surf_install() {
   echo -e "${SUCCESS}Generating new LaraSurf project: ${INFO}${PROJECT_DIR}${RESET}"
 
   echo -e "Environments: ${INFO}${ENVIRONMENTS}${RESET}"
+  echo -e "Preset: ${INFO}${PACKAGE_AUTH}${RESET}"
+
+  if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
+    echo -e "IDE Helper: ${INFO}true${RESET}"
+  else
+      echo -e "IDE Helper: ${INFO}false${RESET}"
+  fi
+
+  if [[ "$PACKAGE_CS_FIXER" == true ]]; then
+    echo -e "Code Style Fixer: ${INFO}true${RESET}"
+  else
+      echo -e "Code Style Fixer: ${INFO}false${RESET}"
+  fi
+
+  if [[ "$PACKAGE_DUSK" == true ]]; then
+    echo -e "Laravel Dusk: ${INFO}true${RESET}"
+  else
+      echo -e "Laravel Dusk: ${INFO}false${RESET}"
+  fi
+
+  if [[ "$LOCAL_TLS" == true ]]; then
+    echo -e "Local TLS: ${INFO}true${RESET}"
+  else
+      echo -e "Local TLS: ${INFO}false${RESET}"
+  fi
+
   echo -e "Local AWS port: ${INFO}${AWSLOCAL_PORT}${RESET}"
   echo -e "Local mail UI port: ${INFO}${MAIL_UI_PORT}${RESET}"
   echo -e "Local app port: ${INFO}${APP_PORT}${RESET}"
@@ -209,6 +248,19 @@ function surf_install() {
 
   echo -e "Local database port: ${INFO}${DB_PORT}${RESET}"
   echo -e "Local cache port: ${INFO}${CACHE_PORT}${RESET}"
+  echo -e "Local Vite HMR port: ${INFO}${VITE_HMR_PORT}${RESET}"
+
+  if [[ -n "$DEV_BRANCH" ]]; then
+    echo -e "LaraSurf dev branch: ${INFO}${DEV_BRANCH}${RESET}"
+  else
+    log_message_buffered "LaraSurf version constraint: $CONSTRAINT_LARASURF"
+  fi
+
+  if [[ -n "$TEMPLATE_BRANCH" ]]; then
+    echo -e "Laravel Docker template branch: ${INFO}${TEMPLATE_BRANCH}${RESET}"
+  else
+    log_message_buffered "Laravel Docker template version: $TAG_LARAVEL_DOCKER_TEMPLATE"
+  fi
 
   # clone template project
 
@@ -471,7 +523,31 @@ EOF
 
   # build the post installation command
 
-  POST_INSTALL_CMD='php artisan larasurf:publish --vite-config --awslocal --env-changes --circleci --gitignore --healthcheck'
+  POST_INSTALL_CMD='php artisan larasurf:publish --awslocal --env-changes --circleci --gitignore --healthcheck'
+
+  case "$PACKAGE_AUTH" in
+    "jet-inertia")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-inertia"
+      ;;
+    "jet-inertia-teams")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-inertia"
+      ;;
+    "jet-livewire")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-livewire"
+      ;;
+    "jet-livewire-teams")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-livewire"
+      ;;
+    "breeze-blade")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-breeze-blade"
+      ;;
+    "breeze-react")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-breeze-react"
+      ;;
+    "breeze-vue")
+      POST_INSTALL_CMD="$POST_INSTALL_CMD --vite-breeze-vue"
+      ;;
+  esac
 
   if [[ "$ENVIRONMENTS" == 'local-stage-production' ]] || [[ "$ENVIRONMENTS" == 'local-production' ]] ; then
     POST_INSTALL_CMD="$POST_INSTALL_CMD --cloudformation --proxies"

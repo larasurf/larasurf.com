@@ -172,7 +172,7 @@ export default {
         </div>
         <div class="w-full border-b border-gray-200 my-12 w-1/2"></div>
         <div class="w-full lg:w-1/2 pr-0 lg:pr-12">
-            <div class="block text-xl font-bold">Starter Kit</div>
+            <div class="block text-xl font-bold">Preset</div>
             <div class="mt-3">
                 <input id="project-starter-kit-none" name="project-starter-kit" value="none" v-model="projectStarterKit" type="radio" checked/>
                 <label for="project-starter-kit-none" class="ml-2">None</label>
