@@ -211,6 +211,18 @@ function surf_install() {
 
   echo -e "${SUCCESS}Generating new LaraSurf project: ${INFO}${PROJECT_DIR}${RESET}"
 
+  if [[ -n "$DEV_BRANCH" ]]; then
+    echo -e "LaraSurf dev branch: ${INFO}${DEV_BRANCH}${RESET}"
+  else
+    echo -e "LaraSurf version constraint: ${INFO}${CONSTRAINT_LARASURF}${RESET}"
+  fi
+
+  if [[ -n "$TEMPLATE_BRANCH" ]]; then
+    echo -e "Laravel Docker template branch: ${INFO}${TEMPLATE_BRANCH}${RESET}"
+  else
+    echo -e "Laravel Docker template version: ${INFO}${TAG_LARAVEL_DOCKER_TEMPLATE}${RESET}"
+  fi
+
   echo -e "Environments: ${INFO}${ENVIRONMENTS}${RESET}"
   echo -e "Preset: ${INFO}${PACKAGE_AUTH}${RESET}"
 
@@ -249,18 +261,6 @@ function surf_install() {
   echo -e "Local database port: ${INFO}${DB_PORT}${RESET}"
   echo -e "Local cache port: ${INFO}${CACHE_PORT}${RESET}"
   echo -e "Local Vite HMR port: ${INFO}${VITE_HMR_PORT}${RESET}"
-
-  if [[ -n "$DEV_BRANCH" ]]; then
-    echo -e "LaraSurf dev branch: ${INFO}${DEV_BRANCH}${RESET}"
-  else
-    echo -e "LaraSurf version constraint: ${INFO}${CONSTRAINT_LARASURF}${RESET}"
-  fi
-
-  if [[ -n "$TEMPLATE_BRANCH" ]]; then
-    echo -e "Laravel Docker template branch: ${INFO}${TEMPLATE_BRANCH}${RESET}"
-  else
-    echo -e "Laravel Docker template version: ${INFO}${TAG_LARAVEL_DOCKER_TEMPLATE}${RESET}"
-  fi
 
   # clone template project
 
