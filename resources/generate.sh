@@ -253,13 +253,13 @@ function surf_install() {
   if [[ -n "$DEV_BRANCH" ]]; then
     echo -e "LaraSurf dev branch: ${INFO}${DEV_BRANCH}${RESET}"
   else
-    log_message_buffered "LaraSurf version constraint: $CONSTRAINT_LARASURF"
+    echo -e "LaraSurf version constraint: ${INFO}${CONSTRAINT_LARASURF}${RESET}"
   fi
 
   if [[ -n "$TEMPLATE_BRANCH" ]]; then
     echo -e "Laravel Docker template branch: ${INFO}${TEMPLATE_BRANCH}${RESET}"
   else
-    log_message_buffered "Laravel Docker template version: $TAG_LARAVEL_DOCKER_TEMPLATE"
+    echo -e "Laravel Docker template version: ${INFO}${TAG_LARAVEL_DOCKER_TEMPLATE}${RESET}"
   fi
 
   # clone template project
