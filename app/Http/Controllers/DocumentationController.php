@@ -2588,7 +2588,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'surf aws s3 ls s3 s3://my-bucket',
+                        'text' => 'surf aws s3 ls s3://my-bucket',
                     ],
                     [
                         'type' => 'heading-1',
