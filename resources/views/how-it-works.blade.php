@@ -31,7 +31,7 @@
             <ul class="my-3 text-md lg:w-1/3">
                 <li class="list-disc my-1">Application Load Balancer</li>
                 <li class="list-disc my-1">Webserver (NGINX)</li>
-                <li class="list-disc my-1">FastCGI daemon for <br/>PHP 8 (PHP-FPM)</li>
+                <li class="list-disc my-1">FastCGI daemon for <br/>PHP 8.1 (PHP-FPM)</li>
                 <li class="list-disc my-1">MySQL 8 database</li>
                 <li class="list-disc my-1">Private S3 bucket</li>
             </ul>

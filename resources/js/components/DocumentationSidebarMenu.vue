@@ -191,12 +191,12 @@ export default {
                                 <div class="border-l border-gray-100 relative" style="left:0.45rem;top:0.75rem;height:calc(100% - 1rem);"></div>
                             </div>
                             <div class="flex-grow">
-                                <div class="relative right-3" style="top:1.1rem;">
+                                <div class="relative right-3 z-10" style="top:1.1rem;">
                                     <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0.292893 0.292893C0.683417 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L7 5.58579L12.2929 0.292893C12.6834 -0.0976311 13.3166 -0.0976311 13.7071 0.292893C14.0976 0.683418 14.0976 1.31658 13.7071 1.70711L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683418 0.292893 0.292893Z" fill="#25282B"/>
                                     </svg>
                                 </div>
-                                <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="block menu-item text-lg pl-5 pb-1 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(item.id)}">
+                                <a :id="`menu-${item.id}`" :href="`#${item.id}`" class="relative z-20 block menu-item text-lg pl-5 pb-1 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(item.id)}">
                                     {{ item.title }}
                                 </a>
                                 <a :id="`menu-${subitem.id}`" v-for="(subitem, ii) in item.subitems" :key="ii" :href="`#${subitem.id}`" class="block menu-item pl-8 py-1 hover:text-gray-400" :class="{'font-bold': isMenuItemEmphasized(subitem.id)}">

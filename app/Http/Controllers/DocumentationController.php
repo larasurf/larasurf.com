@@ -142,7 +142,6 @@ class DocumentationController extends Controller
                             'Optionally specify an authentication preset',
                             'Optionally install Laravel Dusk',
                             'Optionally install (and run) Laravel IDE Helper',
-                            'Optionally install (and run) a Code Style Fixer',
                             'Optionally generate and install a local TLS certificate',
                             'Automatically install composer dependencies',
                             'Automatically configure the project for using AWS services',
@@ -163,12 +162,12 @@ class DocumentationController extends Controller
                             'Preconfigured Docker-Compose services',
                             [
                                 'NGINX service',
-                                'PHP-FPM service (PHP 8)',
+                                'PHP-FPM service (PHP 8.1)',
                                 'MySQL 8 service',
                                 'Redis service',
                                 'LocalStack service (local AWS)',
                                 'AWS CLI service',
-                                'MailHog service (local mock SMTP server)',
+                                'MailPit service (local mock SMTP server)',
                             ],
                             'LaraSurf CLI tool',
                             [
@@ -297,7 +296,7 @@ class DocumentationController extends Controller
                             ],
                             'Email sending',
                             [
-                                'Using MailHog locally',
+                                'Using MailPit locally',
                                 'Using MailTrap for stage',
                                 'Using SES for production',
                             ],
@@ -332,12 +331,12 @@ class DocumentationController extends Controller
                     [
                         'type' => 'list',
                         'items' => [
-                            'Laravel 9',
-                            'MailHog',
+                            'Laravel 10',
+                            'MailPit',
                             'NGINX',
                             'PHP-FPM',
                             [
-                                'PHP 8',
+                                'PHP 8.1',
                             ],
                             'MySQL 8',
                             'Redis',
@@ -681,12 +680,11 @@ class DocumentationController extends Controller
                     [
                         'type' => 'list',
                         'items' => [
-                            'Installation begins with the creation of a new Laravel 9 project using Composer',
+                            'Installation begins with the creation of a new Laravel 10 project using Composer',
                             'After the project is created, Composer dependencies are installed',
                             'If specified, the selected front end stack is installed',
                             'AWS dependencies are installed',
                             'If specified, the <span class="inline-code">barryvdh/laravel-ide-helper</span> package is installed',
-                            'If specified, the  <span class="inline-code">friendsofphp/php-cs-fixer</span> package is installed',
                             'If specified, the  <span class="inline-code">laravel/dusk</span> package is installed',
                             'Then, if applicable, front end dependencies are installed and transpiled',
                             'Finally, the <span class="inline-code">larasurf/larasurf</span> package is installed',
@@ -743,7 +741,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'If this is your first time generating a project with LaraSurf, after the project generation completes the command <span class="inline-code">surf</span> should be aliased to: <span class="inline-code">vendor/larasurf/larasurf/bin/surf.sh</span>.',
+                        'html' => 'If this is your first time generating a project with LaraSurf, after the project generation completes the command <span class="inline-code">surf</span> should be aliased to: <span class="inline-code">vendor/bin/surf</span>.',
                     ],
                     [
                         'type' => 'paragraph',
@@ -751,7 +749,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'code',
-                        'text' => 'if [ -n "$ZSH_VERSION" ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.zshenv && source ~/.zshenv; elif [ -f ~/.bash_profile ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile; else echo "if [ -f ~/.bashrc ]; then source ~/.bashrc; fi" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile && source ~/.bash_profile; fi',
+                        'text' => 'if [ -n "$ZSH_VERSION" ]; then echo "alias surf=\'vendor/bin/surf\'" >> ~/.zshenv && source ~/.zshenv; elif [ -f ~/.bash_profile ]; then echo "alias surf=\'vendor/bin/surf\'" >> ~/.bash_profile; else echo "if [ -f ~/.bashrc ]; then source ~/.bashrc; fi" >> ~/.bash_profile && echo "alias surf=\'vendor/bin/surf\'" >> ~/.bash_profile && source ~/.bash_profile; fi',
                     ],
                 ],
             ],
@@ -1092,11 +1090,11 @@ class DocumentationController extends Controller
                                 'An SQS queue',
                             ],
                             'Selenium (Chrome) for browser testing (if applicable)',
-                            'MailHog for a fake SMTP server',
+                            'MailPit for a fake SMTP server',
                             'NGINX for the webserver',
                             'PHP-FPM for the Laravel application',
                             [
-                                'PHP 8',
+                                'PHP 8.1',
                             ],
                             'MySQL 8 for the database',
                             'Redis for the cache',
@@ -1210,7 +1208,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'MailHog is used as a local fake SMTP server. Unless you specified custom ports for your project, the MailHog UI can be accessed at <a href="http://localhost:8025" target="_blank">http://localhost:8025</a>.',
+                        'html' => 'MailPit is used as a local fake SMTP server. Unless you specified custom ports for your project, the MailPit UI can be accessed at <a href="http://localhost:8025" target="_blank">http://localhost:8025</a>.',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1374,7 +1372,7 @@ class DocumentationController extends Controller
                     ],
                     [
                         'type' => 'paragraph',
-                        'html' => 'MailHog can be accessed locally by visiting <span class="inline-code">localhost</span> over an HTTP connection and specifying the mapped port of the docker-compose service.',
+                        'html' => 'MailPit can be accessed locally by visiting <span class="inline-code">localhost</span> over an HTTP connection and specifying the mapped port of the docker-compose service.',
                     ],
                     [
                         'type' => 'paragraph',
@@ -1442,6 +1440,14 @@ class DocumentationController extends Controller
                     [
                         'type' => 'code',
                         'text' => 'surf fix',
+                    ],
+                    [
+                        'type' => 'paragraph',
+                        'html' => 'Alternatively, if you wish to run only Laravel Pint, you may use the following command syntax:',
+                    ],
+                    [
+                        'type' => 'code',
+                        'text' => 'surf pint <options>',
                     ],
                     [
                         'type' => 'heading-1',
@@ -1994,7 +2000,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     ],
                     [
                         'type' => 'callout',
-                        'html' => 'It is recommended to make infrastructure changes using the above command instead of letting CircleCI do it as part of the pipeline for the stage or production branch. <br/>The CircleCI configuration timeout is limited to 30 minutes.',
+                        'html' => 'It is recommended to make infrastructure changes using the above command instead of letting CircleCI do it as part of the pipeline for the stage or production branch.',
                     ],
                     [
                         'type' => 'heading-2',
@@ -3139,7 +3145,7 @@ FileNotFoundError: [Errno 2] No such file or directory
                     [
                         'type' => 'code',
                         'class' => 'code-checklist',
-                        'text' => 'if [ -n "$ZSH_VERSION" ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.zshenv && source ~/.zshenv; elif [ -f ~/.bash_profile ]; then echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile; else echo "if [ -f ~/.bashrc ]; then source ~/.bashrc; fi" >> ~/.bash_profile && echo "alias surf=\'vendor/larasurf/larasurf/bin/surf.sh\'" >> ~/.bash_profile && source ~/.bash_profile; fi',
+                        'text' => 'if [ -n "$ZSH_VERSION" ]; then echo "alias surf=\'vendor/bin/surf\'" >> ~/.zshenv && source ~/.zshenv; elif [ -f ~/.bash_profile ]; then echo "alias surf=\'vendor/bin/surf\'" >> ~/.bash_profile; else echo "if [ -f ~/.bashrc ]; then source ~/.bashrc; fi" >> ~/.bash_profile && echo "alias surf=\'vendor/bin/surf\'" >> ~/.bash_profile && source ~/.bash_profile; fi',
                     ],
                     [
                         'type' => 'checkbox',

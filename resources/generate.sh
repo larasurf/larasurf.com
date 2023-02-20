@@ -10,8 +10,8 @@ RESET='\033[0m'
 LOG_FILE_NAME="larasurf.generate.log"
 BUFFERED_LOG="$(date +"%s"): Start"
 
-TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-alpha.4"
-CONSTRAINT_LARASURF="^1.0@alpha"
+TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-beta"
+CONSTRAINT_LARASURF="^1.0@beta"
 
 export SURF_USER_ID=${SURF_USER_ID:-$UID}
 export SURF_GROUP_ID=${SURF_GROUP_ID:-$(id -g)}
@@ -27,7 +27,6 @@ function log_message_buffered() {
 function surf_install() {
   PACKAGE_AUTH='%PACKAGE_AUTH%'
   PACKAGE_IDE_HELPER=%PACKAGE_IDE_HELPER%
-  PACKAGE_CS_FIXER=%PACKAGE_CS_FIXER%
   PACKAGE_DUSK=%PACKAGE_DUSK%
   LOCAL_TLS=%LOCAL_TLS%
   ENVIRONMENTS='%ENVIRONMENTS%'
@@ -89,10 +88,6 @@ function surf_install() {
 
   if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
     log_message_buffered "Package: IDE helper"
-  fi
-
-  if [[ "$PACKAGE_CS_FIXER" == true ]]; then
-    log_message_buffered "Package: code style fixer"
   fi
 
   if [[ "$PACKAGE_DUSK" == true ]]; then
@@ -232,12 +227,6 @@ function surf_install() {
       echo -e "IDE Helper: ${INFO}false${RESET}"
   fi
 
-  if [[ "$PACKAGE_CS_FIXER" == true ]]; then
-    echo -e "Code Style Fixer: ${INFO}true${RESET}"
-  else
-      echo -e "Code Style Fixer: ${INFO}false${RESET}"
-  fi
-
   if [[ "$PACKAGE_DUSK" == true ]]; then
     echo -e "Laravel Dusk: ${INFO}true${RESET}"
   else
@@ -293,7 +282,7 @@ function surf_install() {
 
   # build installation command
 
-  INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "9.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
+  INSTALL_CMD='composer create-project laravel/laravel /tmp/laravel "10.*" --prefer-dist && echo "Moving files..." && cp -rT /tmp/laravel .'
 
   if [[ "$PACKAGE_AUTH" == "jet-inertia" ]] || [[ "$PACKAGE_AUTH" == "jet-inertia-teams" ]] || [[ "$PACKAGE_AUTH" == "jet-livewire" ]] || [[ "$PACKAGE_AUTH" == "jet-livewire-teams" ]]; then
     INSTALL_CMD="$INSTALL_CMD && composer require laravel/jetstream"
@@ -322,11 +311,7 @@ function surf_install() {
   INSTALL_CMD="$INSTALL_CMD && composer require league/flysystem-aws-s3-v3 \"^3.0\""
 
   if [[ "$PACKAGE_IDE_HELPER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev barryvdh/laravel-ide-helper \"^2.12\""
-  fi
-
-  if [[ "$PACKAGE_CS_FIXER" == true ]]; then
-    INSTALL_CMD="$INSTALL_CMD && composer require --dev friendsofphp/php-cs-fixer \"^3.0\""
+    INSTALL_CMD="$INSTALL_CMD && composer require --dev barryvdh/laravel-ide-helper \"^2.13\""
   fi
 
   if [[ "$PACKAGE_DUSK" == true ]]; then
@@ -363,11 +348,11 @@ function surf_install() {
   cd $(pwd)
   docker pull localstack/localstack >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
-  docker pull mailhog/mailhog >> $LOG_FILE_NAME 2>&1
+  docker pull axllent/mailpit >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
   docker pull nginx:1.21.4-alpine >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
-  docker pull php:8.0-fpm-alpine >> $LOG_FILE_NAME 2>&1
+  docker pull php:8.1-fpm-alpine >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
   docker pull mysql:8.0 >> $LOG_FILE_NAME 2>&1
   cd $(pwd)
@@ -559,10 +544,6 @@ EOF
     POST_INSTALL_CMD="$POST_INSTALL_CMD --nginx-local-insecure"
   fi
 
-  if grep -q '"friendsofphp/php-cs-fixer"' 'composer.json'; then
-    POST_INSTALL_CMD="$POST_INSTALL_CMD --cs-fixer"
-  fi
-
   if grep -q '"laravel/dusk"' 'composer.json'; then
     POST_INSTALL_CMD="$POST_INSTALL_CMD --dusk && php artisan dusk:install"
   fi
@@ -573,9 +554,7 @@ EOF
     POST_INSTALL_CMD="$POST_INSTALL_CMD && php artisan ide-helper:generate && php artisan ide-helper:meta && php artisan ide-helper:models --write-mixin"
   fi
 
-  if grep -q '"friendsofphp/php-cs-fixer"' 'composer.json'; then
-    POST_INSTALL_CMD="$POST_INSTALL_CMD && ./vendor/bin/php-cs-fixer fix"
-  fi
+  POST_INSTALL_CMD="$POST_INSTALL_CMD && ./vendor/bin/pint"
 
   log_message "Stopping services"
 
@@ -626,7 +605,7 @@ EOF
 
   cd $(pwd)
 
-  docker-compose exec -T laravel bash -c "$POST_INSTALL_CMD" >> $LOG_FILE_NAME 2>&1 && cd $(pwd)
+  docker-compose exec -T -u www-data laravel bash -c "$POST_INSTALL_CMD" >> $LOG_FILE_NAME 2>&1 && cd $(pwd)
 
   if grep -q '"laravel/dusk"' 'composer.json'; then
     cd $(pwd)
@@ -641,10 +620,6 @@ EOF
   log_message "Post generation command run"
 
   cd $(pwd)
-
-  chmod +x vendor/larasurf/larasurf/bin/surf.sh
-
-  log_message "surf.sh chmod"
 
   echo 'Initializing git repository...'
 
@@ -728,21 +703,21 @@ EOF
 
   # check for sudo permission
   if sudo -n true 2>/dev/null; then
-      sudo chown -R $SURF_USER_ID:$SURF_GROUP_ID .
+      sudo chown -R $(whoami):$(id -g -n) .
 
       # display the splash screen
       if [[ "$SPLASH" == true ]]; then
         cd $(pwd)
-        docker-compose exec -T -u $SURF_USER_ID laravel php artisan larasurf:splash
+        docker-compose exec -T -u www-data laravel php artisan larasurf:splash
       fi
   else
       echo -e "${INFO}Your password is required in order to change ownership of the generated files.${RESET}"
-      sudo chown -R $SURF_USER_ID:$SURF_GROUP_ID .
+      sudo chown -R $(whoami):$(id -g -n) .
 
       # display the splash screen
       if [[ "$SPLASH" == true ]]; then
         cd $(pwd)
-        docker-compose exec -T -u $SURF_USER_ID laravel php artisan larasurf:splash
+        docker-compose exec -T -u www-data laravel php artisan larasurf:splash
       fi
   fi
 }

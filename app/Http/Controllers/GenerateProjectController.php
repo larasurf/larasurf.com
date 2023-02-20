@@ -23,7 +23,6 @@ class GenerateProjectController extends Controller
         $port_cache = $request->query('port-cache');
         $port_vite_hmr = $request->query('port-vite-hmr');
         $ide_helper = $request->query('ide-helper');
-        $cs_fixer = $request->query('cs-fixer');
         $dusk = $request->query('dusk');
         $local_tls = $request->query('local-tls');
 
@@ -37,7 +36,6 @@ class GenerateProjectController extends Controller
             $port_database &&
             $port_cache &&
             $ide_helper &&
-            $cs_fixer &&
             $dusk &&
             $local_tls
         ) {
@@ -64,7 +62,6 @@ class GenerateProjectController extends Controller
                 'auth' => 'none' !== $starter_kit ? $starter_kit : false,
                 'local-tls' => 'true' === $local_tls ? 'true' : false,
                 'ide-helper' => 'true' === $ide_helper ? 'true' : false,
-                'cs-fixer' => 'true' === $cs_fixer ? 'true' : false,
                 'dusk' => 'true' === $dusk ? 'true' : false,
                 'aws-local-port' => $port_awslocal,
                 'mail-ui-port' => $port_mail_ui,
@@ -97,7 +94,6 @@ class GenerateProjectController extends Controller
         $auth = $request->query('auth');
         $local_tls = $request->query('local-tls');
         $ide_helper = $request->query('ide-helper');
-        $cs_fixer = $request->query('cs-fixer');
         $dusk = $request->query('dusk');
         $aws_local_port = $request->query('aws-local-port');
         $mail_ui_port = $request->query('mail-ui-port');
@@ -124,7 +120,6 @@ class GenerateProjectController extends Controller
                             'auth' => $auth ?: 'none',
                             'local-tls' => 'true' === $local_tls,
                             'ide-helper' => 'true' === $ide_helper,
-                            'cs-fixer' => 'true' === $cs_fixer,
                             'dusk' => 'true' === $dusk,
                             'port-aws-local' => $aws_local_port,
                             'port-mail-ui' => $mail_ui_port,
@@ -141,7 +136,6 @@ class GenerateProjectController extends Controller
         $replacements = [
             '%PACKAGE_AUTH%' => $auth ?: 'none',
             '%PACKAGE_IDE_HELPER%' => 'true' === $ide_helper ? 'true' : 'false',
-            '%PACKAGE_CS_FIXER%' => 'true' === $cs_fixer ? 'true' : 'false',
             '%PACKAGE_DUSK%' => 'true' === $dusk ? 'true' : 'false',
             '%LOCAL_TLS%' => 'true' === $local_tls ? 'true' : 'false',
             '%ENVIRONMENTS%' => $environments,
