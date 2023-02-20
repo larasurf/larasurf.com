@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Http;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\File;
-use Str;
 
 class GenerateProjectController extends Controller
 {
@@ -105,7 +103,7 @@ class GenerateProjectController extends Controller
         $splash = $request->query('splash');
 
         if (!$dev_branch && !$template_branch && app()->isProduction()) {
-            Http::withHeaders([
+            \Http::withHeaders([
                     'X-Forwarded-For' => request()->ip(),
                     'user-agent' => request()->userAgent(),
                 ])
@@ -155,7 +153,7 @@ class GenerateProjectController extends Controller
         $script = File::get(resource_path('generate.sh'));
 
         foreach ($replacements as $key => $replacement) {
-            $script = Str::replace($key, $replacement, $script);
+            $script = \Str::replace($key, $replacement, $script);
         }
 
         return response()->make($script, Response::HTTP_OK, ['content-type' => 'text/plain']);

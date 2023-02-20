@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomProjectSubmission;
 use Illuminate\Http\Request;
-use Notification;
 
 class CustomProjectsController extends Controller
 {
@@ -35,7 +34,7 @@ class CustomProjectsController extends Controller
         $submission->saveOrFail();
 
         if (!app()->isLocal()) {
-            Notification::route('slack', config('app.slack-notification-webhook-url'))
+            \Notification::route('slack', config('app.slack-notification-webhook-url'))
                 ->notify(new \App\Notifications\CustomProjectSubmission($submission));
         }
 
