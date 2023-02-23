@@ -42,11 +42,11 @@ class GenerateProjectController extends Controller
             $dev_branch = $request->query('dev-branch');
             $template_branch = $request->query('template-branch');
 
-            if (!$dev_branch && 'production' !== $environment) {
+            if (! $dev_branch && 'production' !== $environment) {
                 $dev_branch = 'main';
             }
 
-            if (!$template_branch && 'production' !== $environment) {
+            if (! $template_branch && 'production' !== $environment) {
                 $template_branch = 'main';
             }
 
@@ -102,11 +102,11 @@ class GenerateProjectController extends Controller
         $vite_hmr_port = $request->query('vite-hmr-port');
         $splash = $request->query('splash');
 
-        if (!$dev_branch && !$template_branch && app()->isProduction()) {
+        if (! $dev_branch && ! $template_branch && app()->isProduction()) {
             \Http::withHeaders([
-                    'X-Forwarded-For' => request()->ip(),
-                    'user-agent' => request()->userAgent(),
-                ])
+                'X-Forwarded-For' => request()->ip(),
+                'user-agent' => request()->userAgent(),
+            ])
                 ->post(
                     'https://plausible.io/api/event',
                     [

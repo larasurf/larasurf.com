@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ContinueController;
 use App\Http\Controllers\CustomProjectsController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\GenerateProjectController;

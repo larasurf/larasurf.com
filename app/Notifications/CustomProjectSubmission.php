@@ -14,8 +14,6 @@ class CustomProjectSubmission extends Notification implements ShouldQueue
 
     /**
      * Create a new notification instance.
-     *
-     * @param \App\Models\CustomProjectSubmission $custom_project_submission
      */
     public function __construct(public \App\Models\CustomProjectSubmission $custom_project_submission)
     {
@@ -42,7 +40,7 @@ class CustomProjectSubmission extends Notification implements ShouldQueue
     {
         $message = 'New Custom Project Lead! :tada:';
 
-        if (!app()->isProduction()) {
+        if (! app()->isProduction()) {
             $message .= ' _(' . config('app.env') . ' environment)_';
         }
 

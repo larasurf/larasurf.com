@@ -18,7 +18,7 @@ class DocumentationController extends Controller
 
     protected function docsForVersion(string $version): array|null
     {
-        $path = resource_path("docs/$version.php");;
+        $path = resource_path("docs/$version.php");
 
         return \File::exists($path) ? require $path : null;
     }

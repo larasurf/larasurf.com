@@ -33,7 +33,7 @@ class CustomProjectsController extends Controller
         $submission = new CustomProjectSubmission($data);
         $submission->saveOrFail();
 
-        if (!app()->isLocal()) {
+        if (! app()->isLocal()) {
             \Notification::route('slack', config('app.slack-notification-webhook-url'))
                 ->notify(new \App\Notifications\CustomProjectSubmission($submission));
         }
