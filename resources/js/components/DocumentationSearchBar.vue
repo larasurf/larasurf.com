@@ -13,8 +13,6 @@ export default {
             searchTerm: '',
         };
     },
-    computed: {
-    },
     mounted() {
         this.docsHtml = document.querySelector('#documentation-content').innerHTML;
 
@@ -72,7 +70,7 @@ export default {
                                     }
 
                                     replaceHtml += `${strBeforeIndex}<span id="search-result-${this.totalMatches}" class="${css}">${termWithCasing}</span>`;
-                                    nodeValue = nodeValue.substr(index + term.length);
+                                    nodeValue = nodeValue.substring(index + term.length);
                                 }
 
                                 const el = document.createElement('span');
@@ -84,7 +82,7 @@ export default {
                                 if (scrollTo) {
                                     window.scrollTo({
                                         left: 0,
-                                        top: el.getBoundingClientRect().top + window.pageYOffset - 300,
+                                        top: el.getBoundingClientRect().top + window.scrollY - 300,
                                         behavior: 'smooth',
                                     })
                                 }

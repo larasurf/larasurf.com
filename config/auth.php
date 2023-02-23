@@ -3,8 +3,8 @@
 return [
     'basic-auth' => [
         'stage' => [
-            'username' => 'larasurf',
-            'password' => 'megasuperdupersecret',
+            'username' => env('AUTH_STAGE_USERNAME'),
+            'password' => env('AUTH_STAGE_PASSWORD'),
         ],
     ],
 

@@ -46,42 +46,15 @@ class CustomProjectSubmission extends Notification implements ShouldQueue
             $message .= ' _(' . config('app.env') . ' environment)_';
         }
 
-        switch ($this->custom_project_submission->budget) {
-            case 'less-than-5000':
-                $budget = 'Less Than $5,000';
-
-                break;
-
-            case '5000-10000':
-                $budget = '$5,000 to $10,000';
-
-                break;
-
-            case '10000-25000':
-                $budget = '$10,000 to $25,000';
-
-                break;
-
-            case '25000-50000':
-                $budget = '$25,000 to $50,000';
-
-                break;
-
-            case '50000-100000':
-                $budget = '$50,000 to $100,000';
-
-                break;
-
-            case 'more-than-100000':
-                $budget = 'More than $100,000';
-
-                break;
-
-            default:
-                $budget = $this->custom_project_submission->budget;
-
-                break;
-        }
+        $budget = match ($this->custom_project_submission->budget) {
+            'less-than-5000' => 'Less Than $5,000',
+            '5000-10000' => '$5,000 to $10,000',
+            '10000-25000' => '$10,000 to $25,000',
+            '25000-50000' => '$25,000 to $50,000',
+            '50000-100000' => '$50,000 to $100,000',
+            'more-than-100000' => 'More than $100,000',
+            default => $this->custom_project_submission->budget,
+        };
 
         return (new SlackMessage())
             ->content($message)
