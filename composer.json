@@ -2,8 +2,30 @@
     "name": "larasurf/larasurf.com",
     "type": "project",
     "description": "The public website larasurf.com",
-    "keywords": ["larasurf", "laravel"],
+    "keywords": [
+        "laravel",
+        "larasurf",
+        "aws",
+        "amazon web services",
+        "circleci",
+        "docker"
+    ],
+    "homepage": "https://larasurf.com",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Brice Hartmann",
+            "email": "brice@bricehartmann.com",
+            "homepage": "https://bricehartmann.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Alexa Seol",
+            "email": "alexaseol@gmail.com",
+            "homepage": "https://alexaseol.com",
+            "role": "BIGBRAIN INDIVIDUAL"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "biscolab/laravel-recaptcha": "^6.0",
