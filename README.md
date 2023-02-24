@@ -26,11 +26,16 @@ It contains the documentation and project generation script for [larasurf/larasu
 
 ## Areas of Interest
 ### Documentation
-- documentation data is in `resources/docs`
+- Documentation data is in `resources/docs`
 
 ### Project Generation
-- project generation script is at `resources/generate.sh`
-  - script is preprocessed by `App\Http\Controllers\GenerateProjectController::generate`
+- Project generation script is at `resources/generate.sh`
+  - Script is preprocessed by `App\Http\Controllers\GenerateProjectController::generate`
 
-## Project Roadmap
-- swap hardcoded PHP array containing documentation with equivalent markdown file(s)/parsing/styling
+## Contributing
+- Issues, ideas, and pull requests are welcome
+- See `CONTRIBUTING.md`
+
+## ToDo
+- Swap hardcoded PHP array containing documentation with equivalent markdown file(s)/parsing/styling
+- Replace Laravel Mix with Vite
