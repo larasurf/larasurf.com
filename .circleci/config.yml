@@ -126,7 +126,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Check Required Envionment Variables
+          name: Check Required Environment Variables
           command: |
             set -e
             test -n "${AWS_ACCESS_KEY_ID}"
