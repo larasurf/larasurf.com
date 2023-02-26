@@ -27,7 +27,7 @@ jobs:
           condition: << parameters.should_publish_images >>
           steps:
             - run:
-                name: Check Required Envrionment Variables
+                name: Check Required Environment Variables
                 command: |
                   set -e
                   test -n "${AWS_ACCESS_KEY_ID}"
