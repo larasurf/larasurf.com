@@ -5,6 +5,8 @@ ENV UPSTREAM_PORT 9000
 
 RUN mkdir -p /var/run/nginx-cache
 
+RUN apk upgrade curl libcurl
+
 ARG NGINX_CONFIG_TEMPLATE=.docker/nginx/laravel.conf.template
 
 COPY $NGINX_CONFIG_TEMPLATE /etc/nginx/templates/default.conf.template
