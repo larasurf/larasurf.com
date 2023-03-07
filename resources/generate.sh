@@ -10,7 +10,7 @@ RESET='\033[0m'
 LOG_FILE_NAME="larasurf.generate.log"
 BUFFERED_LOG="$(date +"%s"): Start"
 
-TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-beta.3"
+TAG_LARAVEL_DOCKER_TEMPLATE="1.0.0-beta.4"
 CONSTRAINT_LARASURF="^1.0@beta"
 
 export SURF_USER_ID=${SURF_USER_ID:-$UID}
