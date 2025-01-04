@@ -26,8 +26,8 @@ Route::get('/how-it-works', function () {
     return view('how-it-works');
 })->name('how-it-works');
 
-Route::get('/custom-projects', [CustomProjectsController::class, 'view'])->name('custom-projects');
-Route::post('/custom-projects', [CustomProjectsController::class, 'create'])->name('custom-projects.submit');
+//Route::get('/custom-projects', [CustomProjectsController::class, 'view'])->name('custom-projects');
+//Route::post('/custom-projects', [CustomProjectsController::class, 'create'])->name('custom-projects.submit');
 
 Route::get('/new', function () {
     return view('new-project');

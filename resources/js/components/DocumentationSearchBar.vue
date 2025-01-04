@@ -2,9 +2,6 @@
 import { getDirective as vueDebounce } from 'vue-debounce';
 
 export default {
-    directives: {
-        debounce: vueDebounce('3'),
-    },
     data() {
         return {
             currentMatch: null,
@@ -161,7 +158,7 @@ export default {
             </svg>
         </div>
         <div>
-            <input ref="searchRef" v-debounce:200ms.fireonempty="onSearch" debounce-events="input" style="width:14.05rem;" class="border rounded py-1 px-3 bg-white text-gray-700 focus:outline-none focus:shadow-outline" id="docs-search-input" type="search" placeholder="Search Documentation" />
+            <input ref="searchRef" @change="onSearch($refs.searchRef.value, $event)" style="width:14.05rem;" class="border rounded py-1 px-3 bg-white text-gray-700 focus:outline-none focus:shadow-outline" id="docs-search-input" type="search" placeholder="Search Documentation" />
         </div>
         <div v-if="totalMatches === 0" class="py-1 absolute" style="left:18.2rem;">
             0 results

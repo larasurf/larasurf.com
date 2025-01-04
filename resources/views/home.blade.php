@@ -2,8 +2,19 @@
 
 @section('content')
     <div class="relative mb-12 lg:mb-18">
-        <div class="flex justify-center mt-16 lg:mt-48">
-            <div class="text-center">
+        <div class="flex flex-col items-center justify-center mt-16 lg:mt-48">
+            <div class="text-center w-full max-w-64 mb-4 p-4 border border-red-900 rounded bg-red-400">
+                <div class="text-3xl font-bold text-red-900">
+                    ⚠️&nbsp;&nbsp;&nbsp;PROJECT ABANDONED&nbsp;&nbsp;&nbsp;⚠️
+                </div>
+                <div class="mt-2 text-red-900">
+                    This project is no longer being maintained!
+                </div>
+                <div class="mt-2 text-red-900">
+                    See the <a class="underline font-bold" href="https://github.com/larasurf/larasurf">README on GitHub</a> for more information.
+                </div>
+            </div>
+            <div class="mt-16 text-center">
                 <h1 class="text-3xl lg:text-5xl font-medium">Build with LaraSurf</h1>
                 <div class="text-md lg:text-2xl mt-6 mx-3 lg:mx-6" style="min-height:3rem;">
                     <div id="home-typer"></div>

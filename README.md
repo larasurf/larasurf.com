@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://larasurf.com">
-    <img src="https://twemoji.maxcdn.com/svg/1f30a.svg" alt="Logo" width="80" height="80">
+    🌊
   </a>
 <h1 align="center">LaraSurf</h1>
 

@@ -57,15 +57,15 @@
                             <span class="nav-link line-through">Pricing</span>
                             <span id="its-free" class="text-xs absolute ml-2">It's free!</span>
                         </div>
-                        <div class="z-10 text-center font-medium px-3 xl:px-6">
-                            <a id="link-nav-custom-projects" href="/custom-projects" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-projects') ? 'underline' : '' }}">Custom Projects</a>
-                        </div>
+{{--                        <div class="z-10 text-center font-medium px-3 xl:px-6">--}}
+{{--                            <a id="link-nav-custom-projects" href="/custom-projects" class="nav-link transition hover:text-gray-400 {{ Route::is('custom-projects') ? 'underline' : '' }}">Custom Projects</a>--}}
+{{--                        </div>--}}
                     </div>
                     <div class="w-1/5 text-right pt-2 font-medium">
                         <x-button-link id="link-nav-start" href="/new">
                             Start Surfin'
-                            <div class="inline absolute">
-                                <span class="twa twa-ocean relative"></span>
+                            <div class="inline absolute ml-2">
+                                🌊
                             </div>
                         </x-button-link>
                     </div>
