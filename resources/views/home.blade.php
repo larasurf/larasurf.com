@@ -3,7 +3,7 @@
 @section('content')
     <div class="relative mb-12 lg:mb-18">
         <div class="flex flex-col items-center justify-center mt-16 lg:mt-48">
-            <div class="text-center w-full max-w-64 mb-4 p-4 border border-red-900 rounded bg-red-400">
+            <div class="text-center w-full max-w-2xl mb-4 p-4 border border-red-900 rounded bg-red-200">
                 <div class="text-3xl font-bold text-red-900">
                     ⚠️&nbsp;&nbsp;&nbsp;PROJECT ABANDONED&nbsp;&nbsp;&nbsp;⚠️
                 </div>
