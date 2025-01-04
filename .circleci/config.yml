@@ -21,8 +21,7 @@ jobs:
       - image: cimg/base:2021.04
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.6
+      - setup_remote_docker
       - when:
           condition: << parameters.should_publish_images >>
           steps:
